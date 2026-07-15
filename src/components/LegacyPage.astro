@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import SeoSections from './SeoSections.astro';
 import enhancementsCss from '../styles/enhancements.css?raw';
+import { rewriteLegacyLinks } from '../lib/legacyChrome';
 
 interface Props {
   file: string;
@@ -69,8 +70,9 @@ source = source
 const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
 const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
 const footerIndex = body.indexOf('<!--footer-->');
-const contentBeforeFooter = footerIndex >= 0 ? body.slice(0, footerIndex) : body;
-const footerAndScripts = footerIndex >= 0 ? body.slice(footerIndex) : '';
+const root = file === 'page132437346.html' ? './' : '../';
+const contentBeforeFooter = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(0, footerIndex) : body, root);
+const footerAndScripts = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(footerIndex) : '', root);
 ---
 
 <!doctype html>
