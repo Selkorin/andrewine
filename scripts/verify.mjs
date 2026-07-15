@@ -49,8 +49,31 @@ const htmlFiles = await collectHtml(root);
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const route = path.relative(root, file);
-  if (!/<header(?:\s|>)/i.test(html)) errors.push(`${route}: отсутствует обязательный header`);
-  if (!/<footer(?:\s|>)/i.test(html)) errors.push(`${route}: отсутствует обязательный footer`);
+  if (!/<header[^>]+id=["']t-header["']/i.test(html) || !html.includes('rec2189620761')) {
+    errors.push(`${route}: отсутствует оригинальная Tilda-шапка`);
+  }
+  if (!/<footer[^>]+id=["']t-footer["']/i.test(html) || !html.includes('rec2189759551')) {
+    errors.push(`${route}: отсутствует оригинальный Tilda-футер`);
+  }
+  if (html.includes('article-site-header') || html.includes('article-site-footer')) {
+    errors.push(`${route}: найдена самодельная копия header/footer`);
+  }
+  for (const legacyRoute of ['buy_wine', 'buy_champagne', 'buy_whisky', 'buy_cognac', 'buy_portwine', 'buy_rum', 'buy_vodka', 'buy_brandy']) {
+    if (html.includes(`href="/${legacyRoute}`) || html.includes(`href='/${legacyRoute}`)) {
+      errors.push(`${route}: абсолютная ссылка /${legacyRoute} сломает GitHub Pages`);
+    }
+  }
+}
+
+for (const articleFile of htmlFiles.filter(file => file.includes(`${path.sep}articles${path.sep}`))) {
+  const html = await readFile(articleFile, 'utf8');
+  const route = path.relative(root, articleFile);
+  if (!html.includes('family=Playfair+Display') || !html.includes('family=Manrope')) {
+    errors.push(`${route}: не подключена оригинальная типографика`);
+  }
+  if (!html.includes('tilda-zero-1.1.min.js') || !html.includes('tilda-menu-1.0.min.js')) {
+    errors.push(`${route}: не подключено адаптивное поведение оригинальной шапки`);
+  }
 }
 
 if (htmlFiles.length !== 17) errors.push(`ожидалось 17 HTML-страниц, собрано ${htmlFiles.length}`);
@@ -60,4 +83,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Проверено ${htmlFiles.length} страниц: header и footer присутствуют везде.`);
+console.log(`Проверено ${htmlFiles.length} страниц: оригинальные header/footer и внутренние ссылки корректны.`);
