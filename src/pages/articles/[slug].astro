@@ -21,28 +21,47 @@ const faq = [
     <title>{article.title} | Andrewine</title>
     <meta name="description" content={article.description} />
     <link rel="canonical" href={`https://andrewine.ru/articles/${article.slug}/`} />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style is:inline set:html={enhancementsCss} />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'Article', headline:article.title, description:article.description, author:{ '@type':'Organization', name:'Andrewine' }, mainEntityOfPage:`https://andrewine.ru/articles/${article.slug}/` })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'Article', headline:article.title, description:article.description, image:article.image, author:{ '@type':'Organization', name:'Andrewine' }, publisher:{ '@type':'Organization', name:'Andrewine' }, mainEntityOfPage:`https://andrewine.ru/articles/${article.slug}/` })} />
   </head>
   <body class="article-page">
-    <main class="article-detail">
-      <a class="article-back" href="../">← Все статьи</a>
-      <p class="editorial__eyebrow">{article.eyebrow}</p>
-      <h1>{article.title}</h1>
-      <p class="article-lead">{article.description}</p>
-      <div class="article-body">
-        <h2>Что проверяют при оценке</h2>
-        <p>Коллекционная стоимость складывается не из одного признака. Эксперт сопоставляет конкретный релиз со спросом, проверяет маркировки и оценивает сохранность содержимого и оформления.</p>
-        <ul>{article.topics.map(topic => <li>{topic}</li>)}</ul>
-        <h2>Состояние бутылки</h2>
-        <p>Сфотографируйте уровень напитка, капсулу, пробку, лицевую и оборотную этикетки. Потёртости, следы подтекания и повреждения коробки лучше показать сразу.</p>
-        <h2>Как получить предварительное предложение</h2>
-        <ol><li>Сделайте фотографии при дневном рассеянном свете.</li><li>Укажите объём, крепость, год или код розлива.</li><li>Расскажите, где и в каком положении хранилась бутылка.</li><li>Отправьте материалы оценщику.</li></ol>
-        <aside>Не вскрывайте бутылку и не пытайтесь восстановить этикетку самостоятельно.</aside>
+    <header class="article-site-header">
+      <a href="../../" aria-label="Andrewine — на главную">ANDREWINE</a>
+      <a href="../">Все статьи</a>
+    </header>
+    <main>
+      <section class="article-mast">
+        <div class="section-rail section-rail--light" aria-hidden="true"><span>ЖУРНАЛ</span><small>ANDREWINE</small></div>
+        <div class="article-mast__inner">
+          <a class="article-back" href="../">← Все статьи</a>
+          <p class="editorial__eyebrow">{article.eyebrow}</p>
+          <h1>{article.title}</h1>
+          <p class="article-lead">{article.description}</p>
+        </div>
+      </section>
+      <article class="article-detail">
+        <figure class="article-hero">
+          <img src={article.image} alt={article.imageAlt} width="1200" height="800" decoding="async" fetchpriority="high" />
+          <figcaption>Фото: <a href={article.imagePage} rel="noopener noreferrer">{article.imageCredit}</a></figcaption>
+        </figure>
+        <div class="article-body">
+          <p class="article-intro">{article.intro}</p>
+          {article.sections.map(section => (
+            <section>
+              <h2>{section.title}</h2>
+              {section.paragraphs.map(paragraph => <p>{paragraph}</p>)}
+            </section>
+          ))}
+          <section class="article-checklist">
+            <p class="editorial__eyebrow">Чек-лист</p>
+            <h2>Что подготовить для оценки</h2>
+            <ul>{article.checklist.map(item => <li>{item}</li>)}</ul>
+          </section>
+          <aside>{article.note}</aside>
         <h2>Частые вопросы</h2>
         {faq.map(([q,a]) => <details class="faq__item"><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
       </div>
+      </article>
     </main>
   </body>
 </html>
