@@ -1,0 +1,13 @@
+---
+import { getOriginalHeader } from '../lib/legacyChrome';
+
+interface Props {
+  root?: string;
+}
+
+const { root = './' } = Astro.props;
+const markup = getOriginalHeader(root);
+---
+
+<Fragment set:html={markup} />
+
