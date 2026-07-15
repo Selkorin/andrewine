@@ -12,9 +12,10 @@ const pages = {
   '/buy_vodka': 'page136048186.html',
   '/buy_brandy': 'page136049296.html',
   '/buy_wine': 'page136462246.html',
+  '/404': '404.html',
 };
 
-const assetPattern = /(?:["'(=]|&quot;)((?:css|js|images|files)\/[^"'()<>\s?&]+)/g;
+const assetPattern = /(?:["'(=]|&quot;)\/?((?:css|js|images|files)\/[^"'()<>\s?&]+)/g;
 const assets = new Set();
 
 async function download(url) {
