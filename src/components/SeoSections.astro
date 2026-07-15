@@ -1,0 +1,44 @@
+---
+import { articles, faqs } from '../data/articles';
+---
+
+<section class="editorial" aria-labelledby="articles-title">
+  <div class="editorial__inner">
+    <p class="editorial__eyebrow">База знаний коллекционера</p>
+    <div class="editorial__heading">
+      <h2 id="articles-title">Популярные статьи об оценке алкоголя</h2>
+      <a href="/articles/">Все статьи <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="editorial__grid">
+      {articles.map((article) => (
+        <article class="article-card">
+          <p>{article.eyebrow}</p>
+          <h3><a href={`/articles/${article.slug}/`}>{article.title}</a></h3>
+          <p class="article-card__text">{article.description}</p>
+          <a class="article-card__link" href={`/articles/${article.slug}/`}>Читать статью <span aria-hidden="true">→</span></a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-title">
+  <div class="faq__inner">
+    <p class="editorial__eyebrow">Коротко о главном</p>
+    <h2 id="faq-title">Частые вопросы об оценке и выкупе</h2>
+    <div class="faq__list">
+      {faqs.map(([question, answer], index) => (
+        <details class="faq__item" open={index === 0}>
+          <summary>{question}<span aria-hidden="true">+</span></summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })),
+})} />
