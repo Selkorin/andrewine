@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 834" role="img" aria-labelledby="title desc">
+  <title id="title">10 лет опыта</title>
+  <desc id="desc">Скуп элитного алкоголя</desc>
+  <g fill="none" stroke="#7e010b" stroke-width="2">
+    <path d="M34 10v142"/>
+    <path d="M34 682v142"/>
+  </g>
+  <g fill="#7e010b" font-family="Georgia, 'Times New Roman', serif" text-anchor="start">
+    <text x="0" y="0" font-size="33" font-weight="700" letter-spacing="1" transform="translate(51 168) rotate(90)">10 ЛЕТ ОПЫТА</text>
+    <text x="0" y="0" font-size="19" font-weight="700" letter-spacing="1.2" transform="translate(22 168) rotate(90)">СКУП ЭЛИТНОГО АЛКОГОЛЯ</text>
+  </g>
+</svg>
