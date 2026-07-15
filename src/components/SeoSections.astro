@@ -7,15 +7,15 @@ import { articles, faqs } from '../data/articles';
     <p class="editorial__eyebrow">База знаний коллекционера</p>
     <div class="editorial__heading">
       <h2 id="articles-title">Популярные статьи об оценке алкоголя</h2>
-      <a href="/articles/">Все статьи <span aria-hidden="true">→</span></a>
+      <a href="./articles/">Все статьи <span aria-hidden="true">→</span></a>
     </div>
     <div class="editorial__grid">
       {articles.map((article) => (
         <article class="article-card">
           <p>{article.eyebrow}</p>
-          <h3><a href={`/articles/${article.slug}/`}>{article.title}</a></h3>
+          <h3><a href={`./articles/${article.slug}/`}>{article.title}</a></h3>
           <p class="article-card__text">{article.description}</p>
-          <a class="article-card__link" href={`/articles/${article.slug}/`}>Читать статью <span aria-hidden="true">→</span></a>
+          <a class="article-card__link" href={`./articles/${article.slug}/`}>Читать статью <span aria-hidden="true">→</span></a>
         </article>
       ))}
     </div>
