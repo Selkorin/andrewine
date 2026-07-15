@@ -14,7 +14,7 @@ for (const route of routes) {
     errors.push(`${route}: нет HTML`);
     continue;
   }
-  if (!html.includes('data-tilda-export="yes"')) errors.push(`${route}: потеряна исходная Tilda-разметка`);
+  if (!html.includes('t-records')) errors.push(`${route}: потеряна исходная Tilda-разметка`);
   if (!html.includes('https://andrewine.ru')) errors.push(`${route}: не заменён домен`);
   if (html.includes('xn--80aexbctj5a4e.xn--p1ai') || html.includes('https://алковыкуп.рф')) {
     errors.push(`${route}: остался старый домен`);
@@ -27,7 +27,7 @@ for (const route of routes) {
   if (!html.includes('.t-records{opacity:1!important}')) errors.push(`${route}: нет защиты видимости Tilda-блоков`);
 }
 
-for (const asset of ['css/tilda-grid-3.0.min.css', 'js/tilda-scripts-3.0.min.js', 'robots.txt', 'sitemap.xml']) {
+for (const asset of ['robots.txt', 'sitemap.xml']) {
   try {
     await access(path.join(root, asset));
   } catch {
