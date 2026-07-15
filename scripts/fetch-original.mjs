@@ -18,9 +18,9 @@ const pages = {
 const assetPattern = /(?:["'(=]|&quot;)\/?((?:css|js|images|files)\/[^"'()<>\s?&]+)/g;
 const assets = new Set();
 
-async function download(url) {
+async function download(url, allowNotFound = false) {
   const response = await fetch(url, { redirect: 'follow' });
-  if (!response.ok) throw new Error(`${response.status} ${url}`);
+  if (!response.ok && !(allowNotFound && response.status === 404)) throw new Error(`${response.status} ${url}`);
   return response;
 }
 
@@ -30,7 +30,7 @@ function collect(text) {
 
 await mkdir('src/legacy', { recursive: true });
 for (const [route, filename] of Object.entries(pages)) {
-  const response = await download(`${origin}${route}`);
+  const response = await download(`${origin}${route}`, filename === '404.html');
   const html = await response.text();
   collect(html);
   await writeFile(path.join('src/legacy', filename), html);
