@@ -1,0 +1,21 @@
+---
+import LegacyPage from '@/components/LegacyPage.astro';
+
+export function getStaticPaths() {
+  const pages = {
+    buy_champagne: 'page136045756.html',
+    buy_whisky: 'page136045966.html',
+    buy_cognac: 'page136046316.html',
+    buy_portwine: 'page136046936.html',
+    buy_rum: 'page136047606.html',
+    buy_vodka: 'page136048186.html',
+    buy_brandy: 'page136049296.html',
+    buy_wine: 'page136462246.html',
+  } as const;
+  return Object.entries(pages).map(([slug, file]) => ({ params: { slug }, props: { file } }));
+}
+
+const { file } = Astro.props;
+---
+
+<LegacyPage file={file} />
