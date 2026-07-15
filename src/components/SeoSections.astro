@@ -3,6 +3,10 @@ import { articles, faqs } from '../data/articles';
 ---
 
 <section class="editorial" aria-labelledby="articles-title">
+  <div class="section-rail section-rail--wine" aria-hidden="true">
+    <span>СТАТЬИ</span>
+    <small>БАЗА ЗНАНИЙ</small>
+  </div>
   <div class="editorial__inner">
     <p class="editorial__eyebrow">База знаний коллекционера</p>
     <div class="editorial__heading">
@@ -12,10 +16,15 @@ import { articles, faqs } from '../data/articles';
     <div class="editorial__grid">
       {articles.map((article) => (
         <article class="article-card">
-          <p>{article.eyebrow}</p>
-          <h3><a href={`./articles/${article.slug}/`}>{article.title}</a></h3>
-          <p class="article-card__text">{article.description}</p>
-          <a class="article-card__link" href={`./articles/${article.slug}/`}>Читать статью <span aria-hidden="true">→</span></a>
+          <a class="article-card__media" href={`./articles/${article.slug}/`} tabindex="-1" aria-hidden="true">
+            <img src={article.image} alt="" loading="lazy" decoding="async" width="800" height="600" />
+          </a>
+          <div class="article-card__content">
+            <p>{article.eyebrow}</p>
+            <h3><a href={`./articles/${article.slug}/`}>{article.title}</a></h3>
+            <p class="article-card__text">{article.description}</p>
+            <a class="article-card__link" href={`./articles/${article.slug}/`}>Читать статью <span aria-hidden="true">→</span></a>
+          </div>
         </article>
       ))}
     </div>
@@ -23,6 +32,19 @@ import { articles, faqs } from '../data/articles';
 </section>
 
 <section class="faq" aria-labelledby="faq-title">
+  <svg class="section-ornament" viewBox="0 0 90 118" aria-hidden="true">
+    <path d="M45 2c5 12 1 22-8 30M46 15c11-9 24-10 36-4-8 10-20 15-34 11M39 22C28 15 17 15 7 22c9 8 20 11 32 7" fill="none" stroke="currentColor" stroke-width="2"/>
+    <g fill="currentColor">
+      <circle cx="43" cy="39" r="7"/><circle cx="31" cy="46" r="7"/><circle cx="55" cy="47" r="7"/>
+      <circle cx="42" cy="55" r="7"/><circle cx="66" cy="57" r="7"/><circle cx="23" cy="59" r="7"/>
+      <circle cx="32" cy="69" r="7"/><circle cx="55" cy="70" r="7"/><circle cx="43" cy="82" r="7"/>
+      <circle cx="44" cy="98" r="6"/><circle cx="44" cy="112" r="4"/>
+    </g>
+  </svg>
+  <div class="section-rail section-rail--light" aria-hidden="true">
+    <span>ВОПРОСЫ</span>
+    <small>КОРОТКО О ГЛАВНОМ</small>
+  </div>
   <div class="faq__inner">
     <p class="editorial__eyebrow">Коротко о главном</p>
     <h2 id="faq-title">Частые вопросы об оценке и выкупе</h2>
@@ -37,7 +59,7 @@ import { articles, faqs } from '../data/articles';
   </div>
 </section>
 
-<script type="application/ld+json" set:html={JSON.stringify({
+<script is:inline type="application/ld+json" set:html={JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })),
