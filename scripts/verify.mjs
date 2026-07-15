@@ -1,4 +1,4 @@
-import { access, readFile } from 'node:fs/promises';
+import { access, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve('dist');
@@ -35,9 +35,29 @@ for (const asset of ['robots.txt', 'sitemap.xml']) {
   }
 }
 
+async function collectHtml(directory) {
+  const result = [];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const target = path.join(directory, entry.name);
+    if (entry.isDirectory()) result.push(...await collectHtml(target));
+    if (entry.isFile() && entry.name.endsWith('.html')) result.push(target);
+  }
+  return result;
+}
+
+const htmlFiles = await collectHtml(root);
+for (const file of htmlFiles) {
+  const html = await readFile(file, 'utf8');
+  const route = path.relative(root, file);
+  if (!/<header(?:\s|>)/i.test(html)) errors.push(`${route}: отсутствует обязательный header`);
+  if (!/<footer(?:\s|>)/i.test(html)) errors.push(`${route}: отсутствует обязательный footer`);
+}
+
+if (htmlFiles.length !== 17) errors.push(`ожидалось 17 HTML-страниц, собрано ${htmlFiles.length}`);
+
 if (errors.length) {
   console.error(`Проверка не пройдена:\n- ${errors.join('\n- ')}`);
   process.exit(1);
 }
 
-console.log(`Исходный дизайн и контент сохранены: ${routes.length} страниц.`);
+console.log(`Проверено ${htmlFiles.length} страниц: header и footer присутствуют везде.`);
