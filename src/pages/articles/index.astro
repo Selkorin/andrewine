@@ -10,22 +10,31 @@ import enhancementsCss from '../../styles/enhancements.css?raw';
     <title>Статьи об оценке коллекционного алкоголя | Andrewine</title>
     <meta name="description" content="Практические статьи об оценке коллекционного виски, коньяка, вина и шампанского: бренды, винтажи, состояние и фотографии." />
     <link rel="canonical" href="https://andrewine.ru/articles/" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style is:inline set:html={enhancementsCss} />
   </head>
   <body class="article-page">
+    <header class="article-site-header">
+      <a href="../" aria-label="Andrewine — на главную">ANDREWINE</a>
+      <span>База знаний коллекционера</span>
+    </header>
     <main class="article-index">
-      <a class="article-back" href="../">← На главную</a>
-      <p class="editorial__eyebrow">База знаний Andrewine</p>
-      <h1>Статьи об оценке коллекционного алкоголя</h1>
-      <p class="article-lead">Разбираем марки, винтажи, состояние бутылок и подготовку фотографий без обещаний заранее завышенной цены.</p>
+      <div class="section-rail section-rail--wine" aria-hidden="true"><span>СТАТЬИ</span><small>ANDREWINE</small></div>
+      <div class="article-index__intro">
+        <a class="article-back" href="../">← На главную</a>
+        <p class="editorial__eyebrow">База знаний Andrewine</p>
+        <h1>Статьи об оценке коллекционного алкоголя</h1>
+        <p class="article-lead">Разбираем марки, винтажи, состояние бутылок и подготовку фотографий спокойно и по существу — без обещаний заранее завышенной цены.</p>
+      </div>
       <div class="editorial__grid">
         {articles.map(article => (
           <article class="article-card">
-            <p>{article.eyebrow}</p>
-            <h2><a href={`./${article.slug}/`}>{article.title}</a></h2>
-            <p class="article-card__text">{article.description}</p>
-            <a class="article-card__link" href={`./${article.slug}/`}>Читать статью →</a>
+            <a class="article-card__media" href={`./${article.slug}/`} tabindex="-1" aria-hidden="true"><img src={article.image} alt="" loading="lazy" decoding="async" width="800" height="600" /></a>
+            <div class="article-card__content">
+              <p>{article.eyebrow}</p>
+              <h2><a href={`./${article.slug}/`}>{article.title}</a></h2>
+              <p class="article-card__text">{article.description}</p>
+              <a class="article-card__link" href={`./${article.slug}/`}>Читать статью →</a>
+            </div>
           </article>
         ))}
       </div>
