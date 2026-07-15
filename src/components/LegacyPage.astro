@@ -30,6 +30,13 @@ source = source
   .replaceAll('https://алковыкуп.рф', 'https://andrewine.ru')
   .replaceAll('http://алковыкуп.рф', 'https://andrewine.ru');
 
+// The original vertical experience badge is a small raster image and becomes
+// visibly blurred after Tilda scales and rotates it. Keep the original layout,
+// but replace both lazy-load URLs with a crisp, locally drawn SVG.
+source = source
+  .replaceAll('https://static.tildacdn.com/tild6164-6333-4835-a466-626266363438/Group_10.png', 'https://selkorin.github.io/andrewine/assets/experience-badge.svg')
+  .replaceAll('https://thb.tildacdn.com/tild6164-6333-4835-a466-626266363438/-/resize/20x/Group_10.png', 'https://selkorin.github.io/andrewine/assets/experience-badge.svg');
+
 for (const [pageFile, route] of Object.entries(fileRoutes)) {
   source = source.replaceAll(pageFile, route);
 }
