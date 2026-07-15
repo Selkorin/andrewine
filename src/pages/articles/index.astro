@@ -1,5 +1,34 @@
 ---
 import { articles } from '../../data/articles';
-import '../../styles/enhancements.css';
+import enhancementsCss from '../../styles/enhancements.css?raw';
 ---
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Статьи об оценке коллекционного алкоголя | Andrewine</title><meta name="description" content="Практические статьи об оценке коллекционного виски, коньяка, вина и шампанского: бренды, винтажи, состояние и фотографии."><link rel="canonical" href="https://andrewine.ru/articles/"><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"></head><body class="article-page"><main class="article-index"><a class="article-back" href="/">← На главную</a><p class="editorial__eyebrow">База знаний Andrewine</p><h1>Статьи об оценке коллекционного алкоголя</h1><p class="article-lead">Разбираем марки, винтажи, состояние бутылок и подготовку фотографий без обещаний заранее завышенной цены.</p><div class="editorial__grid">{articles.map(article => <article class="article-card"><p>{article.eyebrow}</p><h2><a href={`/articles/${article.slug}/`}>{article.title}</a></h2><p class="article-card__text">{article.description}</p><a class="article-card__link" href={`/articles/${article.slug}/`}>Читать статью →</a></article>)}</div></main></body></html>
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Статьи об оценке коллекционного алкоголя | Andrewine</title>
+    <meta name="description" content="Практические статьи об оценке коллекционного виски, коньяка, вина и шампанского: бренды, винтажи, состояние и фотографии." />
+    <link rel="canonical" href="https://andrewine.ru/articles/" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style is:inline set:html={enhancementsCss} />
+  </head>
+  <body class="article-page">
+    <main class="article-index">
+      <a class="article-back" href="../">← На главную</a>
+      <p class="editorial__eyebrow">База знаний Andrewine</p>
+      <h1>Статьи об оценке коллекционного алкоголя</h1>
+      <p class="article-lead">Разбираем марки, винтажи, состояние бутылок и подготовку фотографий без обещаний заранее завышенной цены.</p>
+      <div class="editorial__grid">
+        {articles.map(article => (
+          <article class="article-card">
+            <p>{article.eyebrow}</p>
+            <h2><a href={`./${article.slug}/`}>{article.title}</a></h2>
+            <p class="article-card__text">{article.description}</p>
+            <a class="article-card__link" href={`./${article.slug}/`}>Читать статью →</a>
+          </article>
+        ))}
+      </div>
+    </main>
+  </body>
+</html>
