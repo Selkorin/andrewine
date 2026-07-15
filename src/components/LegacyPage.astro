@@ -1,0 +1,62 @@
+---
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  file: string;
+}
+
+const { file } = Astro.props;
+const fileRoutes: Record<string, string> = {
+  'page132437346.html': '/',
+  'page136045756.html': '/buy_champagne',
+  'page136045966.html': '/buy_whisky',
+  'page136046316.html': '/buy_cognac',
+  'page136046936.html': '/buy_portwine',
+  'page136047606.html': '/buy_rum',
+  'page136048186.html': '/buy_vodka',
+  'page136049296.html': '/buy_brandy',
+  'page136462246.html': '/buy_wine',
+};
+
+let source = readFileSync(path.join(process.cwd(), 'src', 'legacy', file), 'utf8');
+
+source = source
+  .replaceAll('https://xn--80aexbctj5a4e.xn--p1ai', 'https://andrewine.ru')
+  .replaceAll('http://xn--80aexbctj5a4e.xn--p1ai', 'https://andrewine.ru')
+  .replaceAll('https://алковыкуп.рф', 'https://andrewine.ru')
+  .replaceAll('http://алковыкуп.рф', 'https://andrewine.ru');
+
+for (const [pageFile, route] of Object.entries(fileRoutes)) {
+  source = source.replaceAll(pageFile, route);
+}
+
+// Tilda export contains duplicated closing tags and a fragment of an old SEO
+// snippet outside <script>. Browsers render that fragment as `}}}})` and can
+// leave the original Tilda records hidden. Remove only those broken leftovers.
+source = source
+  .replace(/<\/script>\s*\}\s*\}\s*\}\s*\}\s*\)\s*<\/script>/g, '</script>')
+  .replaceAll('</script></script></style>', '</script>')
+  .replaceAll('</script></script><!-- nominify end -->', '</script><!-- nominify end -->');
+
+source = source
+  .replaceAll('href="https://andrewine.ru/premium_alcohol"', 'href="https://andrewine.ru/"')
+  .replaceAll("href='https://andrewine.ru/premium_alcohol'", "href='https://andrewine.ru/'")
+  .replaceAll('href="/premium_alcohol"', 'href="/"')
+  .replaceAll("href='/premium_alcohol'", "href='/'");
+
+const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
+const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <base href="/" />
+    <Fragment set:html={head} />
+    <style is:global id="tilda-records-visibility-fix">.t-records{opacity:1!important}</style>
+  </head>
+  <body class="t-body" style="margin:0;">
+    <Fragment set:html={body} />
+  </body>
+</html>
