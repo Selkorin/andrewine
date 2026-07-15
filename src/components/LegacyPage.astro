@@ -1,12 +1,15 @@
 ---
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import SeoSections from './SeoSections.astro';
+import '../styles/enhancements.css';
 
 interface Props {
   file: string;
+  editorial?: boolean;
 }
 
-const { file } = Astro.props;
+const { file, editorial = false } = Astro.props;
 const fileRoutes: Record<string, string> = {
   'page132437346.html': '/',
   'page136045756.html': '/buy_champagne',
@@ -58,5 +61,6 @@ const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
   </head>
   <body class="t-body" style="margin:0;">
     <Fragment set:html={body} />
+    {editorial && <SeoSections />}
   </body>
 </html>
