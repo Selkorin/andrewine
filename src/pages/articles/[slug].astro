@@ -1,12 +1,15 @@
 ---
 import { articles } from '../../data/articles';
 import enhancementsCss from '../../styles/enhancements.css?raw';
+import ArticleHeader from '../../components/ArticleHeader.astro';
+import ArticleFooter from '../../components/ArticleFooter.astro';
 
 export function getStaticPaths() {
   return articles.map(article => ({ params: { slug: article.slug }, props: { article } }));
 }
 
 const { article } = Astro.props;
+const articleNumber = String(articles.findIndex(item => item.slug === article.slug) + 1).padStart(2, '0');
 const faq = [
   ['Можно определить точную цену только по фото?', 'По фотографиям определяется предварительный диапазон. Итог зависит от проверки подлинности и фактического состояния бутылки.'],
   ['Какие фотографии нужны?', 'Общий вид спереди и сзади, этикетки крупно, капсула и пробка, уровень напитка, дно, серийные номера и упаковка.'],
@@ -25,29 +28,34 @@ const faq = [
     <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'Article', headline:article.title, description:article.description, image:article.image, author:{ '@type':'Organization', name:'Andrewine' }, publisher:{ '@type':'Organization', name:'Andrewine' }, mainEntityOfPage:`https://andrewine.ru/articles/${article.slug}/` })} />
   </head>
   <body class="article-page">
-    <header class="article-site-header">
-      <a href="../../" aria-label="Andrewine — на главную">ANDREWINE</a>
-      <a href="../">Все статьи</a>
-    </header>
+    <ArticleHeader root="../../" />
     <main>
       <section class="article-mast">
         <div class="section-rail section-rail--light" aria-hidden="true"><span>ЖУРНАЛ</span><small>ANDREWINE</small></div>
-        <div class="article-mast__inner">
-          <a class="article-back" href="../">← Все статьи</a>
-          <p class="editorial__eyebrow">{article.eyebrow}</p>
-          <h1>{article.title}</h1>
-          <p class="article-lead">{article.description}</p>
+        <div class="article-cover">
+          <div class="article-cover__copy">
+            <a class="article-back" href="../">← Все статьи</a>
+            <div class="magazine-kicker magazine-kicker--light"><span>Журнал Andrewine</span><span>Материал {articleNumber}</span></div>
+            <p class="editorial__eyebrow">{article.eyebrow}</p>
+            <h1>{article.title}</h1>
+            <p class="article-lead">{article.description}</p>
+          </div>
+          <figure class="article-cover__media">
+            <img src={article.image} alt={article.imageAlt} width="1200" height="800" decoding="async" fetchpriority="high" />
+            <figcaption>Фото: <a href={article.imagePage} rel="noopener noreferrer">{article.imageCredit}</a></figcaption>
+          </figure>
         </div>
       </section>
       <article class="article-detail">
-        <figure class="article-hero">
-          <img src={article.image} alt={article.imageAlt} width="1200" height="800" decoding="async" fetchpriority="high" />
-          <figcaption>Фото: <a href={article.imagePage} rel="noopener noreferrer">{article.imageCredit}</a></figcaption>
-        </figure>
-        <div class="article-body">
+        <aside class="article-toc" aria-label="Содержание статьи">
+          <p>В материале</p>
+          <ol>{article.sections.map((section, index) => <li><a href={`#section-${index + 1}`}>{section.title}</a></li>)}</ol>
+        </aside>
+        <div class="article-body article-body--magazine">
           <p class="article-intro">{article.intro}</p>
-          {article.sections.map(section => (
-            <section>
+          {article.sections.map((section, index) => (
+            <section id={`section-${index + 1}`}>
+              <p class="article-section-number">0{index + 1}</p>
               <h2>{section.title}</h2>
               {section.paragraphs.map(paragraph => <p>{paragraph}</p>)}
             </section>
@@ -63,5 +71,6 @@ const faq = [
       </div>
       </article>
     </main>
+    <ArticleFooter root="../../" />
   </body>
 </html>
