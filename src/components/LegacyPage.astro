@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import SeoSections from './SeoSections.astro';
-import '../styles/enhancements.css';
+import enhancementsCss from '../styles/enhancements.css?raw';
 
 interface Props {
   file: string;
@@ -57,6 +57,7 @@ const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
   <head>
     <base href="/" />
     <Fragment set:html={head} />
+    <style is:inline set:html={enhancementsCss} />
     <style is:global id="tilda-records-visibility-fix">.t-records{opacity:1!important}</style>
   </head>
   <body class="t-body" style="margin:0;">
