@@ -37,6 +37,17 @@ source = source
   .replaceAll('https://static.tildacdn.com/tild6164-6333-4835-a466-626266363438/Group_10.png', 'https://selkorin.github.io/andrewine/assets/experience-badge.svg')
   .replaceAll('https://thb.tildacdn.com/tild6164-6333-4835-a466-626266363438/-/resize/20x/Group_10.png', 'https://selkorin.github.io/andrewine/assets/experience-badge.svg');
 
+for (const lineAsset of [
+  'tild6364-3939-4137-b533-386662663831',
+  'tild3930-3936-4337-a661-336165396539',
+  'tild3237-3363-4836-a331-653463626463',
+  'tild3366-3661-4630-b061-613364393634',
+]) {
+  source = source
+    .replaceAll(`https://static.tildacdn.com/${lineAsset}/_.png`, 'https://selkorin.github.io/andrewine/assets/section-line.svg')
+    .replaceAll(`https://thb.tildacdn.com/${lineAsset}/-/resize/20x/_.png`, 'https://selkorin.github.io/andrewine/assets/section-line.svg');
+}
+
 for (const [pageFile, route] of Object.entries(fileRoutes)) {
   source = source.replaceAll(pageFile, route);
 }
