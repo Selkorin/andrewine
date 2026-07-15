@@ -1,6 +1,7 @@
 ---
-import ArticleHeader from '../components/ArticleHeader.astro';
-import ArticleFooter from '../components/ArticleFooter.astro';
+import OriginalHeader from '../components/OriginalHeader.astro';
+import OriginalFooter from '../components/OriginalFooter.astro';
+import TildaChromeHead from '../components/TildaChromeHead.astro';
 import enhancementsCss from '../styles/enhancements.css?raw';
 ---
 
@@ -9,18 +10,21 @@ import enhancementsCss from '../styles/enhancements.css?raw';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="robots" content="noindex" />
+    <meta name="robots" content="noindex,follow" />
     <title>Страница не найдена | Andrewine</title>
+    <TildaChromeHead />
     <style is:inline set:html={enhancementsCss} />
   </head>
-  <body class="article-page">
-    <ArticleHeader root="./" />
-    <main class="not-found">
+  <body class="t-body article-page">
+    <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
+    <OriginalHeader root="./" />
+    <main class="not-found article-main">
       <p class="editorial__eyebrow">Ошибка 404</p>
       <h1>Такой страницы нет</h1>
       <p>Возможно, адрес изменился. Вернитесь на главную или откройте журнал Andrewine.</p>
       <div><a href="./">На главную</a><a href="./articles/">Открыть журнал</a></div>
     </main>
-    <ArticleFooter root="./" />
+    <OriginalFooter root="./" />
+    </div>
   </body>
 </html>
