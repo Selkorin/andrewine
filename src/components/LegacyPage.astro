@@ -50,6 +50,9 @@ source = source
 
 const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
 const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
+const footerIndex = body.indexOf('<!--footer-->');
+const contentBeforeFooter = footerIndex >= 0 ? body.slice(0, footerIndex) : body;
+const footerAndScripts = footerIndex >= 0 ? body.slice(footerIndex) : '';
 ---
 
 <!doctype html>
@@ -61,7 +64,8 @@ const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
     <style is:global id="tilda-records-visibility-fix">.t-records{opacity:1!important}</style>
   </head>
   <body class="t-body" style="margin:0;">
-    <Fragment set:html={body} />
+    <Fragment set:html={contentBeforeFooter} />
     {editorial && <SeoSections />}
+    <Fragment set:html={footerAndScripts} />
   </body>
 </html>
