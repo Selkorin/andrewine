@@ -5,4 +5,8 @@ const tildaAssets = getTildaHeadAssets();
 ---
 
 <link rel="preconnect" href="https://fonts.gstatic.com" />
+{/* Относительные ссылки раздела статей рассчитаны на URL со слешем на конце.
+    Статический хостинг сам делает 301 на вариант со слешем; этот скрипт
+    выравнивает адресную строку в dev/preview и на зеркалах без редиректа. */}
+<script is:inline>if(!location.pathname.endsWith('/')&&!/\.[a-z0-9]+$/i.test(location.pathname))history.replaceState(null,'',location.pathname+'/'+location.search+location.hash);</script>
 <Fragment set:html={tildaAssets} />

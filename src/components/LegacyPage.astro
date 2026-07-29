@@ -61,8 +61,31 @@ source = source
   .replaceAll('</script></script></style>', '</script>')
   .replaceAll('</script></script><!-- nominify end -->', '</script><!-- nominify end -->');
 
+// Raw T123 "HTML-код" records carry their own h1/h2/h3 ladder. Shift it one
+// level down so the page keeps a single h1 (the hero), preserving hierarchy;
+// enhancements.css styles .t123 to match the editorial sections.
+source = source.replace(/(<div id="rec\d+"[^>]*data-record-type="131"[\s\S]*?)(?=<div id="rec|<\/footer>|<!--\/allrecords-->)/g, (block) =>
+  block
+    .replaceAll('<h3>', '<h4>').replaceAll('</h3>', '</h4>')
+    .replaceAll('<h2>', '<h3>').replaceAll('</h2>', '</h3>')
+    .replaceAll('<h1>', '<h2>').replaceAll('</h1>', '</h2>'));
+
 const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
-const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
+let body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
+
+// Some pages mark a second decorative t396 heading as h1. Demote every h1
+// after the first one to h2: t396 element styles target classes, not tags,
+// so the visual design is unaffected while each page keeps exactly one h1.
+let h1Opened = 0;
+let h1Closed = 0;
+body = body.replace(/<(\/?)h1([^>]*)>/gi, (tag, closing, attrs) => {
+  if (!closing) {
+    h1Opened += 1;
+    return h1Opened === 1 ? tag : `<h2${attrs}>`;
+  }
+  h1Closed += 1;
+  return h1Closed === 1 ? tag : '</h2>';
+});
 const footerIndex = body.indexOf('<!--footer-->');
 const root = file === 'page132437346.html' ? './' : '../';
 const contentBeforeFooter = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(0, footerIndex) : body, root);
