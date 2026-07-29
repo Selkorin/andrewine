@@ -101,9 +101,16 @@ export function getOriginalFooter(root = './') {
   return rewriteLegacyLinks(replaceLocalVectorAssets(`${openTag}${footerRecord}</footer>`), root);
 }
 
-export function getTildaBootstrap() {
+// The header/footer records borrowed for article pages depend on the exact
+// CSS/JS set of the page they were exported with: tilda-blocks-page*.css
+// carries the base t396/menu/popup styles and tilda-forms hides the T708
+// contact popup. Loading a partial hardcoded list leaves those records
+// unstyled, so mirror the original head verbatim — stylesheets, external
+// scripts and the t_onReady bootstrap, in their original order.
+export function getTildaHeadAssets() {
   const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
-  const inlineScript = head.match(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/i)?.[1];
-  if (!inlineScript) throw new Error('Tilda bootstrap script was not found');
-  return inlineScript;
+  const tags = (head.match(/<link[^>]*\brel="stylesheet"[^>]*>|<script[^>]*\bsrc="[^"]+"[^>]*><\/script>|<script(?![^>]*\bsrc=)[^>]*>[\s\S]*?<\/script>/gi) ?? [])
+    .filter(tag => !tag.startsWith('<script') || tag.includes(' src=') || tag.includes('t_onReady'));
+  if (!tags.length) throw new Error('Tilda head assets were not found');
+  return tags.join('\n');
 }
