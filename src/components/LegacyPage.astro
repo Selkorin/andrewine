@@ -61,6 +61,16 @@ source = source
   .replaceAll('</script></script></style>', '</script>')
   .replaceAll('</script></script><!-- nominify end -->', '</script><!-- nominify end -->');
 
+// The export injects a second, visually hidden h1 (position:absolute;
+// left:-9999px) stuffed with keywords on DOMContentLoaded. Text hidden from
+// users but served to crawlers is cloaking — a documented spam technique —
+// and it also gave every page two h1s in the live DOM. Drop the injector: the
+// visible hero h1 and the T123 heading already carry the same keywords.
+source = source.replace(
+  /<script>\s*document\.addEventListener\('DOMContentLoaded',\s*function\(\)\s*\{\s*var h\s*=\s*document\.createElement\('h1'\)[\s\S]*?<\/script>/g,
+  '',
+);
+
 // Raw T123 "HTML-код" records carry their own h1/h2/h3 ladder. Shift it one
 // level down so the page keeps a single h1 (the hero), preserving hierarchy;
 // enhancements.css styles .t123 to match the editorial sections.
