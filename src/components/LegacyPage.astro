@@ -61,12 +61,6 @@ source = source
   .replaceAll('</script></script></style>', '</script>')
   .replaceAll('</script></script><!-- nominify end -->', '</script><!-- nominify end -->');
 
-source = source
-  .replaceAll('href="https://andrewine.ru/premium_alcohol"', 'href="https://andrewine.ru/"')
-  .replaceAll("href='https://andrewine.ru/premium_alcohol'", "href='https://andrewine.ru/'")
-  .replaceAll('href="/premium_alcohol"', 'href="/"')
-  .replaceAll("href='/premium_alcohol'", "href='/'");
-
 const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
 const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
 const footerIndex = body.indexOf('<!--footer-->');

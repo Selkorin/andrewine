@@ -49,13 +49,20 @@ export function rewriteLegacyLinks(markup: string, root = './') {
 
   for (const quote of ['"', "'"]) {
     for (const href of ['/premium_alcohol', '/premium_alcohol/', 'https://andrewine.ru/premium_alcohol', 'https://andrewine.ru/premium_alcohol/']) {
-      result = result.replaceAll(`href=${quote}${href}${quote}`, `href=${quote}${localRoot}${quote}`);
+      result = result.replaceAll(`href=${quote}${href}${quote}`, `href=${quote}${localRoot}articles/${quote}`);
     }
     result = result
       .replaceAll(`href=${quote}https://andrewine.ru/${quote}`, `href=${quote}${localRoot}${quote}`)
       .replaceAll(`href=${quote}#about${quote}`, `href=${quote}${localRoot}#about${quote}`)
       .replaceAll(`href=${quote}#request${quote}`, `href=${quote}${localRoot}#request${quote}`);
   }
+
+  // The former «Элитный алкоголь» menu item now leads to the articles hub.
+  // Only the two menu links are renamed; the content H2 on the home page
+  // uses different markup (<em>) and is intentionally left untouched.
+  result = result
+    .replaceAll('>ЭЛИТНЫЙ АЛКОГОЛЬ</span>', '>СТАТЬИ</span>')
+    .replace(/>(\s*)ЭЛИТНЫЙ АЛКОГОЛЬ(\s*)<\/a>/g, '>$1СТАТЬИ$2</a>');
 
   return result;
 }

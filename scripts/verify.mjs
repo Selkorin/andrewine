@@ -76,7 +76,18 @@ for (const articleFile of htmlFiles.filter(file => file.includes(`${path.sep}art
   }
 }
 
-if (htmlFiles.length !== 17) errors.push(`ожидалось 17 HTML-страниц, собрано ${htmlFiles.length}`);
+const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
+const sitemapRoutes = [...sitemap.matchAll(/<loc>https:\/\/andrewine\.ru([^<]*)<\/loc>/g)].map((match) => match[1] || '/');
+for (const route of sitemapRoutes) {
+  const file = route === '/' ? path.join(root, 'index.html') : path.join(root, route.replace(/^\/|\/$/g, ''), 'index.html');
+  try {
+    await access(file);
+  } catch {
+    errors.push(`${route}: есть в sitemap, но страница не собрана`);
+  }
+}
+const expectedPages = sitemapRoutes.length + 1; // + 404.html
+if (htmlFiles.length !== expectedPages) errors.push(`ожидалось ${expectedPages} HTML-страниц (sitemap + 404), собрано ${htmlFiles.length}`);
 
 if (errors.length) {
   console.error(`Проверка не пройдена:\n- ${errors.join('\n- ')}`);

@@ -1,5 +1,5 @@
 ---
-import { articles, faqs } from '../data/articles';
+import { featuredArticles, faqs } from '../data/articles';
 ---
 
 <section class="editorial" aria-labelledby="articles-title">
@@ -14,7 +14,7 @@ import { articles, faqs } from '../data/articles';
       <a href="./articles/">Все статьи <span aria-hidden="true">→</span></a>
     </div>
     <div class="editorial__grid">
-      {articles.map((article) => (
+      {featuredArticles.map((article) => (
         <article class="article-card">
           <a class="article-card__media" href={`./articles/${article.slug}/`} tabindex="-1" aria-hidden="true">
             <img src={article.image} alt="" loading="lazy" decoding="async" width="800" height="600" />
