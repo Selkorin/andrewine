@@ -44,7 +44,7 @@ const [featured, ...remainingArticles] = articles;
           <article class="article-card">
             <a class="article-card__media" href={`./${article.slug}/`} tabindex="-1" aria-hidden="true"><img src={article.image} alt="" loading="lazy" decoding="async" width="800" height="600" /></a>
             <div class="article-card__content">
-              <p><span>0{index + 2}</span> {article.eyebrow}</p>
+              <p><span>{String(index + 2).padStart(2, '0')}</span> {article.eyebrow}</p>
               <h2><a href={`./${article.slug}/`}>{article.title}</a></h2>
               <p class="article-card__text">{article.description}</p>
               <a class="article-card__link" href={`./${article.slug}/`}>Читать статью →</a>

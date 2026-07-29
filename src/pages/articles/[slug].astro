@@ -62,7 +62,7 @@ const faq = [
           <p class="article-intro">{article.intro}</p>
           {article.sections.map((section, index) => (
             <section id={`section-${index + 1}`}>
-              <p class="article-section-number">0{index + 1}</p>
+              <p class="article-section-number">{String(index + 1).padStart(2, '0')}</p>
               <h2>{section.title}</h2>
               {section.paragraphs.map(paragraph => <p>{paragraph}</p>)}
             </section>
@@ -73,6 +73,7 @@ const faq = [
             <ul>{article.checklist.map(item => <li>{item}</li>)}</ul>
           </section>
           <aside>{article.note}</aside>
+        </div>
         <section class="article-faq" aria-labelledby="article-faq-title">
           <p class="editorial__eyebrow">Коротко о главном</p>
           <h2 id="article-faq-title">Частые вопросы</h2>
@@ -80,7 +81,6 @@ const faq = [
             {faq.map(([q,a]) => <details class="faq__item"><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
           </div>
         </section>
-      </div>
       </article>
       <section class="related-articles" aria-labelledby="related-title">
         <div class="related-articles__heading">
