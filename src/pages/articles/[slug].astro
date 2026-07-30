@@ -76,7 +76,9 @@ const breadcrumbsLd = {
     <style is:inline set:html={enhancementsCss} />
     {article && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'Article', headline:article.title, description:article.description, image:article.image, inLanguage:'ru-RU', articleSection:articleCategory?.label ?? 'Журнал Andrewine', about:articleCategory ? { '@type':'Thing', name:articleCategory.name } : undefined, author:{ '@type':'Organization', name:organization.name, url:organization.url }, publisher:{ '@type':'Organization', name:organization.name, url:organization.url }, mainEntityOfPage:canonical })} />}
     {article && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'FAQPage', mainEntity: faq.map(([name, text]) => ({ '@type':'Question', name, acceptedAnswer: { '@type':'Answer', text } })) })} />}
-    {category && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'CollectionPage', name: category.h1, description: category.seoDescription, url: canonical, hasPart: hubArticles.map(item => ({ '@type':'Article', headline: item.title, url: `https://andrewine.ru/articles/${item.slug}/` })) })} />}
+    {category && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'CollectionPage', name: category.h1, description: category.seoDescription, url: canonical, about: { '@type':'Thing', name: category.name, description: category.definition }, keywords: category.keywords.join(', '), hasPart: hubArticles.map(item => ({ '@type':'Article', headline: item.title, url: `https://andrewine.ru/articles/${item.slug}/` })) })} />}
+    {category && category.faq.length > 0 && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'FAQPage', mainEntity: category.faq.map(([name, text]) => ({ '@type':'Question', name, acceptedAnswer: { '@type':'Answer', text } })) })} />}
+    {category && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'Service', name: `Оценка и выкуп: ${category.name.toLowerCase()}`, serviceType: `Скупка ${category.nameGenitive}`, description: category.seoDescription, url: canonical, provider: { '@type':'LocalBusiness', name:'Andrewine', url:'https://andrewine.ru/' }, areaServed: [{ '@type':'City', name:'Москва' }, { '@type':'Country', name:'Россия' }] })} />}
     <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbsLd)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(localBusinessLd())} />
   </head>
@@ -190,6 +192,37 @@ const breadcrumbsLd = {
           </article>
         ))}
       </div>
+      {category.definition && (
+      <section class="category-seo" aria-labelledby="cat-about">
+        <div class="category-seo__main">
+          <p class="editorial__eyebrow">Коротко</p>
+          <h2 id="cat-about">Что считается коллекционным: {category.name.toLowerCase()}</h2>
+          <p class="category-seo__definition">{category.definition}</p>
+          {category.seoText.map(paragraph => <p>{paragraph}</p>)}
+        </div>
+        <aside class="category-seo__side">
+          <div>
+            <h3>Марки и выпуски</h3>
+            <p>{category.brands.join(' · ')}</p>
+          </div>
+          <div>
+            <h3>Что влияет на цену</h3>
+            <ul>{category.priceFactors.map(factor => <li>{factor}</li>)}</ul>
+          </div>
+        </aside>
+      </section>
+      )}
+
+      {category.faq.length > 0 && (
+        <section class="category-faq" aria-labelledby="cat-faq">
+          <p class="editorial__eyebrow">Частые вопросы</p>
+          <h2 id="cat-faq">Что спрашивают про {category.nameAccusative}</h2>
+          <div class="category-faq__list">
+            {category.faq.map(([q, a]) => <details class="faq__item"><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
+          </div>
+        </section>
+      )}
+
       <aside class="category-cta">
         <div>
           <p class="editorial__eyebrow">Оценка по фото</p>
