@@ -35,9 +35,19 @@ source = source
 // Moscow-only service area. Search engines read the schema name as the
 // business identity, so leaving «Алковыкуп» on an Andrewine site splits the
 // brand signal; adding Russia alongside Moscow matches the stated coverage.
+// The <title> is the line users actually read in search results, and every
+// buy_* page still ended it with the previous brand. Same for og:title, which
+// is what gets shown when a link is shared.
 source = source
+  .replaceAll(' | Алковыкуп.рф</title>', ' | Andrewine</title>')
+  .replaceAll('content="Главная — Алковыкуп Москва"', 'content="Andrewine — выкуп элитного алкоголя в Москве"')
   .replaceAll('"name": "Алковыкуп",', '"name": "Andrewine",')
   .replaceAll('"alternateName": "Алковыкуп.рф",', '"alternateName": "Андревайн",')
+  // The alt-text script still seeds images with the previous brand as a
+  // keyword. Only the brand token is corrected here; the owner's approach to
+  // alt text is left as is.
+  .replaceAll("'алковыкуп выкуп алкоголя дорого'", "'Andrewine выкуп элитного алкоголя'")
+  .replaceAll("'алковыкуп выкуп алкоголя'", "'Andrewine выкуп элитного алкоголя'")
   .replaceAll(
     '"areaServed": {\n    "@type": "City",\n    "name": "Москва"\n  },',
     '"areaServed": [\n    { "@type": "City", "name": "Москва" },\n    { "@type": "Country", "name": "Россия" }\n  ],',
