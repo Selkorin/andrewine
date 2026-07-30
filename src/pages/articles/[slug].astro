@@ -32,7 +32,10 @@ const relatedArticles = article ? [...sameCategory, ...otherArticles].slice(0, 3
 const faq = article ? (article.faq?.length ? article.faq : defaultFaq) : [];
 
 const hubArticles = category ? articles.filter(item => item.category === category.slug) : [];
-const pageTitle = article ? `${article.title} | Andrewine` : category.seoTitle;
+// Бренд в title добавляем только если строка остаётся в пределах, которые
+// показывает выдача: обрезанный заголовок читается хуже, чем без суффикса.
+const brandedTitle = article ? `${article.title} | Andrewine` : '';
+const pageTitle = article ? (brandedTitle.length <= 65 ? brandedTitle : article.title) : category.seoTitle;
 const pageDescription = article ? article.description : category.seoDescription;
 const canonical = article ? `https://andrewine.ru/articles/${article.slug}/` : `https://andrewine.ru/articles/${category.slug}/`;
 
