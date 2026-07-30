@@ -6,6 +6,7 @@ export const prerender = true;
 
 const routes = [
   '/',
+  '/premium_alcohol/',
   '/buy_champagne',
   '/buy_whisky',
   '/buy_cognac',

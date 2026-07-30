@@ -1,0 +1,185 @@
+---
+import { categories } from '../data/categories';
+import { articles } from '../data/articles';
+import { premiumBrands, priceFactors, dealSteps, premiumFaq } from '../data/premium';
+import { localBusinessLd, organization } from '../data/organization';
+import enhancementsCss from '../styles/enhancements.css?raw';
+import OriginalHeader from '../components/OriginalHeader.astro';
+import OriginalFooter from '../components/OriginalFooter.astro';
+import TildaChromeHead from '../components/TildaChromeHead.astro';
+
+const canonical = 'https://andrewine.ru/premium_alcohol/';
+const title = 'Скупка элитного алкоголя в Москве — оценка и выкуп | Andrewine';
+const description = 'Скупка элитного алкоголя: виски, коньяк, шампанское, вино, ром, водка, бренди, портвейн. Бесплатная оценка по фото, очный осмотр в Москве, работаем по России.';
+
+// На пиллар выводим по одной статье из каждого раздела: страница становится
+// точкой входа и в коммерческие страницы, и в журнал.
+const guides = categories
+  .map((category) => ({ category, article: articles.find((item) => item.category === category.slug) }))
+  .filter((entry) => entry.article);
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Andrewine" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta name="geo.region" content="RU-MOW" />
+    <meta name="geo.placename" content="Москва" />
+    <TildaChromeHead />
+    <style is:inline set:html={enhancementsCss} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'Скупка элитного алкоголя',
+      serviceType: 'Оценка и выкуп коллекционного алкоголя',
+      description,
+      url: canonical,
+      provider: { '@type': 'LocalBusiness', name: organization.name, url: organization.url, telephone: organization.telephone },
+      areaServed: organization.areaServed,
+      availableChannel: { '@type': 'ServiceChannel', serviceUrl: canonical, servicePhone: organization.telephone },
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: premiumFaq.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })),
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://andrewine.ru/' },
+        { '@type': 'ListItem', position: 2, name: 'Элитный алкоголь', item: canonical },
+      ],
+    })} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(localBusinessLd())} />
+  </head>
+  <body class="t-body article-page">
+    <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
+    <OriginalHeader root="./" />
+    <main class="article-main premium">
+      <section class="article-mast">
+        <div class="section-rail section-rail--light" aria-hidden="true"><span>ЭЛИТНЫЙ</span><small>ANDREWINE</small></div>
+        <div class="article-cover premium-cover">
+          <div class="article-cover__copy">
+            <div class="magazine-kicker magazine-kicker--light"><span>Andrewine</span><span>Оценка и выкуп</span></div>
+            <p class="editorial__eyebrow">Принимаем в коллекцию</p>
+            <h1>Скупка элитного алкоголя в Москве и по России</h1>
+            <p class="article-lead">Оцениваем и выкупаем коллекционные бутылки: редкие релизы, лимитированные издания, выдержанные винтажи и старые выпуски. Предварительная оценка по фотографиям — бесплатно.</p>
+            <div class="premium-actions">
+              <a class="premium-actions__primary" href={organization.telegram} rel="noopener noreferrer">Отправить фото в Telegram</a>
+              <a href={`tel:${organization.telephone}`}>{organization.telephone}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="premium-section" aria-labelledby="premium-cats">
+        <p class="editorial__eyebrow">Что принимаем</p>
+        <h2 id="premium-cats">Категории, которые оцениваем</h2>
+        <div class="premium-grid">
+          {categories.map((category) => (
+            <a class="premium-tile" href={`./${category.buyRoute}/`}>
+              <span>{category.name}</span>
+              <small>{category.buyLabel} →</small>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="premium-section" aria-labelledby="premium-what">
+        <p class="editorial__eyebrow">Определение</p>
+        <h2 id="premium-what">Какой алкоголь считается элитным</h2>
+        <div class="premium-prose">
+          <p>Элитным в оценке называют не любую дорогую бутылку из магазина, а экземпляр с коллекционной или инвестиционной ценностью. Значение имеют редкость конкретного выпуска, его тираж, возраст и то, насколько уверенно можно подтвердить подлинность и историю хранения.</p>
+          <p>Поэтому массовая позиция известного бренда и малотиражный релиз того же дома — разные категории. Одна и та же марка встречается в десятках вариантов оформления, и коллекционную привлекательность создаёт сочетание конкретного релиза с хорошей сохранностью, а не громкое имя на этикетке.</p>
+        </div>
+      </section>
+
+      <section class="premium-section" aria-labelledby="premium-brands">
+        <p class="editorial__eyebrow">Марки</p>
+        <h2 id="premium-brands">Бренды, которые чаще всего приносят на оценку</h2>
+        <div class="premium-brands">
+          {premiumBrands.map((group) => (
+            <div>
+              <h3>{group.group}</h3>
+              <p>{group.items.join(' · ')}</p>
+            </div>
+          ))}
+        </div>
+        <p class="premium-note">Список не исчерпывающий: присылайте фотографии любой бутылки, которая кажется вам коллекционной.</p>
+      </section>
+
+      <section class="premium-section" aria-labelledby="premium-price">
+        <p class="editorial__eyebrow">Оценка</p>
+        <h2 id="premium-price">От чего зависит цена</h2>
+        <div class="premium-table" role="table">
+          {priceFactors.map((row) => (
+            <div class="premium-table__row" role="row">
+              <div role="cell"><strong>{row.factor}</strong></div>
+              <div role="cell">{row.detail}</div>
+            </div>
+          ))}
+        </div>
+        <p class="premium-note">Назвать сумму заранее, без осмотра конкретной бутылки, невозможно: даже один и тот же релиз в разном состоянии оценивается по-разному. Предварительный диапазон по фотографиям — бесплатно.</p>
+      </section>
+
+      <section class="premium-section premium-section--dark" aria-labelledby="premium-steps">
+        <p class="editorial__eyebrow">Порядок работы</p>
+        <h2 id="premium-steps">Как проходит оценка и сделка</h2>
+        <ol class="premium-steps">
+          {dealSteps.map((step, index) => (
+            <li>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="premium-section" aria-labelledby="premium-guides">
+        <p class="editorial__eyebrow">База знаний</p>
+        <h2 id="premium-guides">Как подготовить бутылку — по категориям</h2>
+        <div class="premium-guides">
+          {guides.map(({ category, article }) => (
+            <article>
+              <p>{category.label}</p>
+              <h3><a href={`./articles/${article!.slug}/`}>{article!.title}</a></h3>
+              <a class="article-card__link" href={`./articles/${category.slug}/`}>Весь раздел →</a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="premium-section" aria-labelledby="premium-faq">
+        <p class="editorial__eyebrow">Частые вопросы</p>
+        <h2 id="premium-faq">Что спрашивают перед оценкой</h2>
+        <div class="premium-faq">
+          {premiumFaq.map(([q, a]) => <details class="faq__item"><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
+        </div>
+      </section>
+
+      <aside class="category-cta premium-final">
+        <div>
+          <p class="editorial__eyebrow">Оценка по фото</p>
+          <h2>Пришлите фотографии бутылки</h2>
+          <p>Специалист изучит снимки и назовёт предварительный диапазон. Очный осмотр в Москве, работаем с регионами России.</p>
+        </div>
+        <a href={organization.telegram} rel="noopener noreferrer">Написать в Telegram →</a>
+      </aside>
+    </main>
+    <OriginalFooter root="./" />
+    </div>
+  </body>
+</html>
