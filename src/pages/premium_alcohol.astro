@@ -64,7 +64,7 @@ const guides = categories
   </head>
   <body class="t-body article-page">
     <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
-    <OriginalHeader root="./" />
+    <OriginalHeader root="../" />
     <main class="article-main premium">
       <section class="article-mast">
         <div class="section-rail section-rail--light" aria-hidden="true"><span>ЭЛИТНЫЙ</span><small>ANDREWINE</small></div>
@@ -87,7 +87,7 @@ const guides = categories
         <h2 id="premium-cats">Категории, которые оцениваем</h2>
         <div class="premium-grid">
           {categories.map((category) => (
-            <a class="premium-tile" href={`./${category.buyRoute}/`}>
+            <a class="premium-tile" href={`../${category.buyRoute}/`}>
               <span>{category.name}</span>
               <small>{category.buyLabel} →</small>
             </a>
@@ -155,8 +155,8 @@ const guides = categories
           {guides.map(({ category, article }) => (
             <article>
               <p>{category.label}</p>
-              <h3><a href={`./articles/${article!.slug}/`}>{article!.title}</a></h3>
-              <a class="article-card__link" href={`./articles/${category.slug}/`}>Весь раздел →</a>
+              <h3><a href={`../articles/${article!.slug}/`}>{article!.title}</a></h3>
+              <a class="article-card__link" href={`../articles/${category.slug}/`}>Весь раздел →</a>
             </article>
           ))}
         </div>
@@ -179,7 +179,7 @@ const guides = categories
         <a href={organization.telegram} rel="noopener noreferrer">Написать в Telegram →</a>
       </aside>
     </main>
-    <OriginalFooter root="./" />
+    <OriginalFooter root="../" />
     </div>
   </body>
 </html>
