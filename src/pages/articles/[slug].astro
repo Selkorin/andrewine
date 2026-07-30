@@ -1,6 +1,7 @@
 ---
 import { articles } from '../../data/articles';
 import { categories, categoryBySlug } from '../../data/categories';
+import { localBusinessLd, organization } from '../../data/organization';
 import enhancementsCss from '../../styles/enhancements.css?raw';
 import OriginalHeader from '../../components/OriginalHeader.astro';
 import OriginalFooter from '../../components/OriginalFooter.astro';
@@ -64,14 +65,20 @@ const breadcrumbsLd = {
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Andrewine" />
+    <meta property="og:locale" content="ru_RU" />
     {article && <meta property="og:image" content={article.image} />}
+    {article && <meta property="og:image:alt" content={article.imageAlt} />}
     <meta name="twitter:card" content={article ? 'summary_large_image' : 'summary'} />
+    <meta name="geo.region" content="RU-MOW" />
+    <meta name="geo.placename" content="Москва" />
     <TildaChromeHead />
     <style is:inline set:html={enhancementsCss} />
-    {article && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'Article', headline:article.title, description:article.description, image:article.image, author:{ '@type':'Organization', name:'Andrewine' }, publisher:{ '@type':'Organization', name:'Andrewine' }, mainEntityOfPage:canonical })} />}
+    {article && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'Article', headline:article.title, description:article.description, image:article.image, inLanguage:'ru-RU', articleSection:articleCategory?.label ?? 'Журнал Andrewine', about:articleCategory ? { '@type':'Thing', name:articleCategory.name } : undefined, author:{ '@type':'Organization', name:organization.name, url:organization.url }, publisher:{ '@type':'Organization', name:organization.name, url:organization.url }, mainEntityOfPage:canonical })} />}
     {article && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'FAQPage', mainEntity: faq.map(([name, text]) => ({ '@type':'Question', name, acceptedAnswer: { '@type':'Answer', text } })) })} />}
     {category && <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'CollectionPage', name: category.h1, description: category.seoDescription, url: canonical, hasPart: hubArticles.map(item => ({ '@type':'Article', headline: item.title, url: `https://andrewine.ru/articles/${item.slug}/` })) })} />}
     <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbsLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(localBusinessLd())} />
   </head>
   <body class="t-body article-page">
     <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
@@ -123,6 +130,19 @@ const breadcrumbsLd = {
             {faq.map(([q,a]) => <details class="faq__item"><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
           </div>
         </section>
+        {articleCategory && (
+          <aside class="article-cta">
+            <div>
+              <p class="editorial__eyebrow">Оценка по фото</p>
+              <h2>{articleCategory.buyLabel} из своей коллекции</h2>
+              <p>Пришлите фотографии бутылки — специалист назовёт предварительный диапазон. Очный осмотр в Москве, работаем с регионами России.</p>
+            </div>
+            <div class="article-cta__links">
+              <a class="article-cta__primary" href={`../../${articleCategory.buyRoute}/`}>{articleCategory.buyLabel} →</a>
+              <a href={`../${articleCategory.slug}/`}>Все материалы: {articleCategory.name.toLowerCase()}</a>
+            </div>
+          </aside>
+        )}
       </article>
       <section class="related-articles" aria-labelledby="related-title">
         <div class="related-articles__heading">

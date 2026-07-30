@@ -31,6 +31,18 @@ source = source
   .replaceAll('https://алковыкуп.рф', 'https://andrewine.ru')
   .replaceAll('http://алковыкуп.рф', 'https://andrewine.ru');
 
+// The exported LocalBusiness block still carries the previous brand and a
+// Moscow-only service area. Search engines read the schema name as the
+// business identity, so leaving «Алковыкуп» on an Andrewine site splits the
+// brand signal; adding Russia alongside Moscow matches the stated coverage.
+source = source
+  .replaceAll('"name": "Алковыкуп",', '"name": "Andrewine",')
+  .replaceAll('"alternateName": "Алковыкуп.рф",', '"alternateName": "Андревайн",')
+  .replaceAll(
+    '"areaServed": {\n    "@type": "City",\n    "name": "Москва"\n  },',
+    '"areaServed": [\n    { "@type": "City", "name": "Москва" },\n    { "@type": "Country", "name": "Россия" }\n  ],',
+  );
+
 // The original vertical experience badge is a small raster image and becomes
 // visibly blurred after Tilda scales and rotates it. Keep the original layout,
 // but replace both lazy-load URLs with a crisp, locally drawn SVG.
