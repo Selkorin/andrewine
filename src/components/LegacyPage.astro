@@ -83,6 +83,14 @@ source = source
   .replaceAll('</script></script></style>', '</script>')
   .replaceAll('</script></script><!-- nominify end -->', '</script><!-- nominify end -->');
 
+// The «Made on Tilda» badge is a leftover of the export platform: the site is
+// now a standalone build, so the label is inaccurate and the outbound link
+// carries weight off the domain for nothing. Removed together with the Tilda
+// stat beacon, which is part of the same badge block.
+source = source
+  .replace(/<!-- Tilda copyright\. Don't remove this line -->\s*<div class="t-tildalabel[\s\S]*?<\/div><\/a><\/div>/g, '')
+  .replace(/<!-- Stat -->\s*<script type="text\/javascript">if\(!window\.mainTracker\)[\s\S]*?<\/script>/g, '');
+
 // The export injects a second, visually hidden h1 (position:absolute;
 // left:-9999px) stuffed with keywords on DOMContentLoaded. Text hidden from
 // users but served to crawlers is cloaking — a documented spam technique —
