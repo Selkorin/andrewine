@@ -4,6 +4,7 @@ import enhancementsCss from '../../styles/enhancements.css?raw';
 import OriginalHeader from '../../components/OriginalHeader.astro';
 import OriginalFooter from '../../components/OriginalFooter.astro';
 import TildaChromeHead from '../../components/TildaChromeHead.astro';
+import cellarArchiveHero from '../../assets/cellar-archive-hero.jpg';
 
 export function getStaticPaths() {
   return articles.map(article => ({ params: { slug: article.slug }, props: { article } }));
@@ -36,7 +37,7 @@ const faq = [
     <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
     <OriginalHeader root="../../" />
     <main class="article-main">
-      <section class="article-mast">
+      <section class="article-mast article-mast--archive" style={`--article-archive-bg:url("${cellarArchiveHero.src}")`}>
         <div class="section-rail section-rail--light" aria-hidden="true"><span>ЖУРНАЛ</span><small>ANDREWINE</small></div>
         <div class="article-cover">
           <div class="article-cover__copy">
@@ -46,8 +47,10 @@ const faq = [
             <h1>{article.title}</h1>
             <p class="article-lead">{article.description}</p>
             <p class="article-meta">Редакция Andrewine <span aria-hidden="true">·</span> {readingMinutes} минут чтения</p>
+            <a class="article-cover__cta" href="../../#request">Отправить бутылку на оценку <span aria-hidden="true">↗</span></a>
           </div>
           <figure class="article-cover__media">
+            <span class="article-cover__file" aria-hidden="true">Досье {articleNumber}</span>
             <img src={article.image} alt={article.imageAlt} width="1200" height="800" decoding="async" fetchpriority="high" />
             <figcaption>Фото: <a href={article.imagePage} rel="noopener noreferrer">{article.imageCredit}</a></figcaption>
           </figure>
