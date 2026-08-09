@@ -19,64 +19,55 @@ import processPhotograph from '../assets/infographics/items/process-photograph.p
 import processInspect from '../assets/infographics/items/process-inspect.png';
 import processOffer from '../assets/infographics/items/process-offer.png';
 import processHandover from '../assets/infographics/items/process-handover.png';
-import andrewMagnifier from '../assets/editorial/andrew/andrew-magnifier.png';
-import andrewBook from '../assets/editorial/andrew/andrew-book.png';
-import andrewWine from '../assets/editorial/andrew/andrew-wine.png';
-import andrewCamera from '../assets/editorial/andrew/andrew-camera.png';
-
 export const articleBackgrounds = [cellarRacks, appraisalDesk, champagneCave, auctionArchive];
 
 const packs = {
   condition: {
     eyebrow: 'Состояние экземпляра',
     title: 'Четыре зоны внимательного осмотра',
-    note: 'Эндрю начинает с сохранности: одна незаметная деталь может изменить итоговую оценку.',
-    character: andrewMagnifier,
-    characterAlt: 'Эндрю изучает бутылку через лупу',
+    note: 'Состояние оценивают последовательно — от уровня напитка до маркировок на стекле. Так отдельный дефект не теряется среди общих впечатлений.',
+    itemPrefix: 'Зона',
     items: [
-      [conditionFill, 'Уровень напитка'],
-      [conditionCapsule, 'Капсула и пробка'],
-      [conditionLabel, 'Состояние этикетки'],
-      [conditionBase, 'Стекло и дно'],
+      [conditionFill, 'Уровень напитка', 'Положение жидкости показывает степень естественного испарения и помогает оценить условия хранения.'],
+      [conditionCapsule, 'Капсула и пробка', 'Здесь раньше всего заметны подтёки, коррозия, усыхание пробки и следы вмешательства.'],
+      [conditionLabel, 'Состояние этикетки', 'Потёртости допустимы, но утраты бумаги, пятна и реставрация напрямую влияют на ценность.'],
+      [conditionBase, 'Стекло и дно', 'Форма бутылки, заводские клейма и повреждения стекла помогают подтвердить выпуск и сохранность.'],
     ],
   },
   photos: {
     eyebrow: 'Документальная съёмка',
     title: 'Минимальный набор кадров',
-    note: 'Каждый ракурс отвечает на отдельный вопрос оценщика — случайных кадров в досье нет.',
-    character: andrewCamera,
-    characterAlt: 'Эндрю фотографирует коллекционную бутылку',
+    note: 'Четыре базовых ракурса дают оценщику больше информации, чем серия случайных снимков. Фотографируйте без фильтров и бликов.',
+    itemPrefix: 'Кадр',
     items: [
-      [photosFront, 'Фронтальный вид'],
-      [photosBack, 'Оборотная сторона'],
-      [photosNeck, 'Горло и укупорка'],
-      [photosBottom, 'Дно и маркировки'],
+      [photosFront, 'Фронтальный вид', 'Поставьте бутылку вертикально и снимите этикетку строго спереди, чтобы читались все строки.'],
+      [photosBack, 'Оборотная сторона', 'Покажите контрэтикетку, импортные наклейки, крепость, объём и служебную информацию.'],
+      [photosNeck, 'Горло и укупорка', 'Снимите капсулу и пробку сверху и сбоку, не разворачивая и не очищая их.'],
+      [photosBottom, 'Дно и маркировки', 'Крупный план донышка фиксирует рельеф, клейма, номера формы и возможные повреждения.'],
     ],
   },
   value: {
     eyebrow: 'Факторы стоимости',
     title: 'Что формирует коллекционную ценность',
-    note: 'Цена появляется только после сопоставления выпуска, происхождения, комплекта и спроса.',
-    character: andrewBook,
-    characterAlt: 'Эндрю изучает сведения в архивной книге',
+    note: 'Стоимость нельзя определить по одному признаку. Итоговый диапазон появляется после сопоставления выпуска, состояния и реального спроса.',
+    itemPrefix: 'Фактор',
     items: [
-      [valueProvenance, 'Происхождение'],
-      [valueVintage, 'Винтаж и выпуск'],
-      [valueCase, 'Комплект и упаковка'],
-      [valueAuction, 'Рыночный спрос'],
+      [valueProvenance, 'Происхождение', 'Чеки, история покупки и сведения о хранении повышают доверие к дорогому экземпляру.'],
+      [valueVintage, 'Винтаж и выпуск', 'Год, серия, рынок розлива и тираж определяют, насколько редкой является конкретная версия.'],
+      [valueCase, 'Комплект и упаковка', 'Оригинальная коробка, сертификат и вкладыши оцениваются вместе с бутылкой, но отдельно по состоянию.'],
+      [valueAuction, 'Рыночный спрос', 'Ориентир дают не объявления, а подтверждённые продажи сопоставимых экземпляров за недавний период.'],
     ],
   },
   process: {
     eyebrow: 'Как проходит оценка',
     title: 'От фотографии до предложения',
-    note: 'Четыре последовательных шага сохраняют контекст экземпляра и делают оценку понятной.',
-    character: andrewCamera,
-    characterAlt: 'Эндрю документирует бутылку камерой',
+    note: 'Предварительная оценка проходит по понятной схеме. Каждый следующий этап начинается только после проверки предыдущего.',
+    itemPrefix: 'Шаг',
     items: [
-      [processPhotograph, 'Фотографии'],
-      [processInspect, 'Проверка специалистом'],
-      [processOffer, 'Предложение цены'],
-      [processHandover, 'Безопасная передача'],
+      [processPhotograph, 'Подготовьте фотографии', 'Отправьте общий вид, этикетки, укупорку, уровень, дно и упаковку без ретуши.'],
+      [processInspect, 'Дождитесь проверки', 'Специалист идентифицирует выпуск, отмечает риски и при необходимости просит дополнительные кадры.'],
+      [processOffer, 'Получите диапазон цены', 'После проверки фотографий и истории хранения формируется предварительное предложение.'],
+      [processHandover, 'Согласуйте осмотр', 'Окончательная сумма подтверждается после проверки подлинности и фактического состояния.'],
     ],
   },
 } as const;
@@ -90,20 +81,13 @@ const packBySlug: Record<string, keyof typeof packs> = {
   'photo-appraisal': 'photos',
 };
 
-const characterBySlug = {
-  'hennessy-louis-xiii': [andrewMagnifier, 'Эндрю изучает бутылку через лупу'],
-  'rare-wine': [andrewWine, 'Эндрю оценивает цвет вина в бокале'],
-  'champagne-cristal-dom-perignon': [andrewWine, 'Эндрю оценивает напиток в бокале'],
-} as const;
-
 export function getArticleVisuals(slug: string, articleIndex: number) {
   const infographic = packs[packBySlug[slug] ?? 'process'];
-  const character = characterBySlug[slug as keyof typeof characterBySlug];
   return {
     heroBackground: articleBackgrounds[articleIndex % articleBackgrounds.length],
     relatedBackground: articleBackgrounds[(articleIndex + 2) % articleBackgrounds.length],
     checklistBackground: articleBackgrounds[(articleIndex + 1) % articleBackgrounds.length],
-    infographic: character ? { ...infographic, character: character[0], characterAlt: character[1] } : infographic,
+    infographic,
     process: packs.process,
   };
 }

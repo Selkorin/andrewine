@@ -1,45 +1,42 @@
 ---
-import investigationPaper from '../assets/editorial/investigation-paper.jpg';
-
 interface Props {
   pack: {
     eyebrow: string;
     title: string;
     note: string;
-    character: ImageMetadata;
-    characterAlt: string;
-    items: readonly (readonly [ImageMetadata, string])[];
+    itemPrefix: string;
+    items: readonly (readonly [ImageMetadata, string, string])[];
   };
   compact?: boolean;
 }
 
 const { pack, compact = false } = Astro.props;
 const articleAssetUrl = (src: string) => `../../${src.replace(/^\//, '')}`;
-const paperUrl = articleAssetUrl(investigationPaper.src);
 ---
 
-<section class:list={['article-infographic', { 'article-infographic--compact': compact }]} style={`--dossier-paper:url("${paperUrl}")`}>
-  <span class="article-infographic__stamp" aria-hidden="true">Досье / 04</span>
-  <div class="article-infographic__heading">
-    <div>
-      <p class="editorial__eyebrow">{pack.eyebrow}</p>
+<section class:list={['article-infographic', { 'article-infographic--compact': compact }]} aria-label={pack.title}>
+  <header class="article-infographic__heading">
+    <div class="article-infographic__title">
+      <div class="article-infographic__meta">
+        <p class="editorial__eyebrow">{pack.eyebrow}</p>
+        <span>Andrewine / {pack.itemPrefix.toLowerCase()} 01–04</span>
+      </div>
       <h2>{pack.title}</h2>
     </div>
     <p class="article-infographic__note">{pack.note}</p>
-  </div>
-  <div class="article-infographic__layout">
-    <div class="article-infographic__grid">
-      {pack.items.map(([image, label], index) => (
-        <figure class="article-infographic__evidence">
-          <span>{String(index + 1).padStart(2, '0')}</span>
+  </header>
+  <ol class="article-infographic__grid">
+    {pack.items.map(([image, label, description], index) => (
+      <li class="article-infographic__item">
+        <figure class="article-infographic__figure">
           <img src={articleAssetUrl(image.src)} alt="" loading="lazy" decoding="async" width={image.width} height={image.height} />
-          <figcaption>{label}</figcaption>
         </figure>
-      ))}
-    </div>
-    <figure class="article-infographic__andrew">
-      <img src={articleAssetUrl(pack.character.src)} alt={pack.characterAlt} loading="lazy" decoding="async" width={pack.character.width} height={pack.character.height} />
-      <figcaption><span>Эндрю</span> / заметка оценщика</figcaption>
-    </figure>
-  </div>
+        <div class="article-infographic__copy">
+          <span>{pack.itemPrefix} {String(index + 1).padStart(2, '0')}</span>
+          <h3>{label}</h3>
+          <p>{description}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
 </section>
