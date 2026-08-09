@@ -23,6 +23,27 @@ const fileRoutes: Record<string, string> = {
   'page136462246.html': '/buy_wine',
 };
 
+const heroRecordByFile: Record<string, string> = {
+  'page132437346.html': 'rec2153096741',
+  'page136045756.html': 'rec2183097071',
+  'page136045966.html': 'rec2187393971',
+  'page136046316.html': 'rec2187529151',
+  'page136046936.html': 'rec2187641621',
+  'page136047606.html': 'rec2187700811',
+  'page136048186.html': 'rec2187722761',
+  'page136049296.html': 'rec2187785841',
+  'page136462246.html': 'rec2189792391',
+};
+
+const brandRailMarkup = (variant: 'hero' | 'section') =>
+  `<div class="brand-rail brand-rail--${variant}" aria-hidden="true"><span class="brand-rail__line"></span><span class="brand-rail__copy"><span class="brand-rail__brand">ANDREWINE</span><small>Выкуп элитного алкоголя</small></span><span class="brand-rail__line"></span></div>`;
+
+const injectBrandRail = (html: string, recordId: string, variant: 'hero' | 'section') =>
+  html.replace(
+    new RegExp(`(<div id="${recordId}")([^>]*>)`),
+    `$1 data-brand-rail-host="${variant}"$2${brandRailMarkup(variant)}`,
+  );
+
 let source = readFileSync(path.join(process.cwd(), 'src', 'legacy', file), 'utf8');
 
 source = source
@@ -74,11 +95,13 @@ const root = file === 'page132437346.html' ? './' : '../';
 let contentBeforeFooter = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(0, footerIndex) : body, root);
 const footerAndScripts = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(footerIndex) : '', root);
 
+const heroRecord = heroRecordByFile[file];
+if (heroRecord) {
+  contentBeforeFooter = injectBrandRail(contentBeforeFooter, heroRecord, 'hero');
+}
+
 if (editorial) {
-  contentBeforeFooter = contentBeforeFooter.replace(
-    /(<div id="rec2127258581"[^>]*>)/,
-    `$1<div class="home-brand-rail" aria-hidden="true"><span class="home-brand-rail__line"></span><span class="home-brand-rail__copy"><span class="home-brand-rail__brand">ANDREWINE</span><small>Выкуп элитного алкоголя</small></span><span class="home-brand-rail__line"></span></div>`,
-  );
+  contentBeforeFooter = injectBrandRail(contentBeforeFooter, 'rec2127258581', 'section');
 }
 ---
 
@@ -89,9 +112,33 @@ if (editorial) {
     <style is:inline set:html={enhancementsCss} />
     <style is:global id="tilda-records-visibility-fix">.t-records{opacity:1!important}</style>
   </head>
-  <body class:list={['t-body', { 'home-page': editorial }]} style="margin:0;">
+  <body class:list={['t-body', 'legacy-page', { 'home-page': editorial }]} style="margin:0;">
     <Fragment set:html={contentBeforeFooter} />
     {editorial && <SeoSections />}
     <Fragment set:html={footerAndScripts} />
+    <script is:inline>
+      (() => {
+        const alignHeroRails = () => {
+          document.querySelectorAll('[data-brand-rail-host="hero"]').forEach((host) => {
+            const rail = host.querySelector('.brand-rail--hero');
+            const redBand = host.querySelector('.tn-elem[data-elem-id="1776082148255"]');
+            if (!(rail instanceof HTMLElement) || !(redBand instanceof HTMLElement)) return;
+            const hostBox = host.getBoundingClientRect();
+            const bandBox = redBand.getBoundingClientRect();
+            const inset = Math.max(8, Math.min(22, bandBox.height * .04));
+            rail.style.top = `${bandBox.top - hostBox.top + inset}px`;
+            rail.style.height = `${Math.max(0, bandBox.height - inset * 2)}px`;
+            rail.dataset.aligned = 'true';
+          });
+        };
+        requestAnimationFrame(alignHeroRails);
+        window.addEventListener('load', alignHeroRails, { once: true });
+        window.addEventListener('resize', alignHeroRails, { passive: true });
+        if ('ResizeObserver' in window) {
+          const observer = new ResizeObserver(alignHeroRails);
+          document.querySelectorAll('[data-brand-rail-host="hero"]').forEach((host) => observer.observe(host));
+        }
+      })();
+    </script>
   </body>
 </html>
