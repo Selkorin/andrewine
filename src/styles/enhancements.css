@@ -134,7 +134,7 @@ html{scroll-behavior:smooth}body.t-body{overflow-x:hidden}.t-body img{max-width:
 @media(max-width:639px){.article-breadcrumb{gap:8px;margin-bottom:30px;font-size:11px}.article-breadcrumb>span[aria-current]{display:none}.article-breadcrumb>span[aria-hidden]:last-of-type{display:none}.article-mast--archive .article-cover__copy--long h1{font-size:clamp(32px,10.5vw,44px)}}
 
 /* Single-open FAQ and investigative camera signal */
-.article-faq__list{height:285px;overflow:hidden}
+.article-faq__list{overflow:hidden}
 .article-faq__list .faq__item p{min-height:4.6em}
 .article-mast--archive .article-cover__media{animation:camera-card-vibration .72s steps(2,end) infinite;transform-origin:center 48%;will-change:transform}
 .article-cover__camera-frame{position:relative;overflow:hidden;background:#050505;isolation:isolate}

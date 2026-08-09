@@ -97,7 +97,7 @@ const faq = [
           <p class="editorial__eyebrow">Коротко о главном</p>
           <h2 id="article-faq-title">Частые вопросы</h2>
           <div class="article-faq__list">
-            {faq.map(([q,a], index) => <details class="faq__item" name="article-faq" open={index === 0}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
+            {faq.map(([q,a]) => <details class="faq__item" name="article-faq"><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
           </div>
         </section>
       </div>
@@ -132,11 +132,17 @@ const faq = [
         window.addEventListener('resize', stabilizeHeight, { passive: true });
         items.forEach((item) => item.querySelector('summary')?.addEventListener('click', (event) => {
           event.preventDefault();
-          if (item.open) return;
+          if (item.open) {
+            item.open = false;
+            stabilizeHeight();
+            return;
+          }
+          const hadOpenItem = items.some((other) => other.open);
           items.forEach((other) => {
             other.open = false;
           });
           item.open = true;
+          if (!hadOpenItem) stabilizeHeight();
         }));
       });
     </script>
