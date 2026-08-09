@@ -63,7 +63,10 @@ const faq = [
           </div>
           <figure class="article-cover__media">
             <span class="article-cover__file" aria-hidden="true">Досье {articleNumber}</span>
-            <img src={article.image} alt={article.imageAlt} width="1200" height="800" decoding="async" fetchpriority="high" />
+            <div class="article-cover__camera-frame">
+              <img src={article.image} alt={article.imageAlt} width="1200" height="800" decoding="async" fetchpriority="high" />
+              <span class="article-cover__camera-noise" aria-hidden="true"></span>
+            </div>
             <figcaption>Фото: <a href={article.imagePage} rel="noopener noreferrer">{article.imageCredit}</a></figcaption>
           </figure>
         </div>
@@ -94,7 +97,7 @@ const faq = [
           <p class="editorial__eyebrow">Коротко о главном</p>
           <h2 id="article-faq-title">Частые вопросы</h2>
           <div class="article-faq__list">
-            {faq.map(([q,a]) => <details class="faq__item"><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
+            {faq.map(([q,a], index) => <details class="faq__item" open={index === 0}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
           </div>
         </section>
       </div>
@@ -117,5 +120,16 @@ const faq = [
     </main>
     <OriginalFooter root="../../" />
     </div>
+    <script is:inline>
+      document.querySelectorAll('.article-faq__list').forEach((list) => {
+        const items = Array.from(list.querySelectorAll('details'));
+        items.forEach((item) => item.addEventListener('toggle', () => {
+          if (!item.open) return;
+          items.forEach((other) => {
+            if (other !== item) other.open = false;
+          });
+        }));
+      });
+    </script>
   </body>
 </html>

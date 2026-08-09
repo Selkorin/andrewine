@@ -127,7 +127,18 @@ html{scroll-behavior:smooth}body.t-body{overflow-x:hidden}.t-body img{max-width:
 .article-breadcrumb a,.article-breadcrumb a:visited{color:#fff;text-decoration:none;transition:color .2s ease}
 .article-breadcrumb a:hover{color:var(--wine-bright)}
 .article-breadcrumb>span[aria-hidden]{color:rgba(255,255,255,.42)}
-.article-breadcrumb>span[aria-current]{min-width:0;overflow:hidden;color:#fff;text-overflow:ellipsis}
+.article-breadcrumb>span[aria-current]{min-width:0;overflow:hidden;color:#fff;text-overflow:ellipsis;transition:color .2s ease}
+.article-breadcrumb>span[aria-current]:hover{color:var(--wine-bright)}
 .article-mast--archive .article-cover__copy h1{hyphens:none;overflow-wrap:normal;word-break:normal;text-wrap:balance}
 .article-mast--archive .article-cover__copy--long h1{font-size:clamp(42px,5vw,68px);line-height:1.02}
 @media(max-width:639px){.article-breadcrumb{gap:8px;margin-bottom:30px;font-size:11px}.article-breadcrumb>span[aria-current]{display:none}.article-breadcrumb>span[aria-hidden]:last-of-type{display:none}.article-mast--archive .article-cover__copy--long h1{font-size:clamp(32px,10.5vw,44px)}}
+
+/* Single-open FAQ and investigative camera signal */
+.article-faq__list .faq__item p{min-height:4.6em}
+.article-cover__camera-frame{position:relative;overflow:hidden;background:#050505}
+.article-cover__camera-frame img{animation:camera-jolt 7s steps(1,end) infinite;transform-origin:center}
+.article-cover__camera-noise{position:absolute;z-index:2;inset:-18%;pointer-events:none;opacity:0;background-image:repeating-radial-gradient(circle at 24% 31%,rgba(255,255,255,.2) 0 1px,transparent 1px 4px),repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.12) 4px,transparent 5px);background-size:7px 7px,100% 6px;mix-blend-mode:screen;animation:camera-interference 7s steps(2,end) infinite}
+@keyframes camera-jolt{0%,43%,46%,100%{transform:translate3d(0,0,0) scale(1)}43.4%{transform:translate3d(-5px,2px,0) scale(1.018)}44%{transform:translate3d(4px,-2px,0) scale(1.012)}44.7%{transform:translate3d(-2px,-1px,0) scale(1.016)}45.3%{transform:translate3d(3px,1px,0) scale(1.01)}}
+@keyframes camera-interference{0%,42.8%,46%,100%{opacity:0;transform:translate3d(0,0,0)}43.2%,45.5%{opacity:.2;transform:translate3d(-2%,1%,0)}44%,44.8%{opacity:.34;transform:translate3d(2%,-1%,0)}}
+@media(max-width:639px){.article-faq__list .faq__item p{min-height:0}}
+@media(prefers-reduced-motion:reduce){.article-cover__camera-frame img,.article-cover__camera-noise{animation:none!important}.article-cover__camera-noise{display:none}}
