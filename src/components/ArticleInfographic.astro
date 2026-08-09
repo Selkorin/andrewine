@@ -1,0 +1,28 @@
+---
+interface Props {
+  pack: {
+    eyebrow: string;
+    title: string;
+    items: readonly (readonly [ImageMetadata, string])[];
+  };
+  compact?: boolean;
+}
+
+const { pack, compact = false } = Astro.props;
+---
+
+<section class:list={['article-infographic', { 'article-infographic--compact': compact }]}>
+  <div class="article-infographic__heading">
+    <p class="editorial__eyebrow">{pack.eyebrow}</p>
+    <h2>{pack.title}</h2>
+  </div>
+  <div class="article-infographic__grid">
+    {pack.items.map(([image, label], index) => (
+      <figure>
+        <span>{String(index + 1).padStart(2, '0')}</span>
+        <img src={image.src} alt="" loading="lazy" decoding="async" width={image.width} height={image.height} />
+        <figcaption>{label}</figcaption>
+      </figure>
+    ))}
+  </div>
+</section>
