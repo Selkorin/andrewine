@@ -134,6 +134,7 @@ html{scroll-behavior:smooth}body.t-body{overflow-x:hidden}.t-body img{max-width:
 @media(max-width:639px){.article-breadcrumb{gap:8px;margin-bottom:30px;font-size:11px}.article-breadcrumb>span[aria-current]{display:none}.article-breadcrumb>span[aria-hidden]:last-of-type{display:none}.article-mast--archive .article-cover__copy--long h1{font-size:clamp(32px,10.5vw,44px)}}
 
 /* Single-open FAQ and investigative camera signal */
+.article-faq__list{height:285px;overflow:hidden}
 .article-faq__list .faq__item p{min-height:4.6em}
 .article-mast--archive .article-cover__media{animation:camera-card-vibration .72s steps(2,end) infinite;transform-origin:center 48%;will-change:transform}
 .article-cover__camera-frame{position:relative;overflow:hidden;background:#050505;isolation:isolate}
@@ -148,5 +149,5 @@ html{scroll-behavior:smooth}body.t-body{overflow-x:hidden}.t-body img{max-width:
 @keyframes camera-interference{0%{opacity:.12;transform:translate3d(-2%,1%,0)}25%{opacity:.2;transform:translate3d(2%,-2%,0)}50%{opacity:.1;transform:translate3d(1%,2%,0)}75%{opacity:.24;transform:translate3d(-1%,-1%,0)}100%{opacity:.14;transform:translate3d(2%,1%,0)}}
 @keyframes camera-color-shift{0%,18%,22%,48%,52%,78%,82%,100%{transform:translateX(0);opacity:.35}19%,49%,79%{transform:translateX(5px);opacity:.8}20%,50%,80%{transform:translateX(-5px);opacity:.62}}
 @keyframes camera-signal-line{0%{opacity:.08;transform:translateY(55%)}9%{opacity:.7;transform:translateY(315%)}18%{opacity:.18;transform:translateY(870%)}31%{opacity:.8;transform:translateY(145%)}44%{opacity:.22;transform:translateY(1120%)}57%{opacity:.65;transform:translateY(540%)}68%{opacity:.1;transform:translateY(760%)}79%{opacity:.76;transform:translateY(980%)}91%{opacity:.3;transform:translateY(410%)}100%{opacity:.08;transform:translateY(55%)}}
-@media(max-width:639px){.article-faq__list .faq__item p{min-height:0}}
+@media(max-width:639px){.article-faq__list{height:auto;overflow:visible}.article-faq__list .faq__item p{min-height:0}}
 @media(prefers-reduced-motion:reduce){.article-mast--archive .article-cover__media,.article-cover__camera-frame img,.article-cover__camera-noise,.article-cover__camera-frame::before,.article-cover__camera-frame::after{animation:none!important}.article-cover__camera-noise,.article-cover__camera-frame::before,.article-cover__camera-frame::after{display:none}}

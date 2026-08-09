@@ -123,13 +123,20 @@ const faq = [
     <script is:inline>
       document.querySelectorAll('.article-faq__list').forEach((list) => {
         const items = Array.from(list.querySelectorAll('details'));
+        const stabilizeHeight = () => {
+          list.style.height = 'auto';
+          list.style.height = `${list.offsetHeight}px`;
+        };
+        requestAnimationFrame(stabilizeHeight);
+        document.fonts?.ready.then(stabilizeHeight);
+        window.addEventListener('resize', stabilizeHeight, { passive: true });
         items.forEach((item) => item.querySelector('summary')?.addEventListener('click', (event) => {
           event.preventDefault();
-          const shouldOpen = !item.open;
+          if (item.open) return;
           items.forEach((other) => {
             other.open = false;
           });
-          item.open = shouldOpen;
+          item.open = true;
         }));
       });
     </script>
