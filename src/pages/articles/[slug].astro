@@ -50,7 +50,10 @@ const faq = [
             <p class="editorial__eyebrow">{article.eyebrow}</p>
             <h1>{article.title}</h1>
             <p class="article-lead">{article.description}</p>
-            <p class="article-meta">Редакция Andrewine <span aria-hidden="true">·</span> {readingMinutes} минут чтения</p>
+            <div class="article-meta" aria-label={`Редакция Andrewine, ${readingMinutes} минут чтения`}>
+              <span>Редакция Andrewine</span>
+              <span>{readingMinutes} минут чтения</span>
+            </div>
             <a class="article-cover__cta" href="../../#request">Отправить бутылку на оценку <span aria-hidden="true">↗</span></a>
           </div>
           <figure class="article-cover__media">
