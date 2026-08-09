@@ -160,8 +160,11 @@ html{scroll-behavior:smooth}body.t-body{overflow-x:hidden}.t-body img{max-width:
 @media(max-width:639px){.article-faq__list{height:auto;overflow:visible}.article-faq__list .faq__item p{min-height:0}}
 @media(prefers-reduced-motion:reduce){.article-mast--archive .article-cover__media,.article-cover__camera-frame img,.article-cover__camera-noise,.article-cover__camera-frame::before,.article-cover__camera-frame::after{animation:none!important}.article-cover__camera-noise,.article-cover__camera-frame::before,.article-cover__camera-frame::after{display:none}}
 
+/* Legacy pages: remove obsolete raster rails before applying the brand system */
+.legacy-page img[src*="section-line.svg"],.legacy-page img[data-original*="section-line.svg"],.legacy-page img[src*="experience-badge.svg"],.legacy-page img[data-original*="experience-badge.svg"]{visibility:hidden!important;opacity:0!important}
+.legacy-page .tn-elem[data-elem-id="1775513886142"],.legacy-page .tn-elem[data-elem-id="1775516110039"],.legacy-page .tn-elem[data-elem-id="1776732857531000002"],.legacy-page .tn-elem[data-elem-id="1776736645825000001"],.legacy-page .tn-elem[data-elem-id="1775825878179000001"]{display:none!important}
+
 /* Home page: quiet editorial finish and a footer-adjacent FAQ */
-.home-page img[src*="section-line.svg"],.home-page img[data-original*="section-line.svg"],.home-page img[src*="experience-badge.svg"],.home-page img[data-original*="experience-badge.svg"]{visibility:hidden!important;opacity:0!important}
 .legacy-page [data-brand-rail-host="hero"]{position:relative}
 .legacy-page [data-brand-rail-host="hero"] .tn-elem[data-elem-id="1776082289291"]{display:none!important}
 .home-page #rec2127258581{position:relative}
