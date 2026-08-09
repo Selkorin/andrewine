@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { pack, compact = false } = Astro.props;
+const articleAssetUrl = (src: string) => `../../${src.replace(/^\//, '')}`;
 ---
 
 <section class:list={['article-infographic', { 'article-infographic--compact': compact }]}>
@@ -20,7 +21,7 @@ const { pack, compact = false } = Astro.props;
     {pack.items.map(([image, label], index) => (
       <figure>
         <span>{String(index + 1).padStart(2, '0')}</span>
-        <img src={image.src} alt="" loading="lazy" decoding="async" width={image.width} height={image.height} />
+        <img src={articleAssetUrl(image.src)} alt="" loading="lazy" decoding="async" width={image.width} height={image.height} />
         <figcaption>{label}</figcaption>
       </figure>
     ))}

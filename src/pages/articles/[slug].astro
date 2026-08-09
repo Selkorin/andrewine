@@ -15,6 +15,7 @@ const { article } = Astro.props;
 const articleIndex = articles.findIndex(item => item.slug === article.slug);
 const articleNumber = String(articleIndex + 1).padStart(2, '0');
 const visuals = getArticleVisuals(article.slug, articleIndex);
+const articleAssetUrl = (src: string) => `../../${src.replace(/^\//, '')}`;
 const articleText = [article.intro, ...article.sections.flatMap(section => [section.title, ...section.paragraphs]), ...article.checklist, article.note].join(' ');
 const readingMinutes = Math.max(3, Math.ceil(articleText.split(/\s+/).length / 180));
 const relatedArticles = articles.filter(item => item.slug !== article.slug).slice(0, 3);
@@ -40,7 +41,7 @@ const faq = [
     <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
     <OriginalHeader root="../../" />
     <main class="article-main">
-      <section class="article-mast article-mast--archive" style={`--article-archive-bg:url("${visuals.heroBackground.src}")`}>
+      <section class="article-mast article-mast--archive" style={`--article-archive-bg:url("${articleAssetUrl(visuals.heroBackground.src)}")`}>
         <div class="section-rail section-rail--light" aria-hidden="true"><span>ЖУРНАЛ</span><small>ANDREWINE</small></div>
         <div class="article-cover">
           <div class="article-cover__copy">
@@ -74,7 +75,7 @@ const faq = [
             </section>
           ))}
           <ArticleInfographic pack={visuals.infographic} />
-          <section class="article-checklist" style={`--article-panel-bg:url("${visuals.checklistBackground.src}")`}>
+          <section class="article-checklist" style={`--article-panel-bg:url("${articleAssetUrl(visuals.checklistBackground.src)}")`}>
             <p class="editorial__eyebrow">Чек-лист</p>
             <h2>Что подготовить для оценки</h2>
             <ul>{article.checklist.map(item => <li>{item}</li>)}</ul>
@@ -90,7 +91,7 @@ const faq = [
         </section>
       </div>
       </article>
-      <section class="related-articles" aria-labelledby="related-title" style={`--article-related-bg:url("${visuals.relatedBackground.src}")`}>
+      <section class="related-articles" aria-labelledby="related-title" style={`--article-related-bg:url("${articleAssetUrl(visuals.relatedBackground.src)}")`}>
         <div class="related-articles__heading">
           <p class="editorial__eyebrow">Продолжить чтение</p>
           <h2 id="related-title">Другие материалы журнала</h2>
