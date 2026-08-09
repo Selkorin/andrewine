@@ -82,7 +82,7 @@ const footerAndScripts = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(footer
     <style is:inline set:html={enhancementsCss} />
     <style is:global id="tilda-records-visibility-fix">.t-records{opacity:1!important}</style>
   </head>
-  <body class="t-body" style="margin:0;">
+  <body class:list={['t-body', { 'home-page': editorial }]} style="margin:0;">
     <Fragment set:html={contentBeforeFooter} />
     {editorial && <SeoSections />}
     <Fragment set:html={footerAndScripts} />
