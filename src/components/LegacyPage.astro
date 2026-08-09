@@ -77,7 +77,7 @@ const footerAndScripts = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(footer
 if (editorial) {
   contentBeforeFooter = contentBeforeFooter.replace(
     /(<div id="rec2127258581"[^>]*>)/,
-    `$1<div class="home-brand-rail" aria-hidden="true"><span class="home-brand-rail__line"></span><small>Выкуп элитного алкоголя</small><span class="home-brand-rail__brand">ANDREWINE</span><span class="home-brand-rail__line"></span></div>`,
+    `$1<div class="home-brand-rail" aria-hidden="true"><span class="home-brand-rail__line"></span><span class="home-brand-rail__brand">ANDREWINE</span><small>Выкуп элитного алкоголя</small><span class="home-brand-rail__line"></span></div>`,
   );
 }
 ---
