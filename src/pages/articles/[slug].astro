@@ -16,6 +16,7 @@ const articleIndex = articles.findIndex(item => item.slug === article.slug);
 const articleNumber = String(articleIndex + 1).padStart(2, '0');
 const visuals = getArticleVisuals(article.slug, articleIndex);
 const articleAssetUrl = (src: string) => `../../${src.replace(/^\//, '')}`;
+const hasLongTitle = article.title.length > 44;
 const articleText = [article.intro, ...article.sections.flatMap(section => [section.title, ...section.paragraphs]), ...article.checklist, article.note].join(' ');
 const readingMinutes = Math.max(3, Math.ceil(articleText.split(/\s+/).length / 180));
 const relatedArticles = articles.filter(item => item.slug !== article.slug).slice(0, 3);
@@ -44,8 +45,12 @@ const faq = [
       <section class="article-mast article-mast--archive" style={`--article-archive-bg:url("${articleAssetUrl(visuals.heroBackground.src)}")`}>
         <div class="section-rail section-rail--light" aria-hidden="true"><span>ЖУРНАЛ</span><small>ANDREWINE</small></div>
         <div class="article-cover">
-          <div class="article-cover__copy">
-            <a class="article-back" href="../">← Все статьи</a>
+          <div class:list={['article-cover__copy', { 'article-cover__copy--long': hasLongTitle }]}>
+            <nav class="article-breadcrumb" aria-label="Навигация по сайту">
+              <a href="../../">Главная</a><span aria-hidden="true">/</span>
+              <a href="../">Статьи</a><span aria-hidden="true">/</span>
+              <span aria-current="page">{article.title}</span>
+            </nav>
             <div class="magazine-kicker magazine-kicker--light"><span>Журнал Andrewine</span><span>Материал {articleNumber}</span></div>
             <p class="editorial__eyebrow">{article.eyebrow}</p>
             <h1>{article.title}</h1>
