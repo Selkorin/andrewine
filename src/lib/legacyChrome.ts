@@ -49,13 +49,17 @@ export function rewriteLegacyLinks(markup: string, root = './') {
 
   for (const quote of ['"', "'"]) {
     for (const href of ['/premium_alcohol', '/premium_alcohol/', 'https://andrewine.ru/premium_alcohol', 'https://andrewine.ru/premium_alcohol/']) {
-      result = result.replaceAll(`href=${quote}${href}${quote}`, `href=${quote}${localRoot}${quote}`);
+      result = result.replaceAll(`href=${quote}${href}${quote}`, `href=${quote}${localRoot}articles/${quote}`);
     }
     result = result
       .replaceAll(`href=${quote}https://andrewine.ru/${quote}`, `href=${quote}${localRoot}${quote}`)
       .replaceAll(`href=${quote}#about${quote}`, `href=${quote}${localRoot}#about${quote}`)
       .replaceAll(`href=${quote}#request${quote}`, `href=${quote}${localRoot}#request${quote}`);
   }
+
+  result = result
+    .replaceAll('>ЭЛИТНЫЙ АЛКОГОЛЬ</span>', '>СТАТЬИ</span>')
+    .replace(/>(\s*)ЭЛИТНЫЙ АЛКОГОЛЬ(\s*)<\/a>/g, '>$1СТАТЬИ$2</a>');
 
   return result;
 }
@@ -101,9 +105,10 @@ export function getOriginalFooter(root = './') {
   return rewriteLegacyLinks(replaceLocalVectorAssets(`${openTag}${footerRecord}</footer>`), root);
 }
 
-export function getTildaBootstrap() {
+export function getTildaHeadAssets() {
   const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
-  const inlineScript = head.match(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/i)?.[1];
-  if (!inlineScript) throw new Error('Tilda bootstrap script was not found');
-  return inlineScript;
+  const tags = (head.match(/<link[^>]*\brel="stylesheet"[^>]*>|<script[^>]*\bsrc="[^"]+"[^>]*><\/script>|<script(?![^>]*\bsrc=)[^>]*>[\s\S]*?<\/script>/gi) ?? [])
+    .filter(tag => !tag.startsWith('<script') || tag.includes(' src=') || tag.includes('t_onReady'));
+  if (!tags.length) throw new Error('Tilda head assets were not found');
+  return tags.join('\n');
 }

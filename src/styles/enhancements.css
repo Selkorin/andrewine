@@ -38,3 +38,12 @@ html{scroll-behavior:smooth}body.t-body{overflow-x:hidden}.t-body img{max-width:
 @media(max-width:639px){.article-faq{margin-top:58px;padding:24px 18px;border-radius:24px}.related-articles{padding:64px 18px 78px}.related-articles__heading{display:block}.related-articles__heading .editorial__eyebrow{margin-bottom:12px}.related-articles__grid{grid-template-columns:1fr;gap:34px}.related-articles__grid article:last-child{display:block}.related-articles__grid h3{font-size:28px}}
 @media(max-width:479px){.article-main{margin-top:60px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.article-card,.article-card__media img,.faq__item,.faq__item summary span,.related-articles__media img{transition:none!important}}
+
+/* Article layout hardening */
+.article-index h1{font-size:clamp(32px,6.4vw,82px);overflow-wrap:break-word;hyphens:auto}
+.magazine-feature{grid-template-columns:minmax(0,1.4fr) minmax(340px,1fr)}
+.magazine-feature__copy h2{font-size:clamp(28px,3.1vw,46px);line-height:1.06;overflow-wrap:break-word;hyphens:auto}
+.article-body section[id]{scroll-margin-top:108px}
+.article-page a:focus-visible,.article-page summary:focus-visible{outline:2px solid var(--wine-bright);outline-offset:4px}
+@media(max-width:959px){.magazine-feature{grid-template-columns:1fr}.article-body section[id]{scroll-margin-top:64px}}
+@media(max-width:639px){.article-index h1{font-size:clamp(31px,10.5vw,44px)}.magazine-feature__copy h2{font-size:34px}.article-mast h1{font-size:clamp(28px,10.5vw,44px)}}

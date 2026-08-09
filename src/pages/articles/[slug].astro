@@ -90,7 +90,7 @@ const faq = [
         <div class="related-articles__grid">
           {relatedArticles.map(item => (
             <article>
-              <a class="related-articles__media" href={`../${item.slug}/`}><img src={item.image} alt="" loading="lazy" decoding="async" width="600" height="450" /></a>
+              <a class="related-articles__media" href={`../${item.slug}/`} aria-label={`Читать: ${item.title}`}><img src={item.image} alt="" loading="lazy" decoding="async" width="600" height="450" /></a>
               <p>{item.eyebrow}</p>
               <h3><a href={`../${item.slug}/`}>{item.title}</a></h3>
             </article>
