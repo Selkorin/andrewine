@@ -97,7 +97,7 @@ const faq = [
           <p class="editorial__eyebrow">Коротко о главном</p>
           <h2 id="article-faq-title">Частые вопросы</h2>
           <div class="article-faq__list">
-            {faq.map(([q,a], index) => <details class="faq__item" open={index === 0}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
+            {faq.map(([q,a], index) => <details class="faq__item" name="article-faq" open={index === 0}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}
           </div>
         </section>
       </div>
@@ -123,11 +123,13 @@ const faq = [
     <script is:inline>
       document.querySelectorAll('.article-faq__list').forEach((list) => {
         const items = Array.from(list.querySelectorAll('details'));
-        items.forEach((item) => item.addEventListener('toggle', () => {
-          if (!item.open) return;
+        items.forEach((item) => item.querySelector('summary')?.addEventListener('click', (event) => {
+          event.preventDefault();
+          const shouldOpen = !item.open;
           items.forEach((other) => {
-            if (other !== item) other.open = false;
+            other.open = false;
           });
+          item.open = shouldOpen;
         }));
       });
     </script>
