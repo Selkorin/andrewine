@@ -188,7 +188,7 @@ html{scroll-behavior:smooth}body.t-body{overflow-x:hidden}.t-body img{max-width:
 .home-journal::after{content:"ANDREWINE · JOURNAL · MOSCOW";position:absolute;z-index:4;right:18px;top:112px;color:rgba(255,255,255,.28);font-size:8px;font-weight:700;letter-spacing:.22em;writing-mode:vertical-rl}
 .home-journal__inner{position:relative;z-index:3;width:min(1320px,100%);margin:0 auto}
 .home-journal__header{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);align-items:end;gap:clamp(52px,8vw,118px);padding-bottom:42px;border-bottom:1px solid rgba(255,255,255,.3)}
-.home-journal__kicker{display:flex;align-items:center;justify-content:space-between;gap:30px;margin:0 0 26px;padding:9px 0;border-top:1px solid rgba(255,255,255,.56);border-bottom:1px solid rgba(255,255,255,.28);color:#fff;font-size:9px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
+.home-journal__kicker{display:flex;align-items:center;justify-content:space-between;gap:30px;margin:0 0 26px;padding:9px 0;border-top:1px solid var(--wine-bright);border-bottom:1px solid var(--wine-bright);color:var(--wine-bright);font-size:9px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
 .home-journal .editorial__eyebrow{margin-bottom:14px;color:var(--wine-bright)}
 .home-journal h2{max-width:800px;color:#fff;font-size:clamp(48px,6.3vw,84px);line-height:.93;text-wrap:balance}
 .home-journal__intro{padding-left:24px;border-left:2px solid var(--wine-bright)}
