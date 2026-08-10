@@ -131,6 +131,12 @@ if (sectionRecord) {
     <Fragment set:html={footerAndScripts} />
     <script is:inline>
       (() => {
+        document.querySelectorAll('[data-brand-rail-host="hero"]').forEach((host) => {
+          const title = host.querySelector('.tn-elem[data-elem-id="1776083437912000010"] .tn-atom');
+          if (title instanceof HTMLElement) {
+            title.dataset.heroOutline = title.textContent?.trim() ?? '';
+          }
+        });
         const alignBrandRails = () => {
           document.querySelectorAll('[data-brand-rail-host]').forEach((host) => {
             const variant = host.getAttribute('data-brand-rail-host');
