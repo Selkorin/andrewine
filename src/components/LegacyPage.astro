@@ -141,8 +141,11 @@ if (sectionRecord) {
             const hostBox = host.getBoundingClientRect();
             const bandBox = redBand.getBoundingClientRect();
             const inset = Math.max(8, Math.min(22, bandBox.height * .04));
-            rail.style.top = `${bandBox.top - hostBox.top + inset}px`;
-            rail.style.height = `${Math.max(0, bandBox.height - inset * 2)}px`;
+            const availableHeight = Math.max(0, bandBox.height - inset * 2);
+            const railHeight = Math.min(availableHeight, hostBox.height * .6);
+            const centeredTop = bandBox.top - hostBox.top + (bandBox.height - railHeight) / 2;
+            rail.style.top = `${centeredTop}px`;
+            rail.style.height = `${railHeight}px`;
             rail.dataset.aligned = 'true';
           });
         };
