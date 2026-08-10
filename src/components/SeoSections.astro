@@ -1,6 +1,6 @@
 ---
 import { articles, faqs } from '../data/articles';
-import journalBackground from '../assets/article-backgrounds/auction-archive.jpg';
+import journalBackground from '../assets/article-backgrounds/chicago-library-archive.jpg';
 
 const categories = [
   ['all', 'Все статьи'],
@@ -40,12 +40,12 @@ const articleCards = articles.map((article, index) => {
           <button type="button" data-journal-filter={value} aria-pressed={index === 0 ? 'true' : 'false'}>{label}</button>
         ))}
       </div>
-      <p class="home-journal__count" aria-live="polite"><span data-journal-count>{articleCards.length} материалов</span></p>
+      <p class="home-journal__count" aria-live="polite"><span data-journal-count>3 из {articleCards.length} материалов</span></p>
     </div>
 
     <div class="home-journal__grid" data-journal-grid data-count={articleCards.length}>
       {articleCards.map((article, index) => (
-        <article class="home-journal-card" data-journal-card data-category={article.category} data-layout={index === 0 ? 'feature' : index < 3 ? 'compact' : 'regular'}>
+        <article class="home-journal-card" data-journal-card data-category={article.category} data-layout={index === 0 ? 'feature' : index < 3 ? 'compact' : 'regular'} hidden={index >= 3}>
           <a class="home-journal-card__media" href={`./articles/${article.slug}/`} aria-label={`Читать: ${article.title}`}>
             <img src={article.image} alt={article.imageAlt} loading="lazy" decoding="async" width="900" height="680" />
             <span class="home-journal-card__file" aria-hidden="true">Досье {article.number}</span>
@@ -62,6 +62,12 @@ const articleCards = articles.map((article, index) => {
         </article>
       ))}
     </div>
+
+    <div class="home-journal__all">
+      <span aria-hidden="true"></span>
+      <a href="./articles/">Смотреть все статьи <small>{articleCards.length} материалов</small><b aria-hidden="true">↗</b></a>
+      <span aria-hidden="true"></span>
+    </div>
   </div>
 </section>
 
@@ -76,7 +82,8 @@ const articleCards = articles.map((article, index) => {
     const countLabel = (value) => value === 1 ? '1 материал' : value > 1 && value < 5 ? `${value} материала` : `${value} материалов`;
 
     const applyFilter = (category) => {
-      const visible = cards.filter((card) => category === 'all' || card.dataset.category === category);
+      const matching = cards.filter((card) => category === 'all' || card.dataset.category === category);
+      const visible = matching.slice(0, 3);
       cards.forEach((card) => {
         card.hidden = !visible.includes(card);
         card.dataset.layout = 'regular';
@@ -86,7 +93,7 @@ const articleCards = articles.map((article, index) => {
       });
       buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.journalFilter === category)));
       if (grid) grid.dataset.count = String(visible.length);
-      if (count) count.textContent = countLabel(visible.length);
+      if (count) count.textContent = matching.length > 3 ? `${visible.length} из ${matching.length} материалов` : countLabel(matching.length);
     };
 
     buttons.forEach((button) => button.addEventListener('click', () => applyFilter(button.dataset.journalFilter || 'all')));
