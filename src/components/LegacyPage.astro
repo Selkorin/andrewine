@@ -35,6 +35,18 @@ const heroRecordByFile: Record<string, string> = {
   'page136462246.html': 'rec2189792391',
 };
 
+const sectionRecordByFile: Record<string, string> = {
+  'page132437346.html': 'rec2127258581',
+  'page136045756.html': 'rec2186910541',
+  'page136045966.html': 'rec2187315621',
+  'page136046316.html': 'rec2187446001',
+  'page136046936.html': 'rec2187546781',
+  'page136047606.html': 'rec2187648331',
+  'page136048186.html': 'rec2187723531',
+  'page136049296.html': 'rec2187763411',
+  'page136462246.html': 'rec2189803901',
+};
+
 const brandRailMarkup = (variant: 'hero' | 'section') =>
   `<div class="brand-rail brand-rail--${variant}" aria-hidden="true"><span class="brand-rail__line"></span><span class="brand-rail__copy"><span class="brand-rail__brand">ANDREWINE</span><small>Выкуп элитного алкоголя</small></span><span class="brand-rail__line"></span></div>`;
 
@@ -100,8 +112,9 @@ if (heroRecord) {
   contentBeforeFooter = injectBrandRail(contentBeforeFooter, heroRecord, 'hero');
 }
 
-if (editorial) {
-  contentBeforeFooter = injectBrandRail(contentBeforeFooter, 'rec2127258581', 'section');
+const sectionRecord = sectionRecordByFile[file];
+if (sectionRecord) {
+  contentBeforeFooter = injectBrandRail(contentBeforeFooter, sectionRecord, 'section');
 }
 ---
 
@@ -118,10 +131,12 @@ if (editorial) {
     <Fragment set:html={footerAndScripts} />
     <script is:inline>
       (() => {
-        const alignHeroRails = () => {
-          document.querySelectorAll('[data-brand-rail-host="hero"]').forEach((host) => {
-            const rail = host.querySelector('.brand-rail--hero');
-            const redBand = host.querySelector('.tn-elem[data-elem-id="1776082148255"]');
+        const alignBrandRails = () => {
+          document.querySelectorAll('[data-brand-rail-host]').forEach((host) => {
+            const variant = host.getAttribute('data-brand-rail-host');
+            const rail = host.querySelector('.brand-rail');
+            const redBandId = variant === 'hero' ? '1776082148255' : '1775516228225';
+            const redBand = host.querySelector(`.tn-elem[data-elem-id="${redBandId}"]`);
             if (!(rail instanceof HTMLElement) || !(redBand instanceof HTMLElement)) return;
             const hostBox = host.getBoundingClientRect();
             const bandBox = redBand.getBoundingClientRect();
@@ -131,12 +146,12 @@ if (editorial) {
             rail.dataset.aligned = 'true';
           });
         };
-        requestAnimationFrame(alignHeroRails);
-        window.addEventListener('load', alignHeroRails, { once: true });
-        window.addEventListener('resize', alignHeroRails, { passive: true });
+        requestAnimationFrame(alignBrandRails);
+        window.addEventListener('load', alignBrandRails, { once: true });
+        window.addEventListener('resize', alignBrandRails, { passive: true });
         if ('ResizeObserver' in window) {
-          const observer = new ResizeObserver(alignHeroRails);
-          document.querySelectorAll('[data-brand-rail-host="hero"]').forEach((host) => observer.observe(host));
+          const observer = new ResizeObserver(alignBrandRails);
+          document.querySelectorAll('[data-brand-rail-host]').forEach((host) => observer.observe(host));
         }
       })();
     </script>

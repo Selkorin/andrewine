@@ -165,19 +165,16 @@ html{scroll-behavior:smooth}body.t-body{overflow-x:hidden}.t-body img{max-width:
 .legacy-page .tn-elem[data-elem-id="1775513886142"],.legacy-page .tn-elem[data-elem-id="1775516110039"],.legacy-page .tn-elem[data-elem-id="1776732857531000002"],.legacy-page .tn-elem[data-elem-id="1776736645825000001"],.legacy-page .tn-elem[data-elem-id="1775825878179000001"]{display:none!important}
 
 /* Home page: quiet editorial finish and a footer-adjacent FAQ */
-.legacy-page [data-brand-rail-host="hero"]{position:relative}
+.legacy-page [data-brand-rail-host]{position:relative}
 .legacy-page [data-brand-rail-host="hero"] .tn-elem[data-elem-id="1776082289291"]{display:none!important}
-.home-page #rec2127258581{position:relative}
 .home-page #rec2127258581 .tn-elem[data-elem-id="1775516194474"] img{clip-path:inset(0 0 0 11%)}
-.brand-rail{position:absolute;z-index:8;left:0;width:8vw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;pointer-events:none}
-.brand-rail--section{top:22%;bottom:19%}
-.brand-rail--hero{top:30%;height:30%;max-height:60%;gap:10px;opacity:0}
-.brand-rail--hero[data-aligned="true"]{opacity:1}
+.brand-rail{position:absolute;z-index:8;top:22%;left:0;width:8vw;height:56%;max-height:60%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;opacity:0;pointer-events:none}
+.brand-rail[data-aligned="true"]{opacity:1}
+.brand-rail--hero{gap:10px}
 .brand-rail__line{width:1px;min-height:28px;flex:1;background:currentColor;opacity:.78}
 .brand-rail--hero .brand-rail__line{min-height:20px}
 .brand-rail__copy{display:flex;align-items:center;justify-content:center;gap:12px}
-.brand-rail__brand{font-family:'Playfair Display',Georgia,serif;font-size:34px;font-weight:700;letter-spacing:.12em;line-height:1;text-transform:uppercase;white-space:nowrap;writing-mode:vertical-rl;transform:rotate(180deg)}
-.brand-rail--hero .brand-rail__brand{font-size:clamp(24px,1.66vw,34px)}
+.brand-rail__brand{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,1.66vw,34px);font-weight:700;letter-spacing:.12em;line-height:1;text-transform:uppercase;white-space:nowrap;writing-mode:vertical-rl;transform:rotate(180deg)}
 .brand-rail small{color:rgba(255,255,255,.62);font-family:'Manrope',Arial,sans-serif;font-size:clamp(12px,.8vw,16px);font-weight:700;letter-spacing:.08em;line-height:1;white-space:nowrap;writing-mode:vertical-rl;transform:rotate(180deg)}
 .home-page .editorial__inner{padding-left:0}
 .home-faq{padding:clamp(76px,8vw,116px) 28px;background:var(--paper);background-image:none;color:var(--ink);border-top:1px solid rgba(126,1,11,.28)}
