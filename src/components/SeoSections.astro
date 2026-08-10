@@ -1,31 +1,92 @@
 ---
 import { articles, faqs } from '../data/articles';
+
+const categories = [
+  ['all', 'Все статьи'],
+  ['wine', 'Вино'],
+  ['champagne', 'Шампанское'],
+  ['whisky', 'Виски'],
+  ['cognac', 'Коньяк'],
+];
+
+const articleCards = articles.map((article, index) => {
+  const articleText = [article.intro, ...article.sections.flatMap((section) => [section.title, ...section.paragraphs]), ...article.checklist, article.note].join(' ');
+  return { ...article, number: String(index + 1).padStart(2, '0'), readingMinutes: Math.max(3, Math.ceil(articleText.split(/\s+/).length / 180)) };
+});
 ---
 
-<section class="editorial" aria-labelledby="articles-title">
-  <div class="editorial__inner">
-    <p class="editorial__eyebrow">База знаний коллекционера</p>
-    <div class="editorial__heading">
-      <h2 id="articles-title">Популярные статьи об оценке алкоголя</h2>
-      <a href="./articles/">Все статьи <span aria-hidden="true">→</span></a>
+<section class="editorial home-journal" aria-labelledby="articles-title" data-home-journal>
+  <div class="home-journal__inner">
+    <header class="home-journal__header">
+      <div>
+        <p class="home-journal__kicker"><span>Журнал Andrewine</span><span>Архив коллекционера</span></p>
+        <p class="editorial__eyebrow">Истории, марки и оценка</p>
+        <h2 id="articles-title">Архив редких бутылок</h2>
+      </div>
+      <div class="home-journal__intro">
+        <p>Разбираем происхождение, состояние и детали выпуска без мифов и громких обещаний.</p>
+        <a href="./articles/">Открыть весь журнал <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <div class="home-journal__toolbar">
+      <div class="home-journal__filters" aria-label="Фильтр статей по виду алкоголя">
+        {categories.map(([value, label], index) => (
+          <button type="button" data-journal-filter={value} aria-pressed={index === 0 ? 'true' : 'false'}>{label}</button>
+        ))}
+      </div>
+      <p class="home-journal__count" aria-live="polite"><span data-journal-count>{articleCards.length} материалов</span></p>
     </div>
-    <div class="editorial__grid">
-      {articles.map((article) => (
-        <article class="article-card">
-          <a class="article-card__media" href={`./articles/${article.slug}/`} tabindex="-1" aria-hidden="true">
-            <img src={article.image} alt="" loading="lazy" decoding="async" width="800" height="600" />
+
+    <div class="home-journal__grid" data-journal-grid data-count={articleCards.length}>
+      {articleCards.map((article, index) => (
+        <article class="home-journal-card" data-journal-card data-category={article.category} data-layout={index === 0 ? 'feature' : index < 3 ? 'compact' : 'regular'}>
+          <a class="home-journal-card__media" href={`./articles/${article.slug}/`} aria-label={`Читать: ${article.title}`}>
+            <img src={article.image} alt={article.imageAlt} loading="lazy" decoding="async" width="900" height="680" />
+            <span class="home-journal-card__file" aria-hidden="true">Досье {article.number}</span>
           </a>
-          <div class="article-card__content">
-            <p>{article.eyebrow}</p>
+          <div class="home-journal-card__content">
+            <p class="home-journal-card__category">{article.eyebrow}</p>
             <h3><a href={`./articles/${article.slug}/`}>{article.title}</a></h3>
-            <p class="article-card__text">{article.description}</p>
-            <a class="article-card__link" href={`./articles/${article.slug}/`}>Читать статью <span aria-hidden="true">→</span></a>
+            <p class="home-journal-card__text">{article.description}</p>
+            <div class="home-journal-card__meta">
+              <span>{article.readingMinutes} минут чтения</span>
+              <a href={`./articles/${article.slug}/`} aria-label={`Читать статью: ${article.title}`}>Читать <span aria-hidden="true">↗</span></a>
+            </div>
           </div>
         </article>
       ))}
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (() => {
+    const section = document.querySelector('[data-home-journal]');
+    if (!section) return;
+    const buttons = Array.from(section.querySelectorAll('[data-journal-filter]'));
+    const cards = Array.from(section.querySelectorAll('[data-journal-card]'));
+    const grid = section.querySelector('[data-journal-grid]');
+    const count = section.querySelector('[data-journal-count]');
+    const countLabel = (value) => value === 1 ? '1 материал' : value > 1 && value < 5 ? `${value} материала` : `${value} материалов`;
+
+    const applyFilter = (category) => {
+      const visible = cards.filter((card) => category === 'all' || card.dataset.category === category);
+      cards.forEach((card) => {
+        card.hidden = !visible.includes(card);
+        card.dataset.layout = 'regular';
+      });
+      visible.forEach((card, index) => {
+        card.dataset.layout = index === 0 ? 'feature' : visible.length > 2 && index < 3 ? 'compact' : 'regular';
+      });
+      buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.journalFilter === category)));
+      if (grid) grid.dataset.count = String(visible.length);
+      if (count) count.textContent = countLabel(visible.length);
+    };
+
+    buttons.forEach((button) => button.addEventListener('click', () => applyFilter(button.dataset.journalFilter || 'all')));
+  })();
+</script>
 
 <section class="faq home-faq" aria-labelledby="faq-title">
   <div class="faq__inner home-faq__inner">

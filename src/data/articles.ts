@@ -1,6 +1,7 @@
 export const articles = [
   {
     slug: 'macallan-value',
+    category: 'whisky',
     title: 'Как оценить и продать виски Macallan',
     eyebrow: 'Коллекционный виски',
     description: 'Релиз, возраст, уровень напитка и комплектность: спокойный разбор признаков, которые действительно важны при оценке Macallan.',
@@ -19,6 +20,7 @@ export const articles = [
   },
   {
     slug: 'hennessy-louis-xiii',
+    category: 'cognac',
     title: 'Hennessy и Louis XIII: что ценят коллекционеры',
     eyebrow: 'Французский коньяк',
     description: 'Как отличать линейки, оценивать декантер, пробку и презентационную коробку у Hennessy и Rémy Martin Louis XIII.',
@@ -37,6 +39,7 @@ export const articles = [
   },
   {
     slug: 'soviet-cognac',
+    category: 'cognac',
     title: 'Советский коньяк: признаки коллекционной бутылки',
     eyebrow: 'Алкоголь СССР',
     description: 'Как читать год, завод, стандарт и оформление старой бутылки — без мифа, что любой советский алкоголь автоматически редкий.',
@@ -55,6 +58,7 @@ export const articles = [
   },
   {
     slug: 'rare-wine',
+    category: 'wine',
     title: 'Как подготовить редкое вино к оценке',
     eyebrow: 'Коллекционное вино',
     description: 'Производитель, винтаж, уровень, капсула и история хранения: что показать для первичной оценки редкой бутылки вина.',
@@ -73,6 +77,7 @@ export const articles = [
   },
   {
     slug: 'champagne-cristal-dom-perignon',
+    category: 'champagne',
     title: 'Cristal и Dom Pérignon: от чего зависит цена',
     eyebrow: 'Винтажное шампанское',
     description: 'Винтаж, уровень, фольга, этикетка и коробка: практический разбор состояния коллекционного шампанского.',
@@ -91,6 +96,7 @@ export const articles = [
   },
   {
     slug: 'photo-appraisal',
+    category: 'guide',
     title: '7 фотографий для точной онлайн-оценки бутылки',
     eyebrow: 'Практическое руководство',
     description: 'Готовая схема съёмки бутылки: семь кадров, которые дают оценщику больше информации, чем десятки случайных фотографий.',
