@@ -164,6 +164,7 @@ html{scroll-behavior:smooth}body.t-body{overflow-x:hidden}.t-body img{max-width:
 .legacy-page img[src*="section-line.svg"],.legacy-page img[data-original*="section-line.svg"],.legacy-page img[src*="experience-badge.svg"],.legacy-page img[data-original*="experience-badge.svg"]{visibility:hidden!important;opacity:0!important}
 .legacy-page .tn-elem[data-elem-type="image"][data-field-filewidth-value="9"][data-field-fileheight-value="512"]{display:none!important}
 .legacy-page .tn-elem[data-elem-id="1775513886142"],.legacy-page .tn-elem[data-elem-id="1775516110039"],.legacy-page .tn-elem[data-elem-id="1776732857531000002"],.legacy-page .tn-elem[data-elem-id="1776736645825000001"],.legacy-page .tn-elem[data-elem-id="1775825878179000001"]{display:none!important}
+.legacy-page .tn-group[data-group-id="1775825909238000002"]{display:none!important}
 
 /* Home page: quiet editorial finish and a footer-adjacent FAQ */
 .legacy-page [data-brand-rail-host]{position:relative}

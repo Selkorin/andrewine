@@ -142,7 +142,7 @@ if (sectionRecord) {
             const bandBox = redBand.getBoundingClientRect();
             const inset = Math.max(8, Math.min(22, bandBox.height * .04));
             const availableHeight = Math.max(0, bandBox.height - inset * 2);
-            const railHeight = Math.min(availableHeight, hostBox.height * .6);
+            const railHeight = Math.min(availableHeight, bandBox.height * .8, hostBox.height * .6);
             const centeredTop = bandBox.top - hostBox.top + (bandBox.height - railHeight) / 2;
             rail.style.top = `${centeredTop}px`;
             rail.style.height = `${railHeight}px`;
@@ -154,8 +154,15 @@ if (sectionRecord) {
         window.addEventListener('resize', alignBrandRails, { passive: true });
         if ('ResizeObserver' in window) {
           const observer = new ResizeObserver(alignBrandRails);
-          document.querySelectorAll('[data-brand-rail-host]').forEach((host) => observer.observe(host));
+          document.querySelectorAll('[data-brand-rail-host]').forEach((host) => {
+            observer.observe(host);
+            const variant = host.getAttribute('data-brand-rail-host');
+            const redBandId = variant === 'hero' ? '1776082148255' : '1775516228225';
+            const redBand = host.querySelector(`.tn-elem[data-elem-id="${redBandId}"]`);
+            if (redBand) observer.observe(redBand);
+          });
         }
+        document.fonts?.ready.then(alignBrandRails);
       })();
     </script>
   </body>
