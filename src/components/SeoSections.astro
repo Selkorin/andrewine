@@ -12,6 +12,7 @@ const categories = [
   ['rum', 'Ром'],
   ['vodka', 'Водка'],
   ['brandy', 'Бренди'],
+  ['guide', 'Гид по оценке'],
 ];
 
 const articleCards = articles.map((article, index) => {
@@ -43,7 +44,7 @@ const articleCards = articles.map((article, index) => {
       <p class="home-journal__count" aria-live="polite"><span data-journal-count>3 из {articleCards.length} материалов</span></p>
     </div>
 
-    <div class="home-journal__grid" data-journal-grid data-count={articleCards.length}>
+    <div class="home-journal__grid" data-journal-grid data-count={Math.min(3, articleCards.length)}>
       {articleCards.map((article, index) => (
         <article class="home-journal-card" data-journal-card data-category={article.category} data-layout={index === 0 ? 'feature' : index < 3 ? 'compact' : 'regular'} hidden={index >= 3}>
           <a class="home-journal-card__media" href={`./articles/${article.slug}/`} aria-label={`Читать: ${article.title}`}>
