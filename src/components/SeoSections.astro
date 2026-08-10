@@ -19,9 +19,11 @@ const articleCards = articles.map((article, index) => {
   const articleText = [article.intro, ...article.sections.flatMap((section) => [section.title, ...section.paragraphs]), ...article.checklist, article.note].join(' ');
   return { ...article, number: String(index + 1).padStart(2, '0'), readingMinutes: Math.max(3, Math.ceil(articleText.split(/\s+/).length / 180)) };
 });
+const journalBackgroundSrc = `.${journalBackground.src}`;
 ---
 
-<section class="editorial home-journal" aria-labelledby="articles-title" data-home-journal style={`--home-journal-bg:url("${journalBackground.src}")`}>
+<section class="editorial home-journal" aria-labelledby="articles-title" data-home-journal>
+  <img class="home-journal__backdrop" src={journalBackgroundSrc} alt="" aria-hidden="true" decoding="async" fetchpriority="low" width={journalBackground.width} height={journalBackground.height} />
   <div class="home-journal__inner">
     <header class="home-journal__header">
       <div>
