@@ -1,5 +1,6 @@
 ---
 import { articles, faqs } from '../data/articles';
+import journalBackground from '../assets/article-backgrounds/auction-archive.jpg';
 
 const categories = [
   ['all', 'Все статьи'],
@@ -7,6 +8,10 @@ const categories = [
   ['champagne', 'Шампанское'],
   ['whisky', 'Виски'],
   ['cognac', 'Коньяк'],
+  ['portwine', 'Портвейн'],
+  ['rum', 'Ром'],
+  ['vodka', 'Водка'],
+  ['brandy', 'Бренди'],
 ];
 
 const articleCards = articles.map((article, index) => {
@@ -15,7 +20,7 @@ const articleCards = articles.map((article, index) => {
 });
 ---
 
-<section class="editorial home-journal" aria-labelledby="articles-title" data-home-journal>
+<section class="editorial home-journal" aria-labelledby="articles-title" data-home-journal style={`--home-journal-bg:url("${journalBackground.src}")`}>
   <div class="home-journal__inner">
     <header class="home-journal__header">
       <div>

@@ -79,6 +79,10 @@ const packBySlug: Record<string, keyof typeof packs> = {
   'rare-wine': 'condition',
   'champagne-cristal-dom-perignon': 'condition',
   'photo-appraisal': 'photos',
+  'vintage-port-appraisal': 'condition',
+  'collectible-rum': 'value',
+  'soviet-vodka': 'value',
+  'brandy-identification': 'condition',
 };
 
 export function getArticleVisuals(slug: string, articleIndex: number) {

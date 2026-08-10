@@ -76,7 +76,7 @@ for (const articleFile of htmlFiles.filter(file => file.includes(`${path.sep}art
   }
 }
 
-if (htmlFiles.length !== 17) errors.push(`ожидалось 17 HTML-страниц, собрано ${htmlFiles.length}`);
+if (htmlFiles.length !== 21) errors.push(`ожидалось 21 HTML-страниц, собрано ${htmlFiles.length}`);
 
 if (errors.length) {
   console.error(`Проверка не пройдена:\n- ${errors.join('\n- ')}`);
