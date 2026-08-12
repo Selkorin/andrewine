@@ -343,12 +343,15 @@ body.t450__body_menushowed{overflow:hidden!important}
    swings open on hover to reveal the pages. The host <a> keeps Tilda's own pill
    styling, so it is flattened first. */
 a:has(.journal-book) .tn-atom,a:has(.journal-book){background-color:transparent!important;box-shadow:none!important}
-.journal-book{position:relative;display:inline-block;width:78px;height:34px}
-.journal-book__cover{position:absolute;z-index:1;inset:0;display:flex;align-items:center;justify-content:center;padding-left:7px;border-radius:2px 4px 4px 2px;background:linear-gradient(100deg,#5d0007 0 6px,var(--wine) 6px,#8d0511);box-shadow:0 2px 7px rgba(0,0,0,.34);transition:transform .25s ease,box-shadow .25s ease}
-.journal-book__cover::after{content:"";position:absolute;top:4px;right:3px;bottom:4px;width:2px;border-radius:2px;background:rgba(255,255,255,.22)}
-.journal-book__title{position:relative;color:#fff;font-family:'Georgia',serif;font-size:9px;font-weight:700;line-height:1;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
-.journal-book__mark{position:absolute;z-index:0;top:8px;right:13px;width:10px;height:36px;background:#fff;clip-path:polygon(0 0,100% 0,100% 100%,50% 74%,0 100%);filter:drop-shadow(0 2px 3px rgba(0,0,0,.32))}
-.journal-book__mark::after{content:"";position:absolute;inset:0 1.4px 1.6px;background:var(--wine-bright);clip-path:polygon(0 0,100% 0,100% 100%,50% 73%,0 100%)}
+/* The nav slot is a 181x30 pill; give it the book's square footprint instead, and
+   pull it up so the taller item stays centred in the 80px header bar. */
+.tn-elem:has(.journal-book){width:50px!important;height:50px!important;margin-top:-8px!important}
+.journal-book{position:relative;display:block;width:50px;height:50px}
+.journal-book__cover{position:absolute;z-index:1;inset:0;display:flex;align-items:center;justify-content:center;padding-left:6px;border-radius:2px 5px 5px 2px;background:linear-gradient(100deg,#570006 0 5px,var(--wine) 5px,#8d0511);box-shadow:0 3px 9px rgba(0,0,0,.38);transition:transform .25s ease,box-shadow .25s ease}
+.journal-book__cover::after{content:"";position:absolute;top:5px;right:3px;bottom:5px;width:2px;border-radius:2px;background:rgba(255,255,255,.22)}
+.journal-book__title{position:relative;color:#fff;font-family:'Georgia',serif;font-size:9px;font-weight:700;line-height:1;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
+.journal-book__mark{position:absolute;z-index:0;top:6px;bottom:-10px;right:11px;width:10px;background:#fff;clip-path:polygon(0 0,100% 0,100% 100%,50% 93%,0 100%);filter:drop-shadow(0 2px 3px rgba(0,0,0,.32))}
+.journal-book__mark::after{content:"";position:absolute;inset:0 1.5px 1.6px;background:var(--wine-bright);clip-path:polygon(0 0,100% 0,100% 100%,50% 92%,0 100%)}
 a:hover .journal-book__cover,a:focus-visible .journal-book__cover{transform:translateY(-1px);box-shadow:0 4px 11px rgba(0,0,0,.4)}
 @media(prefers-reduced-motion:reduce){.journal-book__cover{transition:none}}
 
