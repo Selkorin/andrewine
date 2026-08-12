@@ -144,14 +144,12 @@ if (categoryFaq) {
       (() => {
         // Opening an answer would otherwise grow the FAQ section and shove the
         // rest of the page down. Reserve the height of the tallest answer up
-        // front, so expanding an item never moves the frame around it. Narrow
-        // viewports keep the natural height — reserving there just leaves a gap.
+        // front, at every width, so expanding an item never moves the frame.
         document.querySelectorAll('.category-faq .home-faq__list').forEach((list) => {
           const items = Array.from(list.querySelectorAll('details'));
           if (!items.length) return;
           const reserveHeight = () => {
             list.style.height = 'auto';
-            if (window.innerWidth <= 639) return;
             const openBefore = items.map((item) => item.open);
             items.forEach((item) => { item.open = false; });
             let tallest = list.offsetHeight;
@@ -163,9 +161,14 @@ if (categoryFaq) {
             items.forEach((item, index) => { item.open = openBefore[index]; });
             list.style.height = `${tallest}px`;
           };
+          // Answer heights change as webfonts swap in and Tilda finishes laying
+          // the page out, and a lock taken too early reserves too little. Re-run
+          // on every signal that the layout may have settled.
           requestAnimationFrame(reserveHeight);
           document.fonts?.ready.then(reserveHeight);
+          window.addEventListener('load', reserveHeight);
           window.addEventListener('resize', reserveHeight, { passive: true });
+          [300, 1000, 2500].forEach((delay) => setTimeout(reserveHeight, delay));
         });
 
         document.querySelectorAll('[data-brand-rail-host="hero"]').forEach((host) => {
