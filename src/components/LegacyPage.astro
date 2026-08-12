@@ -134,7 +134,9 @@ if (sectionRecord) {
         document.querySelectorAll('[data-brand-rail-host="hero"]').forEach((host) => {
           const title = host.querySelector('.tn-elem[data-elem-id="1776083437912000010"] .tn-atom');
           if (title instanceof HTMLElement) {
-            title.dataset.heroOutline = title.textContent?.trim() ?? '';
+            const echo = title.cloneNode(true);
+            echo.querySelectorAll('br').forEach((br) => br.replaceWith('\n'));
+            title.dataset.heroOutline = echo.textContent?.trim() ?? '';
           }
         });
         const alignBrandRails = () => {
