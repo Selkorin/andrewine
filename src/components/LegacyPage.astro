@@ -142,6 +142,32 @@ if (categoryFaq) {
     <Fragment set:html={footerAndScripts} />
     <script is:inline>
       (() => {
+        // Opening an answer would otherwise grow the FAQ section and shove the
+        // rest of the page down. Reserve the height of the tallest answer up
+        // front, so expanding an item never moves the frame around it. Narrow
+        // viewports keep the natural height — reserving there just leaves a gap.
+        document.querySelectorAll('.category-faq .home-faq__list').forEach((list) => {
+          const items = Array.from(list.querySelectorAll('details'));
+          if (!items.length) return;
+          const reserveHeight = () => {
+            list.style.height = 'auto';
+            if (window.innerWidth <= 639) return;
+            const openBefore = items.map((item) => item.open);
+            items.forEach((item) => { item.open = false; });
+            let tallest = list.offsetHeight;
+            items.forEach((item) => {
+              item.open = true;
+              tallest = Math.max(tallest, list.offsetHeight);
+              item.open = false;
+            });
+            items.forEach((item, index) => { item.open = openBefore[index]; });
+            list.style.height = `${tallest}px`;
+          };
+          requestAnimationFrame(reserveHeight);
+          document.fonts?.ready.then(reserveHeight);
+          window.addEventListener('resize', reserveHeight, { passive: true });
+        });
+
         document.querySelectorAll('[data-brand-rail-host="hero"]').forEach((host) => {
           const title = host.querySelector('.tn-elem[data-elem-id="1776083437912000010"] .tn-atom');
           if (title instanceof HTMLElement) {
