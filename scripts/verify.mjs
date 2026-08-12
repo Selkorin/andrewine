@@ -45,7 +45,11 @@ async function collectHtml(directory) {
   return result;
 }
 
-const htmlFiles = await collectHtml(root);
+// Pages under preview/ are work-in-progress views of the rewritten chrome and
+// deliberately carry neither the Tilda header nor its footer.
+const isPreview = (file) => path.relative(root, file).startsWith('preview-');
+
+const htmlFiles = (await collectHtml(root)).filter((file) => !isPreview(file));
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const route = path.relative(root, file);
