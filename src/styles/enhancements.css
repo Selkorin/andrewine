@@ -338,3 +338,16 @@ body.t450__body_menushowed{overflow:hidden!important}
   .legacy-page [data-brand-rail-host="hero"] .tn-elem[data-elem-id="1776083040298000007"] .tn-atom{font-size:12px!important}
   .legacy-page [data-brand-rail-host="hero"] .tn-elem[data-elem-id="1776083148210"]{top:792px!important;left:20px!important;width:calc(100vw - 40px)!important}
 }
+
+/* Category SEO copy (Tilda T123 raw-HTML record: bare h1/h2/h3/p with no Tilda typography classes) */
+.legacy-page .t123{position:relative;isolation:isolate;padding:clamp(64px,7vw,104px) 28px;background:var(--paper);color:var(--ink);font-family:'Manrope',Arial,sans-serif}
+.legacy-page .t123::before{content:"";position:absolute;z-index:-1;inset:0;background-image:var(--texture);background-size:1680px 105px;background-repeat:repeat;opacity:.055;mix-blend-mode:multiply;filter:grayscale(1)}
+.legacy-page .t123 .t-container_100{width:min(1180px,100%);margin:0 auto}
+.legacy-page .t123 .t-width{width:100%;padding-left:96px}
+.legacy-page .t123 h1{max-width:900px;margin:0 0 8px;padding-top:22px;border-top:1px solid var(--wine);font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,4.4vw,56px);line-height:1.05;font-weight:700;letter-spacing:-.025em}
+.legacy-page .t123 h2{max-width:820px;margin:54px 0 20px;padding-top:20px;border-top:1px solid rgba(126,1,11,.26);font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,3vw,38px);line-height:1.12;font-weight:700;letter-spacing:-.02em}
+.legacy-page .t123 h3{margin:26px 0 6px;color:var(--wine);font-family:'Manrope',Arial,sans-serif;font-size:13px;line-height:1.4;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.legacy-page .t123 p{max-width:820px;margin:0 0 14px;color:#4d4845;font-size:17px;line-height:1.68}
+.legacy-page .t123 h3+p{margin-bottom:22px}
+@media(max-width:1199px){.legacy-page .t123 .t-width{padding-left:0}}
+@media(max-width:639px){.legacy-page .t123{padding:52px 18px}.legacy-page .t123 h1{font-size:clamp(29px,7.6vw,38px)}.legacy-page .t123 h2{margin-top:42px;font-size:clamp(23px,5.6vw,30px)}.legacy-page .t123 p{font-size:16px}}
