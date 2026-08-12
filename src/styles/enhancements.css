@@ -339,6 +339,11 @@ body.t450__body_menushowed{overflow:hidden!important}
   .legacy-page [data-brand-rail-host="hero"] .tn-elem[data-elem-id="1776083148210"]{top:792px!important;left:20px!important;width:calc(100vw - 40px)!important}
 }
 
+/* Category journal block: the article-page "related" section reused on landings */
+.legacy-page .category-articles__more{display:inline-flex;align-items:center;gap:10px;margin-top:38px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.5);color:#fff;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;transition:border-color .2s ease}
+.legacy-page .category-articles__more:hover{border-color:#fff}
+@media(max-width:639px){.legacy-page .category-articles__more{margin-top:30px}}
+
 /* Category FAQ: the Tilda T123 raw-HTML record rebuilt as the home-page accordion */
 .legacy-page .t123,.legacy-page .t123 .t-container_100,.legacy-page .t123 .t-width{width:100%;max-width:none;margin:0;padding:0}
 .legacy-page .category-faq .home-faq__list{align-content:start}

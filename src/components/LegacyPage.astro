@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import SeoSections from './SeoSections.astro';
+import CategoryArticles from './CategoryArticles.astro';
 import enhancementsCss from '../styles/enhancements.css?raw';
 import { rewriteLegacyLinks } from '../lib/legacyChrome';
 import { rebuildLegacyCategoryFaq, renderCategoryFaqFromData } from '../lib/categoryFaq';
@@ -35,6 +36,19 @@ const heroRecordByFile: Record<string, string> = {
   'page136048186.html': 'rec2187722761',
   'page136049296.html': 'rec2187785841',
   'page136462246.html': 'rec2189792391',
+};
+
+// Which journal category each landing page belongs to, and how the category
+// reads after "Статьи о ...".
+const journalCategoryByFile: Record<string, { category: string; label: string }> = {
+  'page136462246.html': { category: 'wine', label: 'вине' },
+  'page136045756.html': { category: 'champagne', label: 'шампанском' },
+  'page136045966.html': { category: 'whisky', label: 'виски' },
+  'page136046316.html': { category: 'cognac', label: 'коньяке' },
+  'page136046936.html': { category: 'portwine', label: 'портвейне' },
+  'page136047606.html': { category: 'rum', label: 'роме' },
+  'page136048186.html': { category: 'vodka', label: 'водке' },
+  'page136049296.html': { category: 'brandy', label: 'бренди' },
 };
 
 const sectionRecordByFile: Record<string, string> = {
@@ -127,6 +141,9 @@ const categoryFaq = categoryFaqs[file];
 if (categoryFaq) {
   contentBeforeFooter += renderCategoryFaqFromData(categoryFaq.title, categoryFaq.items);
 }
+
+const journalCategory = journalCategoryByFile[file];
+const journalIndex = Object.keys(journalCategoryByFile).indexOf(file);
 ---
 
 <!doctype html>
@@ -139,6 +156,7 @@ if (categoryFaq) {
   <body class:list={['t-body', 'legacy-page', { 'home-page': editorial }]} style="margin:0;">
     <Fragment set:html={contentBeforeFooter} />
     {editorial && <SeoSections />}
+    {journalCategory && <CategoryArticles category={journalCategory.category} label={journalCategory.label} root={root} index={journalIndex} />}
     <Fragment set:html={footerAndScripts} />
     <script is:inline>
       (() => {

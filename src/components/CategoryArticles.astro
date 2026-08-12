@@ -1,0 +1,43 @@
+---
+import { articles } from '../data/articles';
+import { articleBackgrounds } from '../data/articleVisuals';
+
+interface Props {
+  category: string;
+  label: string;
+  root: string;
+  index: number;
+}
+
+const { category, label, root, index } = Astro.props;
+
+// Each category has one article of its own (cognac has two). The appraisal
+// guide applies to every category, so it rounds the block out instead of
+// padding with unrelated material.
+const own = articles.filter((article) => article.category === category);
+const guides = articles.filter((article) => article.category === 'guide');
+const items = [...own, ...guides];
+
+const background = articleBackgrounds[index % articleBackgrounds.length];
+const backgroundUrl = `${root}${background.src.replace(/^\//, '')}`;
+const articleUrl = (slug: string) => `${root}articles/${slug}/`;
+---
+
+<section class="related-articles category-articles" aria-labelledby="category-articles-title" style={`--article-related-bg:url("${backgroundUrl}")`}>
+  <div class="related-articles__heading">
+    <p class="editorial__eyebrow">Журнал Andrewine</p>
+    <h2 id="category-articles-title">Статьи о {label}</h2>
+  </div>
+  <div class="related-articles__grid" data-count={items.length}>
+    {items.map((item) => (
+      <article>
+        <a class="related-articles__media" href={articleUrl(item.slug)} aria-label={`Читать: ${item.title}`}>
+          <img src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" width="600" height="450" />
+        </a>
+        <p>{item.eyebrow}</p>
+        <h3><a href={articleUrl(item.slug)}>{item.title}</a></h3>
+      </article>
+    ))}
+  </div>
+  <a class="category-articles__more" href={`${root}articles/`}>Открыть весь журнал <span aria-hidden="true">↗</span></a>
+</section>
