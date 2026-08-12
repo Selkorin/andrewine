@@ -57,10 +57,9 @@ export function rewriteLegacyLinks(markup: string, root = './') {
       .replaceAll(`href=${quote}#request${quote}`, `href=${quote}${localRoot}#request${quote}`);
   }
 
-  // The old "ЭЛИТНЫЙ АЛКОГОЛЬ" nav item now leads to the journal, so it carries a
-  // book that opens on hover. The cover is transparent with a thick spine, which
-  // keeps it readable on whatever the menu background happens to be.
-  const label = '<span class="journal-book"><span class="journal-book__pages" aria-hidden="true"><i></i><i></i><i></i></span><span class="journal-book__cover"><span class="journal-book__face journal-book__face--front"><span class="journal-book__title">СТАТЬИ</span></span><span class="journal-book__face journal-book__face--back" aria-hidden="true"></span></span></span>';
+  // The old "ЭЛИТНЫЙ АЛКОГОЛЬ" nav item now leads to the journal, and is drawn as
+  // a closed book: the title sits on the cover, with a ribbon marker tucked in.
+  const label = '<span class="journal-book"><span class="journal-book__cover"><span class="journal-book__title">СТАТЬИ</span></span><span class="journal-book__mark" aria-hidden="true"></span></span>';
 
   result = result
     .replaceAll('>ЭЛИТНЫЙ АЛКОГОЛЬ</span>', `>${label}</span>`)
