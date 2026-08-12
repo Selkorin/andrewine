@@ -14,6 +14,9 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 
 const LEGACY_DIR = 'src/legacy';
+// Our own files reference a few Tilda images too — the paper texture in the
+// stylesheet and four article photos — so they get vendored alongside the export.
+const EXTRA_SOURCES = ['src/styles/enhancements.css', 'src/data/articles.ts'];
 const VENDOR_DIR = 'public/vendor/tilda';
 const PUBLIC_PREFIX = '__ROOT__vendor/tilda';
 const TILDA_URL = /https?:\/\/[a-z0-9.-]*tildacdn\.[a-z]+\/[^\s"'()\\<>]+/gi;
@@ -67,12 +70,20 @@ const sources = new Map();
 const queue = new Set();
 
 for (const page of pages) {
-  const html = await readFile(path.join(LEGACY_DIR, page), 'utf8');
-  sources.set(page, html);
+  const file = path.join(LEGACY_DIR, page);
+  const html = await readFile(file, 'utf8');
+  sources.set(file, html);
   for (const url of html.match(TILDA_URL) ?? []) queue.add(url);
 }
 
-console.log(`Страниц: ${pages.length}. Ссылок на tildacdn: ${queue.size}.`);
+for (const file of EXTRA_SOURCES) {
+  if (!existsSync(file)) continue;
+  const text = await readFile(file, 'utf8');
+  sources.set(file, text);
+  for (const url of text.match(TILDA_URL) ?? []) queue.add(url);
+}
+
+console.log(`Файлов: ${sources.size}. Ссылок на tildacdn: ${queue.size}.`);
 if (dryRun) {
   for (const url of [...queue].sort()) console.log('  ', url);
   process.exit(0);
@@ -113,9 +124,9 @@ while (queue.size) {
   cssRewritten += 1;
 }
 
-for (const [page, html] of sources) {
-  const rewritten = html.replace(TILDA_URL, (url) => (done.has(url) && !failed.some((f) => f.startsWith(url)) ? publicPathFor(url) : url));
-  if (rewritten !== html) await writeFile(path.join(LEGACY_DIR, page), rewritten, 'utf8');
+for (const [file, text] of sources) {
+  const rewritten = text.replace(TILDA_URL, (url) => (done.has(url) && !failed.some((f) => f.startsWith(url)) ? publicPathFor(url) : url));
+  if (rewritten !== text) await writeFile(file, rewritten, 'utf8');
 }
 
 console.log(`Загружено: ${done.size - failed.length}. Стилей переписано: ${cssRewritten}.`);

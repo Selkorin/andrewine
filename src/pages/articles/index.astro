@@ -1,6 +1,7 @@
 ---
 import { articles } from '../../data/articles';
 import enhancementsCss from '../../styles/enhancements.css?raw';
+import { resolveVendorPaths } from '../../lib/legacyChrome';
 import OriginalHeader from '../../components/OriginalHeader.astro';
 import OriginalFooter from '../../components/OriginalFooter.astro';
 import TildaChromeHead from '../../components/TildaChromeHead.astro';
@@ -16,7 +17,7 @@ const [featured, ...remainingArticles] = articles;
     <meta name="description" content="Практические статьи об оценке коллекционного виски, коньяка, вина и шампанского: бренды, винтажи, состояние и фотографии." />
     <link rel="canonical" href="https://andrewine.ru/articles/" />
     <TildaChromeHead root="../" />
-    <style is:inline set:html={enhancementsCss} />
+    <style is:inline set:html={resolveVendorPaths(enhancementsCss, "../")} />
   </head>
   <body class="t-body article-page">
     <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
@@ -30,7 +31,7 @@ const [featured, ...remainingArticles] = articles;
         <p class="article-lead">Марки, винтажи, состояние и происхождение — редакционный взгляд на то, что делает бутылку коллекционной.</p>
       </div>
       <article class="magazine-feature">
-        <a class="magazine-feature__media" href={`./${featured.slug}/`}><img src={featured.image} alt={featured.imageAlt} decoding="async" fetchpriority="high" width="1200" height="800" /></a>
+        <a class="magazine-feature__media" href={`./${featured.slug}/`}><img src={resolveVendorPaths(featured.image, "../")} alt={featured.imageAlt} decoding="async" fetchpriority="high" width="1200" height="800" /></a>
         <div class="magazine-feature__copy">
           <p class="editorial__eyebrow">Материал номера · {featured.eyebrow}</p>
           <h2><a href={`./${featured.slug}/`}>{featured.title}</a></h2>
@@ -42,7 +43,7 @@ const [featured, ...remainingArticles] = articles;
       <div class="editorial__grid magazine-grid">
         {remainingArticles.map((article, index) => (
           <article class="article-card">
-            <a class="article-card__media" href={`./${article.slug}/`} tabindex="-1" aria-hidden="true"><img src={article.image} alt="" loading="lazy" decoding="async" width="800" height="600" /></a>
+            <a class="article-card__media" href={`./${article.slug}/`} tabindex="-1" aria-hidden="true"><img src={resolveVendorPaths(article.image, "../")} alt="" loading="lazy" decoding="async" width="800" height="600" /></a>
             <div class="article-card__content">
               <p><span>0{index + 2}</span> {article.eyebrow}</p>
               <h2><a href={`./${article.slug}/`}>{article.title}</a></h2>

@@ -3,6 +3,7 @@ import OriginalHeader from '../components/OriginalHeader.astro';
 import OriginalFooter from '../components/OriginalFooter.astro';
 import TildaChromeHead from '../components/TildaChromeHead.astro';
 import enhancementsCss from '../styles/enhancements.css?raw';
+import { resolveVendorPaths } from '../lib/legacyChrome';
 ---
 
 <!doctype html>
@@ -13,7 +14,7 @@ import enhancementsCss from '../styles/enhancements.css?raw';
     <meta name="robots" content="noindex,follow" />
     <title>Страница не найдена | Andrewine</title>
     <TildaChromeHead root="./" />
-    <style is:inline set:html={enhancementsCss} />
+    <style is:inline set:html={resolveVendorPaths(enhancementsCss, "./")} />
   </head>
   <body class="t-body article-page">
     <div id="allrecords" class="t-records" data-tilda-project-id="22260796">

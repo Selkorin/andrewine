@@ -1,5 +1,6 @@
 ---
 import { articles, faqs } from '../data/articles';
+import { resolveVendorPaths } from '../lib/legacyChrome';
 import journalBackground from '../assets/article-backgrounds/chicago-library-archive.jpg';
 
 const categories = [
@@ -51,7 +52,7 @@ const journalBackgroundSrc = `.${journalBackground.src}`;
       {articleCards.map((article, index) => (
         <article class="home-journal-card" data-journal-card data-category={article.category} data-layout={index === 0 ? 'feature' : index < 3 ? 'compact' : 'regular'} hidden={index >= 3}>
           <a class="home-journal-card__media" href={`./articles/${article.slug}/`} aria-label={`Читать: ${article.title}`}>
-            <img src={article.image} alt={article.imageAlt} loading="lazy" decoding="async" width="900" height="680" />
+            <img src={resolveVendorPaths(article.image, "./")} alt={article.imageAlt} loading="lazy" decoding="async" width="900" height="680" />
             <span class="home-journal-card__file" aria-hidden="true">Досье {article.number}</span>
           </a>
           <div class="home-journal-card__content">

@@ -149,7 +149,7 @@ const journalIndex = Object.keys(journalCategoryByFile).indexOf(file);
 <html lang="ru">
   <head>
     <Fragment set:html={head} />
-    <style is:inline set:html={enhancementsCss} />
+    <style is:inline set:html={resolveVendorPaths(enhancementsCss, root)} />
     <style is:global id="tilda-records-visibility-fix">.t-records{opacity:1!important}</style>
   </head>
   <body class:list={['t-body', 'legacy-page', { 'home-page': editorial }]} style="margin:0;">

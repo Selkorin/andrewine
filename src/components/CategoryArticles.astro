@@ -1,6 +1,7 @@
 ---
 import { articles } from '../data/articles';
 import { articleBackgrounds } from '../data/articleVisuals';
+import { resolveVendorPaths } from '../lib/legacyChrome';
 
 interface Props {
   category: string;
@@ -32,7 +33,7 @@ const articleUrl = (slug: string) => `${root}articles/${slug}/`;
     {items.map((item) => (
       <article>
         <a class="related-articles__media" href={articleUrl(item.slug)} aria-label={`Читать: ${item.title}`}>
-          <img src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" width="600" height="450" />
+          <img src={resolveVendorPaths(item.image, root)} alt={item.imageAlt} loading="lazy" decoding="async" width="600" height="450" />
         </a>
         <p>{item.eyebrow}</p>
         <h3><a href={articleUrl(item.slug)}>{item.title}</a></h3>
