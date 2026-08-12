@@ -110,11 +110,10 @@ source = source
   .replaceAll('</script></script></style>', '</script>')
   .replaceAll('</script></script><!-- nominify end -->', '</script><!-- nominify end -->');
 
-source = source
-  .replaceAll('href="https://andrewine.ru/premium_alcohol"', 'href="https://andrewine.ru/"')
-  .replaceAll("href='https://andrewine.ru/premium_alcohol'", "href='https://andrewine.ru/'")
-  .replaceAll('href="/premium_alcohol"', 'href="/"')
-  .replaceAll("href='/premium_alcohol'", "href='/'");
+// The retired /premium_alcohol route used to be sent to the home page here, which
+// ran before rewriteLegacyLinks could point it at the journal — so the menu item
+// reading "СТАТЬИ" landed on the home page. Leave the hrefs alone and let
+// rewriteLegacyLinks map them to the articles index.
 
 const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
 const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';

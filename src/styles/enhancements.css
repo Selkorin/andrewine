@@ -339,6 +339,17 @@ body.t450__body_menushowed{overflow:hidden!important}
   .legacy-page [data-brand-rail-host="hero"] .tn-elem[data-elem-id="1776083148210"]{top:792px!important;left:20px!important;width:calc(100vw - 40px)!important}
 }
 
+/* Journal nav item: a book whose cover swings open on hover */
+.journal-book{position:relative;display:inline-block;flex:none;width:17px;height:13px;margin:0 9px 0 5px;vertical-align:-2px;perspective:70px}
+.journal-book__pages{position:absolute;inset:0 0 0 3px;border:1px solid currentColor;border-left:0;border-radius:0 2px 2px 0;opacity:0;transition:opacity .2s ease .12s}
+.journal-book__pages::before{content:"";position:absolute;left:3px;right:3px;top:3px;height:1px;background:currentColor;box-shadow:0 4px 0 currentColor;opacity:.75}
+.journal-book__cover{position:absolute;inset:0;border:1px solid currentColor;border-left:3px solid currentColor;border-radius:2px;transform-origin:left center;transform:rotateY(0deg);transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+.journal-book__cover::after{content:"";position:absolute;top:2px;right:2px;bottom:2px;width:1px;background:currentColor;opacity:.45}
+.journal-book__label{display:inline}
+a:hover .journal-book__cover,a:focus-visible .journal-book__cover{transform:rotateY(-112deg)}
+a:hover .journal-book__pages,a:focus-visible .journal-book__pages{opacity:1}
+@media(prefers-reduced-motion:reduce){.journal-book__cover,.journal-book__pages{transition:none}}
+
 /* Category journal block: the article-page "related" section reused on landings */
 .legacy-page .category-articles__more{display:inline-flex;align-items:center;gap:10px;margin-top:38px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.5);color:#fff;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;transition:border-color .2s ease}
 .legacy-page .category-articles__more:hover{border-color:#fff}
