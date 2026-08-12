@@ -342,19 +342,6 @@ body.t450__body_menushowed{overflow:hidden!important}
 /* Journal nav item rendered as a book: the title sits on the cover, and the cover
    swings open on hover to reveal the pages. The host <a> keeps Tilda's own pill
    styling, so it is flattened first. */
-/* Neutralise Tilda's pill on the journal slot without touching its box: changing
-   the slot's width reflows the menu row, and its 30px border-radius turns a
-   square child into a circle. Scoped by elem id so it beats Tilda's own rules. */
-.tn-elem[data-elem-id="1775511056659"] .tn-atom,.tn-elem[data-elem-id="1775511056659"] > a{position:relative!important;display:block!important;width:100%!important;height:100%!important;min-height:30px!important;background:none!important;background-color:transparent!important;border:0!important;border-radius:0!important;overflow:visible!important;box-shadow:none!important}
-.journal-book{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px}
-.journal-book__cover{position:absolute;z-index:1;inset:0;display:flex;align-items:center;justify-content:center;padding-left:6px;border-radius:2px 5px 5px 2px;background:linear-gradient(100deg,#570006 0 5px,var(--wine) 5px,#8d0511);box-shadow:0 3px 9px rgba(0,0,0,.38);transition:transform .25s ease,box-shadow .25s ease}
-.journal-book__cover::after{content:"";position:absolute;top:5px;right:3px;bottom:5px;width:2px;border-radius:2px;background:rgba(255,255,255,.22)}
-.journal-book__title{position:relative;color:#fff;font-family:'Georgia',serif;font-size:8px;font-weight:700;line-height:1;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
-.journal-book__mark{position:absolute;z-index:0;top:6px;bottom:-10px;right:11px;width:10px;background:#fff;clip-path:polygon(0 0,100% 0,100% 100%,50% 93%,0 100%);filter:drop-shadow(0 2px 3px rgba(0,0,0,.32))}
-.journal-book__mark::after{content:"";position:absolute;inset:0 1.5px 1.6px;background:var(--wine-bright);clip-path:polygon(0 0,100% 0,100% 100%,50% 92%,0 100%)}
-a:hover .journal-book__cover,a:focus-visible .journal-book__cover{transform:translateY(-1px);box-shadow:0 4px 11px rgba(0,0,0,.4)}
-@media(prefers-reduced-motion:reduce){.journal-book__cover{transition:none}}
-
 /* Category journal block: the article-page "related" section reused on landings */
 .legacy-page .category-articles__more{display:inline-flex;align-items:center;gap:10px;margin-top:38px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.5);color:#fff;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;transition:border-color .2s ease}
 .legacy-page .category-articles__more:hover{border-color:#fff}

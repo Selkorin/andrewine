@@ -1,0 +1,49 @@
+name: Vendor Tilda assets
+
+# One-off maintenance run: downloads everything the export still pulls from
+# tildacdn.com into public/vendor/tilda/, rewrites the legacy HTML to the local
+# copies, and commits the result. Runs here because the network this repository
+# is developed against cannot reach tildacdn.com.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download Tilda assets and rewrite references
+        run: node scripts/vendor-tilda.mjs
+
+      - name: Build and verify with the vendored assets
+        run: ASTRO_TELEMETRY_DISABLED=1 npm run build
+
+      - name: Report anything still pointing at tildacdn
+        run: |
+          echo "Оставшиеся ссылки на tildacdn в src/legacy:"
+          grep -roh 'https\?://[a-z0-9.-]*tildacdn\.[a-z]*/[^"'"'"' ]*' src/legacy | sort -u | tee /tmp/left.txt
+          echo "Всего: $(wc -l < /tmp/left.txt)"
+
+      - name: Commit the vendored assets
+        run: |
+          git config user.name "Claude"
+          git config user.email "noreply@anthropic.com"
+          git add public/vendor/tilda src/legacy
+          if git diff --cached --quiet; then
+            echo "Нечего коммитить — ассеты уже локальные."
+            exit 0
+          fi
+          git commit -m "Vendor Tilda assets so the site stops calling tildacdn"
+          git push

@@ -28,9 +28,16 @@ function normalizeRoot(root: string) {
   return root.endsWith('/') ? root : `${root}/`;
 }
 
+// vendor-tilda.mjs rewrites tildacdn URLs to "__ROOT__vendor/tilda/...". The token
+// is resolved per page because the site is served from the domain root on
+// andrewine.ru but from a subdirectory on GitHub Pages.
+export function resolveVendorPaths(markup: string, root = './') {
+  return markup.replaceAll('__ROOT__', normalizeRoot(root));
+}
+
 export function rewriteLegacyLinks(markup: string, root = './') {
   const localRoot = normalizeRoot(root);
-  let result = markup;
+  let result = resolveVendorPaths(markup, root);
 
   for (const domain of oldDomains) result = result.replaceAll(domain, 'https://andrewine.ru');
 
@@ -57,9 +64,12 @@ export function rewriteLegacyLinks(markup: string, root = './') {
       .replaceAll(`href=${quote}#request${quote}`, `href=${quote}${localRoot}#request${quote}`);
   }
 
-  // The old "ЭЛИТНЫЙ АЛКОГОЛЬ" nav item now leads to the journal, and is drawn as
-  // a closed book: the title sits on the cover, with a ribbon marker tucked in.
-  const label = '<span class="journal-book"><span class="journal-book__cover"><span class="journal-book__title">СТАТЬИ</span></span><span class="journal-book__mark" aria-hidden="true"></span></span>';
+  // The old "ЭЛИТНЫЙ АЛКОГОЛЬ" nav item now leads to the journal. It is plain text
+  // again: the book drawn into this slot kept being reshaped by Tilda's own rules
+  // for the menu item, and those rules cannot be rendered here to check against.
+  // Restore the book once the Tilda assets are vendored and the header can be
+  // reproduced locally.
+  const label = 'СТАТЬИ';
 
   result = result
     .replaceAll('>ЭЛИТНЫЙ АЛКОГОЛЬ</span>', `>${label}</span>`)
@@ -109,8 +119,8 @@ export function getOriginalFooter(root = './') {
   return rewriteLegacyLinks(replaceLocalVectorAssets(`${openTag}${footerRecord}</footer>`), root);
 }
 
-export function getTildaHeadAssets() {
-  const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
+export function getTildaHeadAssets(root = './') {
+  const head = resolveVendorPaths(source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '', root);
   const tags = (head.match(/<link[^>]*\brel="stylesheet"[^>]*>|<script[^>]*\bsrc="[^"]+"[^>]*><\/script>|<script(?![^>]*\bsrc=)[^>]*>[\s\S]*?<\/script>/gi) ?? [])
     .filter(tag => !tag.startsWith('<script') || tag.includes(' src=') || tag.includes('t_onReady'));
   if (!tags.length) throw new Error('Tilda head assets were not found');

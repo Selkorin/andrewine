@@ -4,7 +4,7 @@ import path from 'node:path';
 import SeoSections from './SeoSections.astro';
 import CategoryArticles from './CategoryArticles.astro';
 import enhancementsCss from '../styles/enhancements.css?raw';
-import { rewriteLegacyLinks } from '../lib/legacyChrome';
+import { rewriteLegacyLinks, resolveVendorPaths } from '../lib/legacyChrome';
 import { rebuildLegacyCategoryFaq, renderCategoryFaqFromData } from '../lib/categoryFaq';
 import { categoryFaqs } from '../data/categoryFaq';
 
@@ -115,7 +115,7 @@ source = source
 // reading "СТАТЬИ" landed on the home page. Leave the hrefs alone and let
 // rewriteLegacyLinks map them to the articles index.
 
-const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
+const head = resolveVendorPaths(source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '', file === 'page132437346.html' ? './' : '../');
 const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
 const footerIndex = body.indexOf('<!--footer-->');
 const root = file === 'page132437346.html' ? './' : '../';

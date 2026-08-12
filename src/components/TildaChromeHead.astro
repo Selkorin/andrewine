@@ -1,7 +1,12 @@
 ---
 import { getTildaHeadAssets } from '../lib/legacyChrome';
 
-const tildaAssets = getTildaHeadAssets();
+interface Props {
+  root?: string;
+}
+
+const { root = './' } = Astro.props;
+const tildaAssets = getTildaHeadAssets(root);
 ---
 
 <link rel="preconnect" href="https://fonts.gstatic.com" />
