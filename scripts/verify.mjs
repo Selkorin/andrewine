@@ -53,8 +53,12 @@ const htmlFiles = (await collectHtml(root)).filter((file) => !isPreview(file));
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const route = path.relative(root, file);
-  if (!/<header[^>]+id=["']t-header["']/i.test(html) || !html.includes('rec2189620761')) {
-    errors.push(`${route}: отсутствует оригинальная Tilda-шапка`);
+  if (!html.includes('class="site-header"')) {
+    errors.push(`${route}: отсутствует шапка сайта`);
+  }
+  // Only the markup matters — the id also appears in the page's inline CSS.
+  if (html.includes('<div id="rec2189620761"')) {
+    errors.push(`${route}: осталась старая Tilda-шапка`);
   }
   if (!/<footer[^>]+id=["']t-footer["']/i.test(html) || !html.includes('rec2189759551')) {
     errors.push(`${route}: отсутствует оригинальный Tilda-футер`);

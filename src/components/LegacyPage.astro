@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import SeoSections from './SeoSections.astro';
 import CategoryArticles from './CategoryArticles.astro';
+import SiteHeader from './SiteHeader.astro';
 import enhancementsCss from '../styles/enhancements.css?raw';
 import { rewriteLegacyLinks, resolveVendorPaths } from '../lib/legacyChrome';
 import { rebuildLegacyCategoryFaq, renderCategoryFaqFromData } from '../lib/categoryFaq';
@@ -122,6 +123,9 @@ const root = file === 'page132437346.html' ? './' : '../';
 let contentBeforeFooter = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(0, footerIndex) : body, root);
 const footerAndScripts = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(footerIndex) : '', root);
 
+// The Tilda header bar is replaced by our own, so drop its records from the body.
+contentBeforeFooter = contentBeforeFooter.replace(/<!--header-->[\s\S]*?<!--\/header-->/, '');
+
 const heroRecord = heroRecordByFile[file];
 if (heroRecord) {
   contentBeforeFooter = injectBrandRail(contentBeforeFooter, heroRecord, 'hero');
@@ -153,6 +157,7 @@ const journalIndex = Object.keys(journalCategoryByFile).indexOf(file);
     <style is:global id="tilda-records-visibility-fix">.t-records{opacity:1!important}</style>
   </head>
   <body class:list={['t-body', 'legacy-page', { 'home-page': editorial }]} style="margin:0;">
+    <SiteHeader root={root} active={(fileRoutes[file] ?? '/').replace(/^\//, '') || undefined} />
     <Fragment set:html={contentBeforeFooter} />
     {editorial && <SeoSections />}
     {journalCategory && <CategoryArticles category={journalCategory.category} label={journalCategory.label} root={root} index={journalIndex} />}

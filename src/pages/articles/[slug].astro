@@ -2,7 +2,7 @@
 import { articles } from '../../data/articles';
 import enhancementsCss from '../../styles/enhancements.css?raw';
 import { resolveVendorPaths } from '../../lib/legacyChrome';
-import OriginalHeader from '../../components/OriginalHeader.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
 import OriginalFooter from '../../components/OriginalFooter.astro';
 import TildaChromeHead from '../../components/TildaChromeHead.astro';
 import ArticleInfographic from '../../components/ArticleInfographic.astro';
@@ -41,7 +41,7 @@ const faq = [
   </head>
   <body class="t-body article-page">
     <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
-    <OriginalHeader root="../../" />
+    <SiteHeader root="../../" active="articles" />
     <main class="article-main">
       <section class="article-mast article-mast--archive" style={`--article-archive-bg:url("${articleAssetUrl(visuals.heroBackground.src)}")`}>
         <div class="section-rail section-rail--light" aria-hidden="true"><span>ЖУРНАЛ</span><small>ANDREWINE</small></div>
