@@ -121,7 +121,9 @@ const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
 const footerIndex = body.indexOf('<!--footer-->');
 const root = file === 'page132437346.html' ? './' : '../';
 let contentBeforeFooter = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(0, footerIndex) : body, root);
-const footerAndScripts = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(footerIndex) : '', root);
+// Drop the "Made on Tilda" badge that sits just after the footer.
+const footerAndScripts = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(footerIndex) : '', root)
+  .replace(/<!--\s*Tilda copyright[\s\S]*?<div class="t-tildalabel[\s\S]*?<\/a><\/div>/, '');
 
 // The Tilda header bar is replaced by our own, so drop its records from the body.
 contentBeforeFooter = contentBeforeFooter.replace(/<!--header-->[\s\S]*?<!--\/header-->/, '');

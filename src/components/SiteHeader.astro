@@ -13,7 +13,6 @@ const url = (slug: string) => `${root}${slug}/`;
 <header class="site-header">
   <a class="site-header__brand" href={root} aria-label="Andrewine — на главную">
     <img class="site-header__logo" src="https://static.tildacdn.com/tild3435-3262-4264-a164-346331373138/_ANDREWINEwhite_1.png" alt="Andrewine" width="290" height="46" decoding="async" />
-    <small>Выкуп элитного алкоголя</small>
   </a>
 
   <input class="site-header__toggle" id="site-nav-toggle" type="checkbox" hidden />
@@ -59,8 +58,7 @@ const url = (slug: string) => `${root}${slug}/`;
   }
 
   .site-header__brand {
-    display: grid;
-    gap: 3px;
+    display: block;
     flex: none;
     color: inherit;
     text-decoration: none;
@@ -68,30 +66,25 @@ const url = (slug: string) => `${root}${slug}/`;
   .site-header__logo {
     display: block;
     width: auto;
-    height: 26px;
+    height: 52px;
   }
-  .site-header__brand small {
-    color: rgba(255, 255, 255, 0.66);
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-  }
-
   .site-header__nav {
     display: flex;
     align-items: center;
-    gap: clamp(10px, 1.5vw, 22px);
+    gap: clamp(9px, 1.15vw, 20px);
     margin-right: auto;
-    flex-wrap: wrap;
+    /* Never wrap: a second row would push the bar past the 80px the pages
+       are laid out against. */
+    flex-wrap: nowrap;
   }
   .site-header__nav > a {
     position: relative;
     padding: 6px 0;
     color: rgba(255, 255, 255, 0.86);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
     text-transform: uppercase;
     text-decoration: none;
     transition: color 0.18s ease;
@@ -174,8 +167,16 @@ const url = (slug: string) => `${root}${slug}/`;
   .site-header__burger { display: none; }
   .site-header__toggle { display: none; }
 
-  @media (max-width: 1199px) {
+  @media (max-width: 1560px) {
     .site-header__phone { display: none; }
+  }
+  @media (max-width: 1330px) {
+    .site-header__logo { height: 44px; }
+    .site-header__cta { padding: 10px 14px; font-size: 10px; }
+  }
+  @media (max-width: 1120px) {
+    .site-header__logo { height: 38px; }
+    .site-header__journal-label { display: none; }
   }
 
   @media (max-width: 959px) {
