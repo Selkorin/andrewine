@@ -88,7 +88,7 @@ const url = (slug: string) => `${root}${slug}/`;
     position: relative;
     padding: 6px 0;
     color: rgba(255, 255, 255, 0.86);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.05em;
     white-space: nowrap;
@@ -182,9 +182,15 @@ const url = (slug: string) => `${root}${slug}/`;
   @media (max-width: 1440px) {
     .site-header__logo { height: 50px; }
   }
+  @media (max-width: 1400px) {
+    .site-header__nav > a { font-size: 12px; }
+  }
   @media (max-width: 1300px) {
     .site-header__logo { height: 42px; }
     .site-header__cta { padding: 10px 14px; font-size: 10px; }
+  }
+  @media (max-width: 1200px) {
+    .site-header__nav > a { font-size: 11px; }
   }
   @media (max-width: 1120px) {
     .site-header__logo { height: 36px; }
