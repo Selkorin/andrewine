@@ -357,3 +357,26 @@ body.t450__body_menushowed{overflow:hidden!important}
 .legacy-page .category-faq .faq__item h3:first-child{margin-top:0}
 .legacy-page .category-faq .faq__item p{max-width:680px;margin:0;padding:0;color:#5a544f;font-size:14px;line-height:1.62}
 @media(max-width:639px){.legacy-page .category-faq .faq__answer{padding:0 17px 18px}.legacy-page .category-faq .faq__item h3{font-size:11px}.legacy-page .category-faq .faq__item p{font-size:13px}}
+
+/* Red panels use solid white foregrounds; translucency reads as pink on wine. */
+.faq:not(.home-faq) .faq__item,
+.faq:not(.home-faq) .faq__item[open],
+.faq:not(.home-faq) .faq__item summary span{border-color:#fff}
+.faq:not(.home-faq) .faq__item p,
+.article-mast .article-lead,
+.magazine-feature__copy>p:not(.editorial__eyebrow),
+.article-cover__media figcaption,
+.article-meta{color:#fff!important}
+.section-rail--light::before,
+.section-rail--light::after,
+.section-ornament{opacity:1}
+.magazine-kicker--light{border-color:#fff}
+.legacy-page [data-brand-rail-host="hero"] .tn-elem[data-elem-id="1776083437912000010"]::before,
+.legacy-page [data-brand-rail-host="hero"] .tn-elem[data-elem-id="1776083040298000007"] .tn-atom{color:#fff!important}
+.legacy-page [data-brand-rail-host="hero"] .tn-elem[data-elem-id="1776083437912000010"] .tn-atom::after{display:none}
+.home-faq a.home-faq__cta,
+.home-faq a.home-faq__cta:link,
+.home-faq a.home-faq__cta:visited,
+.home-faq a.home-faq__cta:hover,
+.home-faq a.home-faq__cta:active,
+.home-faq a.home-faq__cta span{color:#fff!important}
