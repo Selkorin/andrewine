@@ -1,5 +1,5 @@
 ---
-import { getTildaHeadAssets } from '../lib/legacyChrome';
+import { getTildaHeadAssets, getYandexMetrikaSnippet } from '../lib/legacyChrome';
 
 interface Props {
   root?: string;
@@ -7,8 +7,10 @@ interface Props {
 
 const { root = './' } = Astro.props;
 const tildaAssets = getTildaHeadAssets(root);
+const yandexMetrika = getYandexMetrikaSnippet();
 ---
 
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <script is:inline>if(!location.pathname.endsWith('/')&&!/\.[a-z0-9]+$/i.test(location.pathname))history.replaceState(null,'',location.pathname+'/'+location.search+location.hash);</script>
 <Fragment set:html={tildaAssets} />
+<Fragment set:html={yandexMetrika} />

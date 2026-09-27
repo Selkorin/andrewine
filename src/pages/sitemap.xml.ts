@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { articles } from '../data/articles';
 
 export const prerender = true;
 
@@ -12,6 +13,8 @@ const routes = [
   '/buy_vodka',
   '/buy_brandy',
   '/buy_wine',
+  '/articles/',
+  ...articles.map((article) => `/articles/${article.slug}/`),
 ];
 
 export const GET: APIRoute = () => {

@@ -126,3 +126,13 @@ export function getTildaHeadAssets(root = './') {
   if (!tags.length) throw new Error('Tilda head assets were not found');
   return tags.join('\n');
 }
+
+// getTildaHeadAssets drops inline scripts that lack a "t_onReady" marker, which
+// silently excluded the Yandex.Metrika counter (and its Webvisor flag) from
+// every page that renders through TildaChromeHead, e.g. the /articles/ journal.
+export function getYandexMetrikaSnippet() {
+  const start = source.indexOf('<!-- Yandex.Metrika counter -->');
+  const end = source.indexOf('<!-- /Yandex.Metrika counter -->');
+  if (start < 0 || end < 0) throw new Error('Yandex.Metrika counter snippet was not found');
+  return source.slice(start, end + '<!-- /Yandex.Metrika counter -->'.length);
+}
