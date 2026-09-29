@@ -1,0 +1,109 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import OriginalFooter from '../components/OriginalFooter.astro';
+import TildaChromeHead from '../components/TildaChromeHead.astro';
+import YandexMetrika from '../components/YandexMetrika.astro';
+import enhancementsCss from '../styles/enhancements.css?raw';
+import { resolveVendorPaths } from '../lib/legacyChrome';
+import { contacts, operator } from '../data/navigation';
+
+const root = '../';
+const updated = '29 сентября 2026 г.';
+const requisites = [operator.legalName, operator.inn && `ИНН ${operator.inn}`, operator.address].filter(Boolean);
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Политика конфиденциальности | Andrewine</title>
+    <meta name="description" content="Как сайт andrewine.ru собирает, использует и защищает персональные данные, которые вы оставляете в заявке на оценку." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://andrewine.ru/privacy/" />
+    <TildaChromeHead root={root} />
+    <style is:inline set:html={resolveVendorPaths(enhancementsCss, root)} />
+  </head>
+  <body class="t-body article-page">
+    <YandexMetrika />
+    <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
+    <SiteHeader root={root} />
+    <main class="article-main privacy">
+      <p class="editorial__eyebrow">Документы</p>
+      <h1>Политика конфиденциальности</h1>
+      <p class="privacy__date">Редакция от {updated}</p>
+
+      <h2>1. Общие положения</h2>
+      <p>Настоящая политика описывает, как сайт andrewine.ru (далее — «Сайт») обрабатывает персональные данные посетителей в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+      <p>Оператор персональных данных — владелец Сайта (далее — «Оператор»).</p>
+      {requisites.length > 0 && <p>{requisites.join(', ')}.</p>}
+      <p>Отправляя заявку на Сайте, вы подтверждаете, что ознакомились с политикой и даёте согласие на обработку персональных данных на описанных ниже условиях.</p>
+
+      <h2>2. Какие данные мы собираем</h2>
+      <ul>
+        <li>имя и номер телефона, адрес электронной почты, если вы указали их в форме;</li>
+        <li>сведения о бутылке, которые вы сообщаете в заявке: категория напитка, описание, состояние, комментарий;</li>
+        <li>фотографии, которые вы прикрепили к заявке;</li>
+        <li>сообщения, которые вы отправляете нам в Telegram, WhatsApp или по телефону;</li>
+        <li>технические данные: IP-адрес, тип браузера и устройства, страницы и время визита, источник перехода. Они собираются с помощью cookie и сервиса «Яндекс Метрика».</li>
+      </ul>
+
+      <h2>3. Цели обработки</h2>
+      <ul>
+        <li>связаться с вами и ответить на заявку;</li>
+        <li>оценить бутылку и подготовить предложение о выкупе;</li>
+        <li>заключить и исполнить договор купли-продажи, если вы решите продать;</li>
+        <li>анализировать работу Сайта и улучшать его.</li>
+      </ul>
+
+      <h2>4. Правовые основания</h2>
+      <p>Обработка ведётся на основании вашего согласия, которое вы даёте, отправляя форму, а также для заключения и исполнения договора, стороной которого вы являетесь.</p>
+
+      <h2>5. Как мы обрабатываем данные</h2>
+      <p>Мы собираем, записываем, храним, уточняем, используем и удаляем данные — с использованием средств автоматизации и без них. Данные хранятся на серверах на территории Российской Федерации.</p>
+      <p>Данные хранятся не дольше, чем нужно для целей обработки: заявки — до завершения работы с ними и в течение срока, установленного законом; технические данные — в пределах сроков, которые задаёт сервис аналитики.</p>
+
+      <h2>6. Передача третьим лицам</h2>
+      <p>Мы не продаём и не передаём ваши данные третьим лицам, кроме случаев, когда это необходимо для целей обработки или требуется законом:</p>
+      <ul>
+        <li>ООО «Яндекс» — для аналитики посещаемости («Яндекс Метрика»);</li>
+        <li>мессенджеры (Telegram, WhatsApp) — если вы сами пишете нам через них;</li>
+        <li>государственные органы — по их законному запросу.</li>
+      </ul>
+
+      <h2>7. Cookie и аналитика</h2>
+      <p>Сайт использует cookie и сервис «Яндекс Метрика» (в том числе «Вебвизор» и карту кликов), чтобы понимать, как посетители пользуются Сайтом. Вы можете отключить cookie в настройках браузера, но некоторые функции Сайта тогда могут работать некорректно.</p>
+
+      <h2>8. Защита данных</h2>
+      <p>Мы принимаем организационные и технические меры, чтобы защитить данные от неправомерного доступа, изменения, раскрытия и уничтожения: ограничиваем круг сотрудников с доступом, используем защищённое соединение (HTTPS).</p>
+
+      <h2>9. Ваши права</h2>
+      <p>Вы вправе:</p>
+      <ul>
+        <li>получить информацию об обработке ваших данных;</li>
+        <li>требовать уточнения, блокирования или удаления данных, если они неполные, устаревшие или не нужны для заявленных целей;</li>
+        <li>отозвать согласие на обработку в любой момент.</li>
+      </ul>
+      <p>Чтобы воспользоваться правами, напишите на <a href={contacts.emailHref}>{contacts.email}</a> или позвоните по телефону <a href={contacts.phoneHref}>{contacts.phone}</a>. Мы ответим в срок, установленный законом. Вы также можете обратиться в Роскомнадзор.</p>
+
+      <h2>10. Изменения политики</h2>
+      <p>Мы можем обновлять политику. Актуальная редакция всегда доступна по адресу andrewine.ru/privacy/, дата редакции указана вверху страницы.</p>
+
+      <h2>11. Контакты</h2>
+      <p>E-mail: <a href={contacts.emailHref}>{contacts.email}</a><br />Телефон: <a href={contacts.phoneHref}>{contacts.phone}</a></p>
+    </main>
+    <OriginalFooter root={root} />
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  .privacy { max-width: 820px; margin-left: auto; margin-right: auto; padding: 56px 20px 88px; line-height: 1.65; }
+  .privacy h1 { font: 700 clamp(32px, 5vw, 52px)/1.1 'Playfair Display', Georgia, serif; margin: 0 0 8px; }
+  .privacy h2 { font: 700 22px/1.3 'Playfair Display', Georgia, serif; margin: 40px 0 12px; }
+  .privacy p, .privacy li { font-size: 16px; }
+  .privacy ul { padding-left: 22px; }
+  .privacy li { margin: 6px 0; }
+  .privacy a { color: #7e010b; text-decoration: underline; }
+  .privacy__date { color: #7a6f6b; margin: 0 0 8px; }
+</style>

@@ -27,3 +27,12 @@ export const companyLinks = [
 ] as const;
 
 export const copyright = '© 2014–2026, Выкуп элитного алкоголя в Москве';
+
+// Data-controller details for the privacy policy. Fill in the legal name
+// (e.g. «ИП Иванов Иван Иванович») and ИНН/ОГРНИП — the requisites block on
+// /privacy/ appears only when this is non-empty.
+export const operator = {
+  legalName: '',
+  inn: '',
+  address: '',
+};

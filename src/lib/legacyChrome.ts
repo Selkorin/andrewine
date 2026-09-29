@@ -127,6 +127,13 @@ export function rewriteLegacyLinks(markup: string, root = './') {
 
   for (const domain of oldDomains) result = result.replaceAll(domain, 'https://andrewine.ru');
 
+  // The footer line used to end with a plain-text "Пользовательское соглашение";
+  // it now links to the privacy policy that covers the request forms.
+  result = result.replaceAll(
+    'Выкуп алкоголя. Пользовательское соглашение',
+    `Выкуп алкоголя. <a class="footer-privacy-link" href="${localRoot}privacy/" style="color:inherit;text-decoration:underline">Политика конфиденциальности</a>`,
+  );
+
   for (const route of routeNames) {
     for (const quote of ['"', "'"]) {
       for (const href of [

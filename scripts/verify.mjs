@@ -83,8 +83,8 @@ const htmlFiles = (await collectHtml(root)).filter((file) => !isPreview(file) &&
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const route = path.relative(root, file);
-  if ((html.match(/113109306/g) ?? []).length < 2) errors.push(`${route}: не установлен счётчик Яндекс Метрики`);
-  if ((html.match(/tag\.js\?id=113109306/g) ?? []).length !== 1) errors.push(`${route}: счётчик Яндекс Метрики должен подключаться ровно один раз`);
+  if ((html.match(/113180332/g) ?? []).length < 2) errors.push(`${route}: не установлен счётчик Яндекс Метрики`);
+  if ((html.match(/tag\.js\?id=113180332/g) ?? []).length !== 1) errors.push(`${route}: счётчик Яндекс Метрики должен подключаться ровно один раз`);
   if (!html.includes('webvisor:true') || !html.includes('clickmap:true')) errors.push(`${route}: не включены Вебвизор или карта кликов`);
   if (!html.includes('class="site-header"')) {
     errors.push(`${route}: отсутствует шапка сайта`);
@@ -117,7 +117,7 @@ for (const articleFile of htmlFiles.filter(file => file.includes(`${path.sep}art
   }
 }
 
-if (htmlFiles.length !== 25) errors.push(`ожидалось 25 HTML-страниц, собрано ${htmlFiles.length}`);
+if (htmlFiles.length !== 26) errors.push(`ожидалось 26 HTML-страниц, собрано ${htmlFiles.length}`);
 
 if (errors.length) {
   console.error(`Проверка не пройдена:\n- ${errors.join('\n- ')}`);

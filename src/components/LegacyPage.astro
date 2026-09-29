@@ -264,7 +264,7 @@ const contentAfterQuiz = quizInsertIndex >= 0 ? contentBeforeFooter.slice(quizIn
     <YandexMetrika />
     <SiteHeader root={root} active={(fileRoutes[file] ?? '/').replace(/^\//, '') || undefined} />
     <Fragment set:html={contentBeforeQuiz} />
-    {editorial && <OnlineValuationQuiz />}
+    {editorial && <OnlineValuationQuiz root={root} />}
     {showBusinessMap && <YandexBusinessMap />}
     <Fragment set:html={contentAfterQuiz} />
     {editorial && <SeoSections />}
