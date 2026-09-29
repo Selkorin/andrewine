@@ -30,11 +30,11 @@ const whatsappHref = 'https://wa.me/79863458235';
 
 <style>
   .call-widget { --widget-size: 68px; --petal-size: 55px; position: fixed; right: 22px; bottom: 22px; z-index: 1200; width: var(--widget-size); height: var(--widget-size); color: #fff; font-family: Manrope, Arial, sans-serif; }
-  .call-widget summary { position: relative; z-index: 4; display: grid; width: var(--widget-size); height: var(--widget-size); box-sizing: border-box; place-items: center; border: 3px solid #fff; border-radius: 50%; background: #9b0010; box-shadow: 0 0 0 4px #b89954, 0 11px 30px rgba(39,0,4,.38); cursor: pointer; list-style: none; transition: transform .24s ease, box-shadow .24s ease, background-color .24s ease; }
+  .call-widget summary { position: relative; z-index: 4; display: grid; width: var(--widget-size); height: var(--widget-size); box-sizing: border-box; place-items: center; border: 3px solid #fff; border-radius: 50%; background: #9b0010; box-shadow: 0 0 0 4px #9b0010, 0 11px 30px rgba(39,0,4,.38); cursor: pointer; list-style: none; transition: transform .24s ease, box-shadow .24s ease, background-color .24s ease; }
   .call-widget summary::-webkit-details-marker { display: none; }
   .call-widget summary::marker { content: ''; font-size: 0; }
   .call-widget summary:hover { background: #b00a19; transform: scale(1.04); }
-  .call-widget summary:focus-visible { outline: 3px solid #f5c36b; outline-offset: 6px; }
+  .call-widget summary:focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
   .call-widget__phone, .call-widget__close { position: absolute; display: grid; width: 32px; height: 32px; place-items: center; transition: opacity .2s ease, transform .25s ease; }
   .call-widget__phone { animation: call-ring 2.6s ease-in-out infinite; }
   .call-widget__phone svg { width: 32px; height: 32px; }
@@ -47,7 +47,7 @@ const whatsappHref = 'https://wa.me/79863458235';
   .call-widget__petal { position: absolute; right: calc((var(--widget-size) - var(--petal-size))/2); bottom: calc((var(--widget-size) - var(--petal-size))/2); display: grid; width: var(--petal-size); height: var(--petal-size); box-sizing: border-box; place-items: center; border: 2px solid rgba(255,255,255,.94); border-radius: 50%; color: #fff; box-shadow: 0 8px 24px rgba(17,10,10,.28); opacity: 0; pointer-events: none; transform: translate(0,0) scale(.45); transition: opacity .18s ease, transform .32s cubic-bezier(.2,.8,.2,1), filter .2s ease; }
   .call-widget__petal svg { width: 27px; height: 27px; }
   .call-widget__petal:hover { filter: brightness(1.1); }
-  .call-widget__petal:focus-visible { outline: 3px solid #f5c36b; outline-offset: 3px; }
+  .call-widget__petal:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
   .call-widget__petal--phone { background: #9b0010; }
   .call-widget__petal--telegram { background: #229ed9; transition-delay: .035s; }
   .call-widget__petal--whatsapp { background: #25d366; transition-delay: .07s; }

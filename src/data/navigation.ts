@@ -17,8 +17,8 @@ export const contacts = {
   phoneHref: 'tel:+79863458235',
   email: 'andrewine@mail.com',
   emailHref: 'mailto:andrewine@mail.com',
-  telegram: '@AWONLINE_BOT',
-  telegramHref: 'https://t.me/AWONLINE_BOT',
+  telegram: '+7(986)345-82-35',
+  telegramHref: 'https://t.me/+79863458235',
 };
 
 export const companyLinks = [
