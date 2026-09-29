@@ -36,6 +36,15 @@ jobs:
             find /var/www -maxdepth 3 -type d 2>/dev/null | head -120 || true
             echo '--- containers ---'
             docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Ports}}' 2>/dev/null || true
+            echo '--- andrewine nginx config ---'
+            sed -n '1,240p' /etc/nginx/sites-enabled/andrewine.ru 2>/dev/null || true
+            echo '--- application stack location ---'
+            docker inspect alcohol-evaluation-platform-backend-1 --format 'WorkingDir={{.Config.WorkingDir}} Labels={{json .Config.Labels}} Mounts={{json .Mounts}}' 2>/dev/null || true
+            echo '--- backend routes ---'
+            curl -fsS http://127.0.0.1:8081/openapi.json 2>/dev/null | python3 -c 'import json,sys; d=json.load(sys.stdin); print("\n".join(sorted(d.get("paths",{}))))' || true
+            echo '--- endpoint preflight ---'
+            curl -sS -o /tmp/quiz-preflight.out -w 'HTTP %{http_code}\n' -X POST -H 'Host: andrewine.ru' http://127.0.0.1/api/applications/web || true
+            head -c 800 /tmp/quiz-preflight.out 2>/dev/null || true
 
   deploy:
     if: inputs.mode == 'deploy'
