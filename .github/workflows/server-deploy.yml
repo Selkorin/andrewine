@@ -125,5 +125,25 @@ jobs:
             uuid=$(python3 -c 'import json; print(json.load(open("/tmp/andrewine-form-response.json"))["uuid"])')
             test -n "$uuid"
             grep -q 'Проверка онлайн-теста' /tmp/andrewine-form-response.json
-            echo "Test application stored and returned by admin API: $uuid"
+            python3 - "$uuid" <<'PY'
+            import glob, os, sqlite3, sys
+            target = sys.argv[1]
+            for path in glob.glob('/var/lib/docker/volumes/alcohol-evaluation-platform_backend_db/_data/**/*', recursive=True):
+                if not os.path.isfile(path):
+                    continue
+                try:
+                    db = sqlite3.connect(path)
+                    tables = {row[0] for row in db.execute("select name from sqlite_master where type='table'")}
+                    if 'applications' not in tables:
+                        db.close(); continue
+                    row = db.execute('select uuid, title from applications where uuid = ?', (target,)).fetchone()
+                    db.close()
+                    if row:
+                        print(f'Admin database contains test application: {row[0]} | {row[1]}')
+                        break
+                except sqlite3.DatabaseError:
+                    continue
+            else:
+                raise SystemExit('Test application was not found in the admin database')
+            PY
             rm -f "$test_png" /tmp/andrewine-form-response.json
