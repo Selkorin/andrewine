@@ -259,6 +259,7 @@ const drinks = [
         if (!response.ok || !result?.uuid) throw new Error(typeof result?.detail === 'string' ? result.detail : 'Не удалось отправить заявку');
         const body = form.querySelector('.valuation-quiz__body'); const success = form.querySelector('[data-quiz-success]');
         if (body instanceof HTMLElement) body.hidden = true; if (success instanceof HTMLElement) success.hidden = false;
+        if (typeof window.ym === 'function') window.ym(113109306, 'reachGoal', 'lead_submit');
       } catch (reason) { setError(reason instanceof Error ? reason.message : 'Не удалось отправить заявку'); if (submit instanceof HTMLButtonElement) { submit.disabled = false; submit.innerHTML = 'Получить оценку <span>→</span>'; } }
     });
     showStep(0);

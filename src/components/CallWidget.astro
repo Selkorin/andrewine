@@ -16,6 +16,7 @@ const whatsappHref = 'https://wa.me/79863458235';
 </details>
 
 <script>
+  const goalByPetal: Record<string, string> = { phone: 'phone_click', telegram: 'telegram_click', whatsapp: 'whatsapp_click' };
   document.querySelectorAll<HTMLDetailsElement>('[data-call-widget]').forEach((widget) => {
     const summary = widget.querySelector('summary');
     widget.addEventListener('toggle', () => summary?.setAttribute('aria-label', widget.open ? 'Закрыть способы связи' : 'Открыть способы связи'));
@@ -24,6 +25,11 @@ const whatsappHref = 'https://wa.me/79863458235';
     });
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && widget.open) { widget.open = false; summary?.focus(); }
+    });
+    Object.entries(goalByPetal).forEach(([kind, goal]) => {
+      widget.querySelector(`.call-widget__petal--${kind}`)?.addEventListener('click', () => {
+        if (typeof window.ym === 'function') window.ym(113109306, 'reachGoal', goal);
+      });
     });
   });
 </script>

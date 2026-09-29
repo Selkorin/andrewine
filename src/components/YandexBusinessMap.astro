@@ -26,6 +26,14 @@
   </div>
 </section>
 
+<script>
+  document.querySelectorAll('.business-map a[href^="tel:"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (typeof window.ym === 'function') window.ym(113109306, 'reachGoal', 'phone_click');
+    });
+  });
+</script>
+
 <style>
   .business-map { padding: clamp(48px, 7vw, 96px) 20px; background: #f4f0ea; color: #231f20; }
   .business-map__inner { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.7fr); gap: clamp(24px, 5vw, 72px); max-width: 1180px; margin: 0 auto; align-items: stretch; }

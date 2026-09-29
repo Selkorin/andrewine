@@ -43,5 +43,12 @@ const serviceSchema = { '@context': 'https://schema.org', '@graph': [
       <section class="brand-landing__faq"><p class="brand-landing__kicker">Ответы эксперта</p><h2>Частые вопросы</h2><div>{data.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></section>
     </main>
     <OriginalFooter root={root} />
+    <script>
+      document.querySelectorAll('a[href*="t.me/"]').forEach((link) => {
+        link.addEventListener('click', () => {
+          if (typeof window.ym === 'function') window.ym(113109306, 'reachGoal', 'telegram_click');
+        });
+      });
+    </script>
   </body>
 </html>

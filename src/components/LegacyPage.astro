@@ -454,6 +454,7 @@ const contentAfterQuiz = quizInsertIndex >= 0 ? contentBeforeFooter.slice(quizIn
                 success.textContent = 'Спасибо! Заявка и фотографии переданы оценщику. Мы свяжемся с вами.';
                 success.style.display = 'block';
               }
+              if (typeof window.ym === 'function') window.ym(113109306, 'reachGoal', 'lead_submit');
             } catch (error) {
               showError(error instanceof Error ? error.message : 'Не удалось отправить заявку');
               if (submit instanceof HTMLButtonElement) {
