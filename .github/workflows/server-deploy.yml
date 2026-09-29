@@ -11,6 +11,7 @@ on:
         options:
           - inspect
           - deploy
+          - verify-form
 
 permissions:
   contents: read
@@ -94,3 +95,35 @@ jobs:
             nginx -t
             curl -fsS -H 'Host: andrewine.ru' http://127.0.0.1/ >/dev/null
             echo "Deployed to $site_root; backup: $backup"
+
+  verify-form:
+    if: inputs.mode == 'verify-form'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit and confirm a test application
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: root
+          password: ${{ secrets.PRODUCTION_PASSWORD }}
+          timeout: 60s
+          command_timeout: 2m
+          script: |
+            set -eu
+            test_png=/tmp/andrewine-form-test.png
+            printf '%s' 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=' | base64 -d > "$test_png"
+            code=$(curl -sS -o /tmp/andrewine-form-response.json -w '%{http_code}' \
+              -F 'category=Проверка онлайн-теста' \
+              -F 'name=Проверка сайта' \
+              -F 'phone=+7 999 000-00-01' \
+              -F 'message=Автоматическая проверка отправки теста в админ-панель' \
+              -F 'source=https://andrewine.ru/#online-valuation' \
+              -F 'website=' \
+              -F "photos=@$test_png;type=image/png" \
+              http://127.0.0.1:8081/api/applications/web)
+            test "$code" = "201"
+            uuid=$(python3 -c 'import json; print(json.load(open("/tmp/andrewine-form-response.json"))["uuid"])')
+            test -n "$uuid"
+            grep -q 'Проверка онлайн-теста' /tmp/andrewine-form-response.json
+            echo "Test application stored and returned by admin API: $uuid"
+            rm -f "$test_png" /tmp/andrewine-form-response.json
