@@ -71,10 +71,10 @@ const faqs = [
             <p class="hero-trust">Дорого <i></i> Экспертно <i></i> Конфиденциально</p>
             <div class="hero-actions"><a class="btn btn-primary" href="#online-valuation">Отправить на оценку</a><a class="text-link track-phone" href={phoneHref}>Позвонить эксперту →</a></div>
             <div class="hero-stats">
-              <span><i class="stat-icon"><Clock3 aria-hidden="true" /></i><span><b>≈ 15 минут</b>на предварительную оценку</span></span>
-              <span><i class="stat-icon"><Images aria-hidden="true" /></i><span><b>До 10 фото</b>в одной заявке</span></span>
-              <span><i class="stat-icon"><MapPin aria-hidden="true" /></i><span><b>Москва и МО</b>выезд специалиста</span></span>
-              <span><i class="stat-icon"><Bike aria-hidden="true" /></i><span><b>Курьер</b>в удобную точку</span></span>
+              <span><i class="stat-icon"><Clock3 aria-hidden="true" /></i><b>≈ 15 минут</b></span>
+              <span><i class="stat-icon"><Images aria-hidden="true" /></i><b>До 10 фото</b></span>
+              <span><i class="stat-icon"><MapPin aria-hidden="true" /></i><b>Москва и МО</b></span>
+              <span><i class="stat-icon"><Bike aria-hidden="true" /></i><b>Курьер</b></span>
             </div>
           </div>
           <div class="hero-visual" aria-hidden="true">
@@ -250,14 +250,14 @@ const faqs = [
 
 <style is:global>
   .hero{
-    background-image:linear-gradient(90deg,rgba(5,2,2,.18) 0%,rgba(5,2,2,.04) 55%,rgba(48,0,7,.12) 100%),url('/assets/ocenka-hero-cellar-v4.webp');
+    background-image:linear-gradient(90deg,rgba(5,2,2,.2) 0%,rgba(5,2,2,.04) 56%,rgba(5,2,2,.05) 100%),url('/assets/ocenka-hero-cellar-bw-v5.webp');
     background-position:center;background-size:cover
   }
   .hero::before{opacity:.09;background-image:radial-gradient(rgba(255,255,255,.25) .5px,transparent .5px);background-size:9px 9px;mask-image:linear-gradient(90deg,transparent 5%,#000 45%,#000)}
   .hero-visual img{filter:drop-shadow(0 28px 38px rgba(0,0,0,.5))}
   .hero-stats{grid-template-columns:repeat(4,1fr);gap:12px}
-  .hero-stats>span{display:flex;align-items:center;gap:12px;padding-top:18px}
-  .hero-stats>span>span{padding:0}
+  .hero-stats>span{display:flex;align-items:center;gap:14px;padding-top:18px}
+  .hero-stats>span>b{font-size:18px;line-height:1.1;letter-spacing:-.02em}
   .stat-icon{position:relative;flex:0 0 44px;width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(215,25,45,.65);border-radius:50%;color:#fff;background:rgba(155,0,16,.2)}
   .stat-icon::before{content:"";position:absolute;inset:-1px;border:1px solid rgba(215,25,45,.45);border-radius:inherit;animation:stat-pulse 2.6s ease-out infinite}
   .hero-stats>span:nth-child(2) .stat-icon::before{animation-delay:.45s}.hero-stats>span:nth-child(3) .stat-icon::before{animation-delay:.9s}.hero-stats>span:nth-child(4) .stat-icon::before{animation-delay:1.35s}
