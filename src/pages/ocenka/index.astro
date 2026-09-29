@@ -1,0 +1,195 @@
+---
+import CallWidget from '../../components/CallWidget.astro';
+
+const phone = '+7 (986) 345-82-35';
+const phoneHref = 'tel:+79863458235';
+const telegramHref = 'https://t.me/AWONLINE_BOT';
+const whatsappHref = 'https://wa.me/79863458235';
+const maxHref = 'https://max.ru/u/f9LHKTfYtCqrEMQ8NjO-lQ';
+const categories = [
+  { value: 'Выдержанные крепкие', title: 'Выдержанные крепкие', icon: 'barrel' },
+  { value: 'Другие крепкие', title: 'Другие крепкие', icon: 'decanter' },
+  { value: 'Вина и игристые', title: 'Вина и игристые', icon: 'grapes' },
+  { value: 'Коллекция целиком / другое', title: 'Коллекция целиком / другое', icon: 'other' },
+];
+const faqs = [
+  ['Какие бутылки стоит отправлять на оценку?', 'Можно предложить любые коллекционные и премиальные бутылки — импортные, советские, винтажные. Интерес зависит не только от марки, но и от конкретного выпуска, состояния и спроса.'],
+  ['Какие фотографии нужны?', 'Снимите бутылку целиком спереди и сзади, отдельно этикетку, пробку, дно и упаковку. Фото должны быть чёткими, без фильтров и бликов.'],
+  ['Можно ли узнать цену только по фото?', 'Да. По фотографиям эксперт даст предварительную оценку. Точная сумма подтверждается после проверки состояния и подлинности.'],
+  ['Оцениваете ли вы целые коллекции?', 'Да. Добавьте общие фотографии и укажите примерное количество позиций. Эксперт предложит удобный формат осмотра.'],
+  ['Как быстро вы отвечаете?', 'Обычно предварительная оценка занимает около 15 минут в рабочее время. Для редких выпусков может потребоваться дополнительная проверка.'],
+  ['Что нельзя делать перед оценкой?', 'Не мойте этикетку, не вскрывайте упаковку и не пытайтесь самостоятельно очищать старые элементы. Это может повлиять на состояние и стоимость.'],
+];
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Оценка и выкуп коллекционных напитков в Москве | Andrewine</title>
+    <meta name="description" content="Оценим коллекционную бутылку по фото за 15 минут. Выезд эксперта по Москве и МО, честная цена и расчёт сразу. Работаем с частными коллекциями с 2014 года." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Оценка коллекционных напитков в Москве — Andrewine" />
+    <meta property="og:description" content="Пришлите фото — назовём цену за 15 минут. Выезд эксперта, расчёт сразу." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://andrewine.ru/ocenka/" />
+    <meta property="og:image" content="https://andrewine.ru/assets/ocenka-og.png" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="canonical" href="https://andrewine.ru/ocenka/" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Andrewine',
+      description: 'Оценка и выкуп частных коллекций редких бутылок в Москве и Московской области.',
+      telephone: '+79863458235', areaServed: ['Москва', 'Московская область'],
+      url: 'https://andrewine.ru/ocenka/'
+    })} />
+    <script is:inline>
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=113180332','ym');
+      ym(113180332,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:true,trackLinks:true});
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="logo" href="#top" aria-label="Andrewine">Andrewine</a>
+        <nav aria-label="Навигация по странице">
+          <a href="#online-valuation">Онлайн-оценка</a><a href="#about">О нас</a><a href="#contacts">Контакты</a>
+        </nav>
+        <a class="header-phone track-phone" href={phoneHref}>{phone}</a>
+        <a class="header-cta" href="#online-valuation">Отправить на оценку</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-orbit" aria-hidden="true"></div>
+        <div class="shell hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Профессиональная оценка с 2014 года</p>
+            <h1>Оценка коллекционных напитков <em>в Москве</em></h1>
+            <p class="hero-lead">Оценим бутылку по фото и предложим цену в течение 15 минут</p>
+            <p class="hero-trust">Дорого <i></i> Экспертно <i></i> Конфиденциально</p>
+            <div class="hero-actions"><a class="btn btn-primary" href="#online-valuation">Отправить на оценку</a><a class="text-link track-phone" href={phoneHref}>Позвонить эксперту →</a></div>
+            <div class="hero-stats"><span><b>≈ 15 минут</b>на предварительную оценку</span><span><b>До 10 фото</b>в одной заявке</span><span><b>Москва и МО</b>выезд специалиста</span></div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="glass-card"><span>Узнать у Эндрю</span><b>экспертная оценка<br/>в 3 шага</b></div>
+            <img src="/assets/andrew-quiz.png" alt="" width="420" height="600" decoding="async" />
+          </div>
+        </div>
+        <div class="ticker"><span>Экспертная оценка коллекционных напитков за 1 минуту</span><span>Экспертная оценка коллекционных напитков за 1 минуту</span></div>
+      </section>
+
+      <section class="steps" aria-label="Как проходит оценка">
+        <div class="shell steps-grid">
+          <article><span>01</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M19 9h26v46H19zM25 17h14M26 48h12M32 25v15M24.5 32.5h15"/></svg><h2>Сфотографируйте</h2><p>Покажите бутылку, этикетку, пробку и упаковку.</p></article>
+          <article><span>02</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 17h44v31H10zM16 23h20M16 30h14M41 37l6 6 9-12"/></svg><h2>Ответьте на вопросы</h2><p>Укажите состояние и добавьте контакт для ответа.</p></article>
+          <article><span>03</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 18h40v28H12zM19 36h12M19 27h21M46 49l7-7M46 49l-5-5"/></svg><h2>Получите расчёт</h2><p>Эксперт проверит позицию и свяжется с вами.</p></article>
+        </div>
+      </section>
+
+      <section class="quiz-section" id="online-valuation">
+        <div class="shell quiz-layout">
+          <aside class="quiz-intro">
+            <p class="eyebrow">Онлайн-оценка</p><h2>Узнайте стоимость вашей бутылки</h2>
+            <p>Ответьте на несколько вопросов и прикрепите фотографии. Эндрю изучит состояние, рассчитает стоимость и отправит предложение в Telegram или WhatsApp.</p>
+            <div class="promise">Для редких позиций предлагаем цену выше средней по рынку — после проверки состояния и подлинности.</div>
+          </aside>
+          <form class="quiz-card" data-quiz novalidate>
+            <div class="quiz-head"><span>Расчёт стоимости онлайн</span><b><i data-current>1</i>/6</b></div><div class="progress"><i data-progress></i></div>
+            <div class="quiz-body">
+              <fieldset class="quiz-step is-active" data-step="1"><legend>Что хотите оценить?</legend><p class="hint">Выберите один вариант</p><div class="category-grid">
+                {categories.map((item) => <label class="category"><input type="radio" name="category" value={item.value}/><span class="category-icon">
+                  {item.icon === 'barrel' && <svg viewBox="0 0 90 70" role="img" aria-label={item.title}><path d="M23 11c12 4 32 4 44 0M23 59c12-4 32-4 44 0M23 11c-4 14-4 34 0 48M67 11c4 14 4 34 0 48M17 25h56M17 45h56M45 11v48"/></svg>}
+                  {item.icon === 'decanter' && <svg viewBox="0 0 90 70" role="img" aria-label={item.title}><path d="M40 8h10l3 9-5 8c14 5 19 17 19 34H23c0-17 5-29 19-34l-5-8 3-9ZM30 45h30M35 35h20"/></svg>}
+                  {item.icon === 'grapes' && <svg viewBox="0 0 90 70" role="img" aria-label={item.title}><path d="M45 18c-5-8-11-9-17-8 2 8 8 12 17 8Zm0 0c6-9 13-10 19-8-3 8-9 12-19 8Zm0 0v9M36 29a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm18 0a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM45 39a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-9 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm18 0a7 7 0 1 0 0 14 7 7 0 0 0 0-14Z"/></svg>}
+                  {item.icon === 'other' && <svg viewBox="0 0 90 70" role="img" aria-label={item.title}><path d="M35 26c1-10 20-12 21 1 1 8-11 8-11 17M45 56h.1"/></svg>}
+                </span><b>{item.title}</b></label>)}
+              </div></fieldset>
+              <fieldset class="quiz-step" data-step="2"><legend>Есть ли подарочная упаковка?</legend><div class="radio-list"><label><input type="radio" name="package" value="Да"/><span>Да</span></label><label><input type="radio" name="package" value="Нет"/><span>Нет</span></label><label><input type="radio" name="package" value="Частично"/><span>Частично</span></label></div></fieldset>
+              <fieldset class="quiz-step" data-step="3"><legend>Есть документы или сертификат?</legend><div class="radio-list"><label><input type="radio" name="documents" value="Да"/><span>Да</span></label><label><input type="radio" name="documents" value="Нет"/><span>Нет</span></label></div></fieldset>
+              <fieldset class="quiz-step" data-step="4"><legend>Как к вам обращаться?</legend><label class="field"><span>Ваше имя</span><input type="text" name="name" autocomplete="name" maxlength="80" placeholder="Например, Александр"/></label></fieldset>
+              <fieldset class="quiz-step" data-step="5"><legend>Куда отправить результат?</legend><label class="field"><span>Номер телефона</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="18" placeholder="+7 (000) 000-00-00"/></label><p class="hint">Свяжемся по телефону или в доступном мессенджере</p></fieldset>
+              <fieldset class="quiz-step" data-step="6"><legend>Прикрепите фото бутылки</legend><p class="hint">Лучше всего видны этикетка, пробка и уровень содержимого. До 10 снимков.</p><label class="drop" data-drop><input type="file" name="photos" accept="image/jpeg,image/png,image/webp" multiple/><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v5h14v-5"/></svg><span><b>Выберите фотографии</b> или перетащите их сюда</span><small>JPG, PNG или WEBP · до 10 файлов</small></label><div class="previews" data-previews></div></fieldset>
+              <input class="trap" name="website" tabindex="-1" autocomplete="off"/>
+              <p class="form-error" data-error aria-live="polite"></p>
+              <div class="quiz-actions"><button type="button" class="back" data-back>← Назад</button><button type="button" class="btn btn-primary next" data-next>Далее →</button><button type="submit" class="btn btn-primary submit" data-submit>Отправить заявку →</button></div>
+            </div>
+            <div class="form-success" data-success hidden><span>✓</span><h3>Заявка отправлена</h3><p>В ближайшее время мы свяжемся с вами и сообщим точную стоимость.</p></div>
+          </form>
+        </div>
+      </section>
+
+      <section class="about" id="about"><div class="shell about-grid"><div><p class="eyebrow">Andrewine</p><h2>Частные коллекции требуют точной оценки</h2></div><div><p>Andrewine с 2014 года оценивает и выкупает частные коллекции редких бутылок. Мы смотрим на редкость выпуска, состояние и комплектность и называем честную цену без посредников.</p><p>Сделки конфиденциальны, расчёт — сразу после проверки.</p></div></div></section>
+
+      <section class="benefits"><div class="shell"><p class="eyebrow">Почему нам доверяют</p><h2>Сделка без лишних посредников</h2><div class="benefit-grid">
+        <article><span>01</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 34l13 13 31-31M12 23h17M35 47h17"/></svg><h3>Честная рыночная цена</h3><p>Учитываем редкость, состояние, комплектность и текущий спрос.</p></article>
+        <article><span>02</span><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22"/><path d="M32 17v16l11 7"/></svg><h3>Оценка за 15 минут</h3><p>Предварительный ответ по качественным фотографиям.</p></article>
+        <article><span>03</span><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="26" cy="22" r="9"/><path d="M10 51c2-13 9-19 16-19s14 6 16 19M43 17h11v16H43M46 37h5"/></svg><h3>Выезд эксперта</h3><p>Встречаемся в удобном месте в Москве и Московской области.</p></article>
+        <article><span>04</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M9 20h46v31H9zM9 28h46M17 42h12M43 36l5 5 8-10"/></svg><h3>Расчёт сразу</h3><p>Фиксируем условия после проверки и не меняем их в последний момент.</p></article>
+      </div></div></section>
+
+      <section class="contacts" id="contacts"><div class="shell contacts-grid"><div><p class="eyebrow">Контакты</p><h2>Свяжитесь с экспертом</h2><p>Оценка и выкуп коллекций в Москве и Московской области. Перед визитом свяжитесь с нами — часть обращений принимаем дистанционно по фотографиям.</p><a class="big-phone track-phone" href={phoneHref}>{phone}</a><p class="address">Москва, улица Покрышкина, 5<br/><small>Приём по предварительной договорённости</small></p><div class="messengers"><a class="track-tg" href={telegramHref} target="_blank" rel="noopener">Telegram</a><a class="track-wa" href={whatsappHref} target="_blank" rel="noopener">WhatsApp</a><a class="track-max" href={maxHref} target="_blank" rel="noopener">MAX</a></div></div>
+        <form class="quick-form" data-quick-form novalidate><p class="eyebrow">Быстрая заявка</p><h3>Получите предварительную оценку</h3><label class="field"><span>Ваше имя</span><input name="name" maxlength="80" autocomplete="name" placeholder="Как к вам обращаться?"/></label><label class="field"><span>Номер телефона</span><input name="phone" type="tel" inputmode="tel" maxlength="18" autocomplete="tel" placeholder="+7 (000) 000-00-00"/></label><label class="field"><span>Комментарий</span><textarea name="message" maxlength="1000" rows="3" placeholder="Кратко опишите вашу коллекцию"></textarea></label><input class="trap" name="website" tabindex="-1" autocomplete="off"/><p class="consent">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p><p class="form-error" data-quick-error aria-live="polite"></p><button class="btn btn-primary" type="submit">Отправить заявку →</button><div class="quick-success" data-quick-success hidden><b>Заявка отправлена</b><span>В ближайшее время мы свяжемся с вами и сообщим точную стоимость.</span></div></form>
+      </div></section>
+
+      <section class="faq"><div class="shell faq-grid"><div><p class="eyebrow">Вопросы и ответы</p><h2>Что важно знать до оценки</h2></div><div class="faq-list">{faqs.map(([q,a]) => <details><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></div></section>
+
+      <section class="photo-cta"><div class="shell photo-cta-grid"><div><p class="eyebrow">Оценка по фото</p><h2>Профессиональная оценка коллекции</h2><p>Редкая бутылка — это ценный актив: отдельные экземпляры стоят как автомобиль. Andrewine помогает оценить и выгодно реализовать такие позиции.</p></div><a class="btn btn-light" href="#online-valuation">Начать оценку →</a></div></section>
+    </main>
+
+    <footer><div class="shell footer-grid"><div class="logo">Andrewine</div><nav><a href="#online-valuation">Онлайн-оценка</a><a href="#contacts">Контакты</a><button type="button" data-policy-open>Пользовательское соглашение</button></nav><p>© 2014–2026, Andrewine — оценка и выкуп коллекций.</p></div></footer>
+    <dialog class="policy" data-policy><button type="button" aria-label="Закрыть" data-policy-close>×</button><h2>Пользовательское соглашение</h2><p>Отправляя форму, вы добровольно предоставляете контактные данные для обработки обращения, подготовки оценки и обратной связи. Данные не используются для посторонних целей и передаются только специалистам Andrewine, участвующим в обработке заявки.</p></dialog>
+    <CallWidget telegramHref={telegramHref} whatsappHref={whatsappHref} />
+
+    <script>
+      const goal = (name: string) => { const fn = (window as typeof window & { ym?: (...args: unknown[]) => void }).ym; if (fn) fn(113180332, 'reachGoal', name); };
+      document.querySelectorAll('.track-phone').forEach((item) => item.addEventListener('click', () => goal('phone_click')));
+      document.querySelectorAll('.track-tg').forEach((item) => item.addEventListener('click', () => goal('telegram_click')));
+      document.querySelectorAll('.track-wa').forEach((item) => item.addEventListener('click', () => goal('whatsapp_click')));
+      document.querySelectorAll('.track-max').forEach((item) => item.addEventListener('click', () => goal('max_click')));
+      document.querySelectorAll<HTMLAnchorElement>('[data-call-widget] a').forEach((item) => item.addEventListener('click', () => {
+        if (item.href.startsWith('tel:')) goal('phone_click');
+        else if (item.href.includes('t.me/')) goal('telegram_click');
+        else if (item.href.includes('wa.me/')) goal('whatsapp_click');
+      }));
+
+      const formatPhone = (input: HTMLInputElement) => {
+        let digits = input.value.replace(/\D/g, '');
+        if (digits.startsWith('8')) digits = `7${digits.slice(1)}`;
+        if (!digits.startsWith('7')) digits = `7${digits}`;
+        digits = digits.slice(0, 11); const local = digits.slice(1); let value = '+7';
+        if (local.length) value += ` (${local.slice(0,3)}`; if (local.length >= 3) value += ')';
+        if (local.length > 3) value += ` ${local.slice(3,6)}`; if (local.length > 6) value += `-${local.slice(6,8)}`; if (local.length > 8) value += `-${local.slice(8,10)}`;
+        input.value = value;
+      };
+      document.querySelectorAll<HTMLInputElement>('input[type="tel"]').forEach((input) => input.addEventListener('input', () => formatPhone(input)));
+      const sourceUrl = () => window.location.href;
+      const send = async (data: FormData) => { const response = await fetch('/api/applications/web', { method: 'POST', body: data }); const result = await response.json().catch(() => null); if (!response.ok || !result?.uuid) throw new Error(typeof result?.detail === 'string' ? result.detail : 'Не удалось отправить заявку'); return result; };
+
+      document.querySelectorAll<HTMLFormElement>('[data-quiz]').forEach((form) => {
+        const steps = Array.from(form.querySelectorAll<HTMLElement>('[data-step]')); let current = 0;
+        const next = form.querySelector<HTMLButtonElement>('[data-next]')!; const back = form.querySelector<HTMLButtonElement>('[data-back]')!; const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+        const error = form.querySelector<HTMLElement>('[data-error]')!; const progress = form.querySelector<HTMLElement>('[data-progress]')!; const count = form.querySelector<HTMLElement>('[data-current]')!;
+        const files = form.querySelector<HTMLInputElement>('input[type="file"]')!; const previews = form.querySelector<HTMLElement>('[data-previews]')!; const drop = form.querySelector<HTMLElement>('[data-drop]')!;
+        const value = (name: string) => (form.elements.namedItem(name) as RadioNodeList | HTMLInputElement | null)?.value || '';
+        const show = (index: number) => { current = Math.max(0, Math.min(steps.length - 1, index)); steps.forEach((s,i) => s.classList.toggle('is-active', i === current)); count.textContent = String(current + 1); progress.style.width = `${(current + 1) / steps.length * 100}%`; back.style.visibility = current ? 'visible' : 'hidden'; next.hidden = current === 5; submit.hidden = current !== 5; error.textContent = ''; };
+        const validate = () => { if (current < 3 && !steps[current].querySelector('input:checked')) return 'Выберите один из вариантов'; if (current === 3 && !value('name').trim()) return 'Укажите ваше имя'; if (current === 4 && value('phone').replace(/\D/g,'').length !== 11) return 'Укажите корректный номер телефона'; if (current === 5 && !files.files?.length) return 'Добавьте хотя бы одну фотографию'; if ((files.files?.length || 0) > 10) return 'Можно добавить не более 10 фотографий'; return ''; };
+        const render = () => { previews.replaceChildren(...Array.from(files.files || []).map((file) => { const chip = document.createElement('span'); chip.textContent = file.name; return chip; })); };
+        next.addEventListener('click', () => { const message = validate(); if (message) error.textContent = message; else show(current + 1); }); back.addEventListener('click', () => show(current - 1)); files.addEventListener('change', render);
+        ['dragenter','dragover'].forEach((name) => drop.addEventListener(name, (event) => { event.preventDefault(); drop.classList.add('dragging'); })); ['dragleave','drop'].forEach((name) => drop.addEventListener(name, () => drop.classList.remove('dragging')));
+        drop.addEventListener('drop', (event) => { event.preventDefault(); const list = (event as DragEvent).dataTransfer?.files; if (!list?.length) return; const transfer = new DataTransfer(); Array.from(list).slice(0,10).forEach((file) => transfer.items.add(file)); files.files = transfer.files; render(); });
+        form.addEventListener('submit', async (event) => { event.preventDefault(); const message = validate(); if (message) return void (error.textContent = message); const selected = Array.from(files.files || []); const bad = selected.find((f) => !['image/jpeg','image/png','image/webp'].includes(f.type) || f.size > 10 * 1024 * 1024); if (bad) return void (error.textContent = `Проверьте формат и размер файла «${bad.name}»`); const data = new FormData(); data.set('category', value('category')); data.set('name', value('name')); data.set('phone', value('phone')); data.set('message', `Подарочная упаковка: ${value('package')}\nДокументы/сертификат: ${value('documents')}\nИсточник: рекламная страница`); data.set('source', sourceUrl()); data.set('website', value('website')); selected.forEach((f) => data.append('photos', f, f.name)); submit.disabled = true; submit.textContent = 'Отправляем…'; try { await send(data); goal('quiz_submit'); const body = form.querySelector<HTMLElement>('.quiz-body')!; const success = form.querySelector<HTMLElement>('[data-success]')!; body.hidden = true; success.hidden = false; } catch (reason) { error.textContent = reason instanceof Error ? reason.message : 'Не удалось отправить заявку'; submit.disabled = false; submit.textContent = 'Отправить заявку →'; } }); show(0);
+      });
+
+      document.querySelectorAll<HTMLFormElement>('[data-quick-form]').forEach((form) => form.addEventListener('submit', async (event) => { event.preventDefault(); const error = form.querySelector<HTMLElement>('[data-quick-error]')!; const name = form.elements.namedItem('name') as HTMLInputElement; const phoneInput = form.elements.namedItem('phone') as HTMLInputElement; if (!name.value.trim()) return void (error.textContent = 'Укажите ваше имя'); if (phoneInput.value.replace(/\D/g,'').length !== 11) return void (error.textContent = 'Укажите корректный номер телефона'); const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!; const data = new FormData(form); data.set('category', 'Быстрая заявка'); data.set('source', sourceUrl()); button.disabled = true; button.textContent = 'Отправляем…'; try { await send(data); goal('form_submit'); form.querySelectorAll<HTMLElement>('label,.consent,.form-error,button[type="submit"],h3,.eyebrow').forEach((el) => el.hidden = true); form.querySelector<HTMLElement>('[data-quick-success]')!.hidden = false; } catch (reason) { error.textContent = reason instanceof Error ? reason.message : 'Не удалось отправить заявку'; button.disabled = false; button.textContent = 'Отправить заявку →'; } }));
+      const dialog = document.querySelector<HTMLDialogElement>('[data-policy]')!; document.querySelector('[data-policy-open]')?.addEventListener('click', () => dialog.showModal()); document.querySelector('[data-policy-close]')?.addEventListener('click', () => dialog.close());
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root{--red:#9b0010;--red-bright:#d7192d;--black:#080505;--paper:#f4efe7;--cream:#e9dfd3;--line:rgba(255,255,255,.16);--ink:#291415}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--black);color:#fff;font-family:Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}.shell{width:min(1180px,calc(100% - 40px));margin:auto}.eyebrow{margin:0 0 20px;color:var(--red-bright);font-size:13px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}.site-header{position:sticky;top:0;z-index:100;background:rgba(7,3,3,.93);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.12)}.header-inner{height:78px;display:flex;align-items:center;gap:30px}.logo{font:italic 36px Georgia,serif}.site-header nav{display:flex;gap:28px;margin-left:35px;font-size:14px}.site-header nav a:hover{color:var(--red-bright)}.header-phone{margin-left:auto;font-weight:700}.header-cta{border:1px solid var(--red-bright);border-radius:999px;padding:12px 19px;font-size:13px;font-weight:700}.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 80% 25%,rgba(136,0,17,.45),transparent 30%),linear-gradient(120deg,#080404,#160306 62%,#080404);min-height:790px}.hero::before{content:"";position:absolute;inset:0;opacity:.2;background-image:radial-gradient(rgba(255,255,255,.25) .65px,transparent .65px);background-size:7px 7px;mask-image:linear-gradient(90deg,transparent,#000 35%,#000)}.hero-orbit{position:absolute;width:700px;height:700px;border:1px solid rgba(215,25,45,.13);border-radius:50%;right:-100px;top:30px;box-shadow:0 0 0 70px rgba(215,25,45,.035),0 0 0 140px rgba(215,25,45,.025)}.hero-grid{position:relative;display:grid;grid-template-columns:1.12fr .88fr;align-items:center;min-height:700px}.hero-copy{padding:85px 0 70px}.hero h1{font:400 clamp(54px,6vw,92px)/.94 Georgia,serif;letter-spacing:-.04em;margin:0;max-width:760px}.hero h1 em{display:block;color:var(--red-bright);font-weight:400}.hero-lead{font-size:22px;line-height:1.55;color:#e8dede;max-width:590px;margin:30px 0 14px}.hero-trust{display:flex;align-items:center;gap:13px;font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:#d3c2c2}.hero-trust i{width:4px;height:4px;background:var(--red-bright);border-radius:50%}.hero-actions{display:flex;align-items:center;gap:30px;margin-top:36px}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;padding:17px 28px;cursor:pointer;font-weight:700;transition:.2s}.btn-primary{background:var(--red);color:#fff;box-shadow:0 10px 30px rgba(110,0,12,.28)}.btn-primary:hover{background:#b10719;transform:translateY(-2px)}.text-link{font-weight:700;border-bottom:1px solid rgba(255,255,255,.4);padding:9px 0}.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:60px;border-top:1px solid var(--line)}.hero-stats span{padding:22px 18px 0 0;color:#958787;font-size:12px;line-height:1.5}.hero-stats b{display:block;color:#fff;font-size:15px}.hero-visual{position:relative;align-self:stretch}.hero-visual img{position:absolute;right:-40px;bottom:0;width:min(440px,100%);height:610px;object-fit:contain;object-position:bottom}.glass-card{position:absolute;right:0;top:125px;z-index:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(18px);border-radius:22px;padding:20px 25px;width:240px}.glass-card span{font:italic 23px Georgia,serif}.glass-card b{display:block;color:#c9babb;font-size:11px;line-height:1.5;margin-top:8px;text-transform:uppercase;letter-spacing:.12em}.ticker{height:90px;border-top:1px solid var(--line);display:flex;align-items:center;gap:80px;overflow:hidden;white-space:nowrap;color:#fff;font:italic 32px Georgia,serif}.ticker span{padding-left:40px}.ticker span::before{content:"✦";color:var(--red-bright);margin-right:40px}.steps{background:var(--paper);color:var(--ink);padding:90px 0}.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}.steps article{position:relative;min-height:290px;border-radius:30px;background:#fff;padding:35px;border:1px solid #e5dcd3}.steps article>span,.benefit-grid article>span{position:absolute;right:26px;top:24px;color:#b9aaa5;font:italic 14px Georgia,serif}.steps svg,.benefit-grid svg{width:68px;height:68px;fill:none;stroke:var(--red);stroke-width:2}.steps h2{font:400 29px Georgia,serif;margin:35px 0 10px}.steps p{color:#766967;line-height:1.6;margin:0}.quiz-section{position:relative;background:radial-gradient(circle at 15% 50%,rgba(133,0,16,.3),transparent 30%),#080404;padding:110px 0}.quiz-layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:65px;align-items:start}.quiz-intro{position:sticky;top:120px;padding-top:45px}.quiz-intro h2,.about h2,.benefits h2,.contacts h2,.faq h2,.photo-cta h2{font:400 clamp(42px,4.5vw,68px)/1.03 Georgia,serif;margin:0}.quiz-intro>p:not(.eyebrow){color:#c9babb;font-size:18px;line-height:1.75}.promise{border-left:3px solid var(--red-bright);background:rgba(155,0,16,.12);padding:20px 24px;line-height:1.55;margin-top:30px}.quiz-card{position:relative;background:var(--paper);color:var(--ink);border-radius:34px;overflow:hidden;min-height:720px;box-shadow:0 30px 80px rgba(0,0,0,.36)}.quiz-head{height:112px;background:var(--red);color:#fff;padding:0 42px;display:flex;align-items:center;justify-content:space-between}.quiz-head span{font-weight:700}.quiz-head b{font-size:17px}.quiz-head i{font-style:normal}.progress{height:7px;background:#d1c9c0}.progress i{display:block;width:16.66%;height:100%;background:var(--red-bright);transition:.25s}.quiz-body{min-height:600px;padding:46px;display:flex;flex-direction:column}.quiz-step{display:none;border:0;padding:0;margin:0}.quiz-step.is-active{display:block}.quiz-step legend{font:400 39px Georgia,serif;color:#5a1117;width:100%;margin-bottom:8px}.hint{color:#827471;line-height:1.5;margin:0 0 27px}.category-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.category{cursor:pointer}.category input{position:absolute;opacity:0}.category>span{height:145px;border-radius:22px;background:#5b1118;display:grid;place-items:center;border:3px solid transparent;transition:.2s}.category-icon svg{width:95px;height:78px;fill:none;stroke:#f7efe8;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.category>b{display:block;font-size:15px;margin-top:10px}.category:hover>span,.category input:focus-visible+span{background:#74101b}.category input:checked+span{border-color:var(--red-bright);box-shadow:0 0 0 3px rgba(215,25,45,.16)}.radio-list{display:grid;gap:14px;margin-top:25px}.radio-list label{display:flex;align-items:center;gap:14px;font-size:20px;cursor:pointer}.radio-list input{appearance:none;width:26px;height:26px;border:2px solid #a56f73;border-radius:50%;margin:0}.radio-list input:checked{border:7px solid var(--red)}.field{display:grid;gap:9px;margin-top:25px}.field span{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.field input,.field textarea{border:1px solid #d7cbc0;background:rgba(255,255,255,.72);border-radius:16px;padding:18px 20px;outline:0;color:var(--ink)}.field input{height:66px}.field textarea{resize:vertical}.field input:focus,.field textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(155,0,16,.08)}.drop{min-height:240px;border:2px dashed #aa9588;border-radius:22px;background:rgba(255,255,255,.48);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:22px;cursor:pointer}.drop.dragging,.drop:hover{background:#fff;border-color:var(--red)}.drop input{position:absolute;opacity:0;width:1px;height:1px}.drop svg{width:48px;height:48px;fill:none;stroke:var(--red);stroke-width:2}.drop span{font-size:16px}.drop span b{color:var(--red)}.drop small{color:#867872}.previews{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.previews span{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:7px 10px;background:#e1d8cf;border-radius:999px;font-size:11px}.trap{position:absolute;left:-10000px}.form-error{min-height:20px;color:#b00012;margin:12px 0 0;font-size:13px}.quiz-actions{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:24px}.back{border:0;background:transparent;cursor:pointer;color:#4e4241}.next,.submit{margin-left:auto}.submit[hidden],.next[hidden]{display:none}.form-success{position:absolute;inset:119px 0 0;background:var(--paper);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:45px}.form-success[hidden]{display:none}.form-success>span{display:grid;place-items:center;width:74px;height:74px;background:var(--red);color:#fff;border-radius:50%;font-size:36px}.form-success h3{font:400 40px Georgia,serif;color:#5a1117;margin:22px 0 10px}.form-success p{color:#786a67;max-width:480px;line-height:1.6}.about{background:var(--red);padding:100px 0}.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}.about .eyebrow{color:#fff}.about-grid>div:last-child{font-size:20px;line-height:1.75;color:#f2dfe1;padding-top:30px}.benefits{background:#090505;padding:110px 0}.benefits h2{max-width:700px}.benefit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:55px}.benefit-grid article{position:relative;background:#14090a;border:1px solid var(--line);border-radius:24px;padding:28px;min-height:300px}.benefit-grid h3{font:400 24px Georgia,serif;margin:30px 0 12px}.benefit-grid p{color:#a99999;line-height:1.6;font-size:14px}.contacts{background:var(--paper);color:var(--ink);padding:110px 0}.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px}.contacts-grid>div>p:not(.eyebrow){color:#756967;line-height:1.7;font-size:17px}.big-phone{display:block;color:var(--red);font:700 clamp(28px,3.2vw,46px) Arial;margin:30px 0}.address{font-size:20px}.address small{color:#837875}.messengers{display:flex;gap:10px;margin-top:25px}.messengers a{border:1px solid var(--red);color:var(--red);border-radius:999px;padding:11px 17px;font-weight:700;font-size:13px}.quick-form{background:#fff;border-radius:28px;padding:38px;box-shadow:0 20px 55px rgba(65,18,22,.1)}.quick-form h3{font:400 34px Georgia,serif;margin:0 0 18px}.quick-form .field{margin-top:15px}.consent{color:#8c807d;font-size:11px;line-height:1.4}.quick-success{min-height:350px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.quick-success[hidden]{display:none}.quick-success b{color:var(--red);font:400 35px Georgia,serif}.quick-success span{color:#746865;line-height:1.6;margin-top:12px}.faq{background:#090505;padding:110px 0}.faq-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:80px}.faq-list details{border-top:1px solid var(--line);padding:23px 0}.faq-list details:last-child{border-bottom:1px solid var(--line)}.faq-list summary{display:flex;justify-content:space-between;gap:20px;cursor:pointer;font-size:18px;font-weight:700;list-style:none}.faq-list summary::-webkit-details-marker{display:none}.faq-list summary span{color:var(--red-bright);font-size:27px;font-weight:400}.faq-list p{color:#ad9e9e;line-height:1.65;max-width:720px}.photo-cta{background:var(--red);padding:85px 0}.photo-cta-grid{display:flex;justify-content:space-between;align-items:center;gap:60px}.photo-cta-grid>div{max-width:850px}.photo-cta .eyebrow{color:#fff}.photo-cta p:not(.eyebrow){font-size:18px;line-height:1.65;color:#f2dfe1}.btn-light{background:#fff;color:var(--red);white-space:nowrap}footer{padding:55px 0 35px;background:#050303;border-top:1px solid var(--line)}.footer-grid{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:45px}.footer-grid nav{display:flex;justify-content:center;gap:24px}.footer-grid nav button{border:0;background:none;color:#fff;cursor:pointer;padding:0}.footer-grid p{color:#756969;font-size:12px}.policy{max-width:600px;border:0;border-radius:24px;padding:42px;background:var(--paper);color:var(--ink)}.policy::backdrop{background:rgba(0,0,0,.75)}.policy>button{position:absolute;right:18px;top:12px;border:0;background:none;font-size:30px;cursor:pointer}.policy h2{font:400 34px Georgia,serif}.policy p{line-height:1.7;color:#756967}
+  @media(max-width:980px){.site-header nav{display:none}.header-cta{display:none}.hero-grid{grid-template-columns:1fr}.hero-copy{padding-bottom:20px}.hero-visual{height:370px}.hero-visual img{height:420px;right:2%}.glass-card{top:35px;right:12%}.quiz-layout,.contacts-grid,.faq-grid{grid-template-columns:1fr}.quiz-intro{position:static;padding:0}.about-grid{grid-template-columns:1fr;gap:15px}.benefit-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr;text-align:center}.footer-grid nav{flex-wrap:wrap}.steps-grid{gap:15px}}
+  @media(max-width:660px){.shell{width:min(100% - 24px,1180px)}.header-inner{height:66px}.logo{font-size:28px}.header-phone{font-size:13px}.hero{min-height:0}.hero-grid{min-height:0}.hero-copy{padding:68px 0 10px}.hero h1{font-size:50px}.hero-lead{font-size:18px}.hero-trust{flex-wrap:wrap;gap:8px}.hero-actions{align-items:flex-start;flex-direction:column;gap:12px}.hero-stats{grid-template-columns:1fr;margin-top:35px}.hero-stats span{display:flex;gap:9px;padding-top:13px}.hero-visual{height:315px}.hero-visual img{height:340px;right:-55px}.glass-card{left:5px;right:auto;top:20px;width:190px}.ticker{height:70px;font-size:23px}.steps,.quiz-section,.about,.benefits,.contacts,.faq{padding:72px 0}.steps-grid{grid-template-columns:1fr}.steps article{min-height:240px}.quiz-card{min-height:680px;border-radius:25px}.quiz-head{height:90px;padding:0 22px}.quiz-body{padding:28px 20px;min-height:580px}.quiz-step legend{font-size:30px}.category-grid{gap:12px}.category>span{height:112px}.category-icon svg{width:75px;height:65px}.category>b{font-size:13px}.quiz-actions{padding-top:15px}.btn{padding:15px 20px}.benefit-grid{grid-template-columns:1fr}.about-grid>div:last-child{font-size:17px}.contacts-grid{gap:40px}.quick-form{padding:25px 20px}.faq-grid{gap:35px}.photo-cta-grid{align-items:flex-start;flex-direction:column}.footer-grid nav{flex-direction:column}.form-success{inset:97px 0 0;padding:24px}.site-header .header-phone{font-size:0}.site-header .header-phone::after{content:"Позвонить";font-size:13px}.messengers{flex-wrap:wrap}}
+</style>

@@ -83,8 +83,10 @@ const htmlFiles = (await collectHtml(root)).filter((file) => !isPreview(file) &&
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const route = path.relative(root, file);
-  if ((html.match(/113109306/g) ?? []).length < 2) errors.push(`${route}: не установлен счётчик Яндекс Метрики`);
-  if ((html.match(/tag\.js\?id=113109306/g) ?? []).length !== 1) errors.push(`${route}: счётчик Яндекс Метрики должен подключаться ровно один раз`);
+  const isAdLanding = route === path.join('ocenka', 'index.html');
+  const metrikaId = isAdLanding ? '113180332' : '113109306';
+  if ((html.match(new RegExp(metrikaId, 'g')) ?? []).length < 2) errors.push(`${route}: не установлен счётчик Яндекс Метрики`);
+  if ((html.match(new RegExp(`tag\\.js\\?id=${metrikaId}`, 'g')) ?? []).length !== 1) errors.push(`${route}: счётчик Яндекс Метрики должен подключаться ровно один раз`);
   if (!html.includes('webvisor:true') || !html.includes('clickmap:true')) errors.push(`${route}: не включены Вебвизор или карта кликов`);
   if (!html.includes('class="site-header"')) {
     errors.push(`${route}: отсутствует шапка сайта`);
@@ -93,7 +95,7 @@ for (const file of htmlFiles) {
   if (html.includes('<div id="rec2189620761"')) {
     errors.push(`${route}: осталась старая Tilda-шапка`);
   }
-  if (!/<footer[^>]+id=["']t-footer["']/i.test(html) || !html.includes('rec2189759551')) {
+  if (!isAdLanding && (!/<footer[^>]+id=["']t-footer["']/i.test(html) || !html.includes('rec2189759551'))) {
     errors.push(`${route}: отсутствует оригинальный Tilda-футер`);
   }
   if (html.includes('article-site-header') || html.includes('article-site-footer')) {
@@ -117,7 +119,7 @@ for (const articleFile of htmlFiles.filter(file => file.includes(`${path.sep}art
   }
 }
 
-if (htmlFiles.length !== 25) errors.push(`ожидалось 25 HTML-страниц, собрано ${htmlFiles.length}`);
+if (htmlFiles.length !== 26) errors.push(`ожидалось 26 HTML-страниц, собрано ${htmlFiles.length}`);
 
 if (errors.length) {
   console.error(`Проверка не пройдена:\n- ${errors.join('\n- ')}`);
