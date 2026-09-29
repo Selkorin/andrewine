@@ -26,6 +26,7 @@ jobs:
           echo '--- public DNS ---'
           dig +short A andrewine.ru @1.1.1.1
           dig +short AAAA andrewine.ru @1.1.1.1
+          dig +short NS andrewine.ru @1.1.1.1
           echo '--- public HTTPS IPv4 ---'
           curl -4 -fsSIL --connect-timeout 10 --max-time 20 https://andrewine.ru/ | head -20
           echo '--- public HTTPS IPv6 ---'
