@@ -141,8 +141,9 @@ const faqs = [
 
     </main>
 
-    <footer><div class="shell footer-grid"><div class="logo">Andrewine</div><nav><a href="#online-valuation">Онлайн-оценка</a><a href="#contacts">Контакты</a><button type="button" data-policy-open>Пользовательское соглашение</button></nav><p>© 2014–2026, Andrewine — оценка и выкуп коллекций.</p></div></footer>
+    <footer><div class="shell footer-grid"><div class="footer-brand"><div class="logo">Andrewine</div><p>Оценка и выкуп частных коллекций</p></div><nav><a href="#online-valuation">Онлайн-оценка</a><a href="#contacts">Контакты</a><button type="button" data-policy-open>Пользовательское соглашение</button><button type="button" data-privacy-open>Политика конфиденциальности</button></nav><div class="footer-contacts"><a class="track-phone" href={phoneHref}>{phone}</a><span>Москва, улица Покрышкина, 5</span><small>© 2014–2026, Andrewine</small></div></div></footer>
     <dialog class="policy" data-policy><button type="button" aria-label="Закрыть" data-policy-close>×</button><h2>Пользовательское соглашение</h2><p>Отправляя форму, вы добровольно предоставляете контактные данные для обработки обращения, подготовки оценки и обратной связи. Данные не используются для посторонних целей и передаются только специалистам Andrewine, участвующим в обработке заявки.</p></dialog>
+    <dialog class="policy" data-privacy><button type="button" aria-label="Закрыть" data-privacy-close>×</button><h2>Политика конфиденциальности</h2><p>Andrewine обрабатывает имя, номер телефона, комментарий и прикреплённые фотографии только для рассмотрения заявки, предварительной оценки коллекции и обратной связи с заявителем.</p><p>Данные не публикуются и не передаются третьим лицам, за исключением случаев, предусмотренных законодательством Российской Федерации. Доступ к обращениям имеют только специалисты, участвующие в обработке заявки.</p><p>Вы можете запросить уточнение или удаление предоставленных данных, связавшись с нами по телефону {phone}. Адрес: Москва, улица Покрышкина, 5.</p></dialog>
     <CallWidget telegramHref={telegramHref} whatsappHref={whatsappHref} />
 
     <script>
@@ -236,6 +237,7 @@ const faqs = [
         });
       });
       const dialog = document.querySelector<HTMLDialogElement>('[data-policy]')!; document.querySelector('[data-policy-open]')?.addEventListener('click', () => dialog.showModal()); document.querySelector('[data-policy-close]')?.addEventListener('click', () => dialog.close());
+      const privacy = document.querySelector<HTMLDialogElement>('[data-privacy]')!; document.querySelector('[data-privacy-open]')?.addEventListener('click', () => privacy.showModal()); document.querySelector('[data-privacy-close]')?.addEventListener('click', () => privacy.close());
     </script>
   </body>
 </html>
@@ -306,6 +308,11 @@ const faqs = [
   .faq-grid{position:relative}.faq-grid>div:first-child{padding:40px 35px 45px;border-left:2px solid var(--red-bright);background:rgba(4,3,3,.38);backdrop-filter:blur(3px)}
   .faq-list{height:540px;padding:5px 28px;border-radius:26px;background:rgba(4,3,3,.57);backdrop-filter:blur(7px)}
   .faq-list details p{margin:13px 0 0}.faq-list details[open] summary span{transform:rotate(45deg)}.faq-list summary span{transition:transform .2s ease}
+  .footer-grid{grid-template-columns:240px minmax(0,1fr) 255px;align-items:start}
+  .footer-brand p{margin:9px 0 0;color:#817576;font-size:11px;line-height:1.45}
+  .footer-grid nav{align-items:center;justify-content:flex-start;gap:13px 22px;flex-wrap:wrap;padding-top:9px}
+  .footer-grid nav a,.footer-grid nav button{font-size:12px;transition:color .2s ease}.footer-grid nav a:hover,.footer-grid nav button:hover{color:var(--red-bright)}
+  .footer-contacts{display:flex;align-items:flex-end;flex-direction:column;gap:7px;text-align:right;padding-top:5px}.footer-contacts a{font-weight:800;font-size:17px}.footer-contacts span{color:#b3a5a6;font-size:12px}.footer-contacts small{color:#6f6465;font-size:10px}
   .photo-cta{position:relative;isolation:isolate;overflow:hidden;padding:0;background:linear-gradient(105deg,#8f0010 0%,#ae0015 58%,#71000b 100%)}
   .photo-cta::before{content:"";position:absolute;z-index:-1;inset:0;background-image:radial-gradient(circle at 82% 40%,rgba(0,0,0,.2),transparent 38%),linear-gradient(90deg,rgba(255,255,255,.035),transparent 55%)}
   .photo-cta-noise{position:absolute;z-index:-1;inset:0;opacity:.14;mix-blend-mode:overlay;background-image:url('/assets/ocenka-paper-texture-v2.webp');background-size:720px auto}
@@ -314,7 +321,7 @@ const faqs = [
   .photo-cta-grid>img{align-self:end;width:360px;height:500px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 24px 34px rgba(0,0,0,.38))}
   .photo-cta h2{max-width:780px}.photo-cta p:not(.eyebrow){max-width:720px}.photo-cta .btn-light{margin-top:12px;box-shadow:0 12px 28px rgba(58,0,5,.22)}
   @media(max-width:980px){.hero-stats{grid-template-columns:repeat(2,1fr)}.map-card{margin-top:0}}
-  @media(max-width:980px){.photo-cta-grid{grid-template-columns:minmax(0,1fr) 280px}.photo-cta-grid>img{width:300px;height:440px}.faq{height:auto;min-height:760px;background-attachment:scroll}.faq-grid>div:first-child{padding:30px}.faq-list{height:auto;min-height:540px;padding:5px 24px}}
-  @media(max-width:660px){.hero{background-position:64% center}.hero-stats{grid-template-columns:1fr 1fr}.hero-stats>span{display:flex;padding:14px 4px 0 0}.stat-icon{flex-basis:38px;width:38px;height:38px}.stat-icon svg{width:19px;height:19px}.ticker{height:66px}.ticker span{font-size:21px;margin-right:34px}.ticker span::before{margin-right:34px}.big-phone{font-size:25px;gap:11px}.ringing-phone{flex-basis:45px;width:45px;height:45px}.map-card,.map-card iframe{min-height:480px;height:480px}.map-caption{left:14px;bottom:14px;width:calc(100% - 28px);padding:20px}.map-caption b{font-size:21px}.faq{background-position:62% center}.faq-grid>div:first-child{padding:25px 22px}.faq-list{padding:0 18px}.photo-cta-grid{display:grid;grid-template-columns:1fr;min-height:0}.photo-cta-grid>div{padding:72px 0 0}.photo-cta-grid>img{justify-self:end;width:260px;height:360px;margin-top:-15px}.photo-cta h2{font-size:44px}}
+  @media(max-width:980px){.photo-cta-grid{grid-template-columns:minmax(0,1fr) 280px}.photo-cta-grid>img{width:300px;height:440px}.faq{height:auto;min-height:760px;background-attachment:scroll}.faq-grid>div:first-child{padding:30px}.faq-list{height:auto;min-height:540px;padding:5px 24px}.footer-grid{grid-template-columns:1fr 1.4fr}.footer-contacts{grid-column:1/-1;align-items:flex-start;text-align:left;border-top:1px solid var(--line);padding-top:22px}}
+  @media(max-width:660px){.hero{background-position:64% center}.hero-stats{grid-template-columns:1fr 1fr}.hero-stats>span{display:flex;padding:14px 4px 0 0}.stat-icon{flex-basis:38px;width:38px;height:38px}.stat-icon svg{width:19px;height:19px}.ticker{height:66px}.ticker span{font-size:21px;margin-right:34px}.ticker span::before{margin-right:34px}.big-phone{font-size:25px;gap:11px}.ringing-phone{flex-basis:45px;width:45px;height:45px}.map-card,.map-card iframe{min-height:480px;height:480px}.map-caption{left:14px;bottom:14px;width:calc(100% - 28px);padding:20px}.map-caption b{font-size:21px}.faq{background-position:62% center}.faq-grid>div:first-child{padding:25px 22px}.faq-list{padding:0 18px}.photo-cta-grid{display:grid;grid-template-columns:1fr;min-height:0}.photo-cta-grid>div{padding:72px 0 0}.photo-cta-grid>img{justify-self:end;width:260px;height:360px;margin-top:-15px}.photo-cta h2{font-size:44px}.footer-grid{grid-template-columns:1fr;text-align:left}.footer-grid nav{align-items:flex-start;flex-direction:column}.footer-contacts{grid-column:auto}.policy{width:calc(100% - 24px);padding:34px 24px}.policy h2{font-size:28px}}
   @media(prefers-reduced-motion:reduce){.ticker-track,.stat-icon::before,.ringing-phone::before,.ringing-phone::after,.ringing-phone svg{animation:none}.ticker-track{transform:none}.steps article,.category-icon svg{transition:none}}
 </style>
