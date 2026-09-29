@@ -322,13 +322,14 @@ const faqs = [
   .wine-logo{--wine-left:50%;--wine-right:50%;--wine-kick:0%;position:relative;display:inline-grid;isolation:isolate;line-height:1;overflow:visible}
   .wine-logo .logo-base,.wine-logo .logo-liquid>span{grid-area:1/1;white-space:nowrap}
   .wine-logo .logo-base{color:#fff}
-  .wine-logo .logo-liquid{position:absolute;z-index:2;inset:0;color:var(--red-bright);clip-path:polygon(0 var(--wine-left),100% var(--wine-right),100% 105%,0 105%);transition:clip-path .34s cubic-bezier(.22,.8,.25,1);filter:drop-shadow(0 -1px 0 rgba(255,255,255,.08));pointer-events:none}
+  .wine-logo .logo-liquid{position:absolute;z-index:2;inset:0;color:var(--red-bright);clip-path:polygon(0 var(--wine-left),100% var(--wine-right),100% 105%,0 105%);transition:clip-path .34s cubic-bezier(.22,.8,.25,1);filter:drop-shadow(0 -1px 0 rgba(255,255,255,.08));pointer-events:none;transform-origin:50% 70%;animation:logo-liquid-idle 2.8s ease-in-out infinite}
   .wine-logo .logo-liquid>span{font:inherit}
   .wine-logo .logo-liquid::before{content:"";position:absolute;z-index:-1;left:-12%;top:calc(44% - var(--wine-kick));width:124%;height:15%;border-radius:50%;background:rgba(215,25,45,.28);filter:blur(2px);animation:logo-swell 3.8s ease-in-out infinite}
   .logo-bubbles{position:absolute;z-index:3;inset:45% 2px 1px;overflow:hidden;pointer-events:none}
   .logo-bubbles b{position:absolute;bottom:-4px;width:4px;height:4px;border:1px solid rgba(255,255,255,.58);border-radius:50%;opacity:0;animation:logo-bubble 3.4s ease-in infinite}
   .logo-bubbles b:nth-child(1){left:23%;animation-delay:-.4s}.logo-bubbles b:nth-child(2){left:58%;width:3px;height:3px;animation-delay:-1.8s;animation-duration:2.8s}.logo-bubbles b:nth-child(3){left:82%;width:5px;height:5px;animation-delay:-2.6s;animation-duration:4.2s}
   @keyframes logo-swell{0%,100%{transform:translateX(-2%) scaleY(.72)}50%{transform:translateX(2%) scaleY(1.08)}}
+  @keyframes logo-liquid-idle{0%,100%{transform:translateY(0) rotate(-.35deg)}50%{transform:translateY(1.5px) rotate(.55deg)}}
   @keyframes logo-bubble{0%{opacity:0;transform:translate(0,4px) scale(.5)}18%{opacity:.8}75%{opacity:.35}100%{opacity:0;transform:translate(5px,-20px) scale(1.25)}}
   .steps,.contacts{background-color:var(--paper);background-image:linear-gradient(rgba(244,239,231,.82),rgba(244,239,231,.82)),url('/assets/ocenka-paper-texture-v2.webp');background-size:auto,760px auto}
   .steps article{overflow:hidden;background:rgba(255,255,255,.76);backdrop-filter:blur(5px);box-shadow:0 20px 55px rgba(55,16,19,.08);transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
@@ -338,11 +339,12 @@ const faqs = [
   .step-icon svg{width:50px;height:50px;transition:transform .35s ease}
   .steps article:hover .step-icon svg{transform:scale(1.08) rotate(-3deg)}
   .category>span.category-copy{position:relative;overflow:hidden;height:145px;display:flex;align-items:flex-start;justify-content:flex-end;flex-direction:column;padding:24px;background:linear-gradient(135deg,#75111d,#4b0d13);border:2px solid transparent}
-  .category>span.category-copy::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.72;background-image:linear-gradient(120deg,rgba(255,255,255,.055),transparent 42%),radial-gradient(circle at 14% 78%,transparent 0 5px,rgba(255,255,255,.13) 6px 7px,transparent 8px),radial-gradient(circle at 31% 30%,transparent 0 2px,rgba(255,255,255,.11) 3px 4px,transparent 5px),radial-gradient(circle at 71% 69%,transparent 0 8px,rgba(255,255,255,.09) 9px 10px,transparent 11px),radial-gradient(circle at 88% 35%,transparent 0 3px,rgba(255,255,255,.12) 4px 5px,transparent 6px);background-size:auto,74px 74px,52px 52px,112px 112px,61px 61px}
+  .category>span.category-copy::before{content:"";position:absolute;inset:-150px 0 0;pointer-events:none;opacity:.72;background-image:linear-gradient(120deg,rgba(255,255,255,.055),transparent 42%),radial-gradient(circle at 14% 78%,transparent 0 5px,rgba(255,255,255,.13) 6px 7px,transparent 8px),radial-gradient(circle at 31% 30%,transparent 0 2px,rgba(255,255,255,.11) 3px 4px,transparent 5px),radial-gradient(circle at 71% 69%,transparent 0 8px,rgba(255,255,255,.09) 9px 10px,transparent 11px),radial-gradient(circle at 88% 35%,transparent 0 3px,rgba(255,255,255,.12) 4px 5px,transparent 6px);background-size:auto,74px 74px,52px 52px,112px 112px,61px 61px;animation:category-fizz 5.6s linear infinite;will-change:transform}
   .category>span.category-copy::after{content:"";position:absolute;inset:auto -28px -54px auto;width:165px;height:165px;border-radius:50%;border:1px solid rgba(255,255,255,.055);box-shadow:0 0 0 20px rgba(255,255,255,.018),0 0 0 42px rgba(255,255,255,.012);pointer-events:none}
   .live-bubbles{position:absolute!important;z-index:0;inset:0!important;overflow:hidden;pointer-events:none;opacity:.82!important}
   .live-bubbles b{position:absolute;left:var(--x);bottom:-22px;width:var(--size);height:var(--size);border:1.5px solid rgba(255,238,239,.3);border-radius:50%;box-shadow:inset 0 0 5px rgba(255,255,255,.08);animation:category-bubble var(--duration) ease-in var(--delay) infinite;will-change:transform,opacity}
   @keyframes category-bubble{0%{opacity:0;transform:translate3d(0,12px,0) scale(.45)}12%{opacity:.18}34%{opacity:.6}72%{opacity:.34}100%{opacity:0;transform:translate3d(var(--drift),-190px,0) scale(1.18)}}
+  @keyframes category-fizz{0%{transform:translate3d(0,110px,0)}100%{transform:translate3d(0,-20px,0)}}
   .category-copy b{position:relative;color:#fff;font:400 23px/1.08 Georgia,serif}.category-copy small{position:relative;margin-top:8px;color:#d9c6c7;font-size:12px}.category-copy i{position:absolute;right:20px;top:18px;color:#fff;font:700 10px Arial;text-transform:uppercase;letter-spacing:.12em;opacity:.5}
   .category:hover>span.category-copy{background:linear-gradient(135deg,#8e1020,#5a0c15)}.category input:checked+span.category-copy{border-color:var(--red-bright);box-shadow:0 0 0 3px rgba(215,25,45,.16)}
   .quiz-card{background-color:var(--paper);background-image:linear-gradient(rgba(244,239,231,.89),rgba(244,239,231,.89)),url('/assets/ocenka-paper-texture-v2.webp');background-size:auto,760px auto}
@@ -402,5 +404,5 @@ const faqs = [
     .hero h1{text-shadow:0 3px 20px rgba(0,0,0,.85)}
     .hero-lead,.hero-trust{text-shadow:0 2px 12px rgba(0,0,0,.95)}
   }
-  @media(prefers-reduced-motion:reduce){.ticker-track,.stat-icon::before,.ringing-phone::before,.ringing-phone::after,.ringing-phone svg,.logo-liquid::before,.logo-bubbles b,.live-bubbles b{animation:none}.ticker-track{transform:none}.steps article,.category-icon svg{transition:none}}
+  @media(prefers-reduced-motion:reduce){.ticker-track,.stat-icon::before,.ringing-phone::before,.ringing-phone::after,.ringing-phone svg,.logo-liquid,.logo-liquid::before,.logo-bubbles b,.category-copy::before,.live-bubbles b{animation:none}.ticker-track{transform:none}.steps article,.category-icon svg{transition:none}}
 </style>
