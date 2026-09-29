@@ -1,0 +1,84 @@
+name: Deploy production server
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Inspect the server or deploy the site
+        required: true
+        default: inspect
+        type: choice
+        options:
+          - inspect
+          - deploy
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    if: inputs.mode == 'inspect'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect Nginx and web roots
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: root
+          password: ${{ secrets.PRODUCTION_PASSWORD }}
+          timeout: 60s
+          command_timeout: 2m
+          script: |
+            hostname
+            echo '--- nginx roots ---'
+            grep -R "server_name\|root " /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null | head -120 || true
+            echo '--- web directories ---'
+            find /var/www -maxdepth 3 -type d 2>/dev/null | head -120 || true
+            echo '--- containers ---'
+            docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Ports}}' 2>/dev/null || true
+
+  deploy:
+    if: inputs.mode == 'deploy'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Build and verify
+        run: npm ci && ASTRO_TELEMETRY_DISABLED=1 npm run build
+      - name: Package site
+        run: tar -C dist -czf /tmp/andrewine-site.tar.gz .
+      - name: Upload package
+        uses: appleboy/scp-action@v1.0.0
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: root
+          password: ${{ secrets.PRODUCTION_PASSWORD }}
+          timeout: 60s
+          source: /tmp/andrewine-site.tar.gz
+          target: /tmp
+          strip_components: 1
+      - name: Activate release
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: root
+          password: ${{ secrets.PRODUCTION_PASSWORD }}
+          timeout: 60s
+          command_timeout: 5m
+          script: |
+            set -eu
+            site_root="${{ secrets.PRODUCTION_WEB_ROOT }}"
+            test -n "$site_root"
+            test "$site_root" != "/"
+            mkdir -p "$site_root"
+            backup="${site_root}.backup-$(date +%Y%m%d-%H%M%S)"
+            cp -a "$site_root" "$backup"
+            find "$site_root" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+            tar -xzf /tmp/andrewine-site.tar.gz -C "$site_root"
+            rm -f /tmp/andrewine-site.tar.gz
+            nginx -t
+            curl -fsS -H 'Host: andrewine.ru' http://127.0.0.1/ >/dev/null
+            echo "Deployed to $site_root; backup: $backup"
