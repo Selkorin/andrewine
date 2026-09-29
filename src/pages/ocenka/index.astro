@@ -8,10 +8,10 @@ const telegramHref = 'https://t.me/AWONLINE_BOT';
 const whatsappHref = 'https://wa.me/79863458235';
 const maxHref = 'https://max.ru/u/f9LHKTfYtCqrEMQ8NjO-lQ';
 const categories = [
-  { value: 'Выдержанные крепкие', title: 'Выдержанные крепкие', icon: 'barrel' },
-  { value: 'Другие крепкие', title: 'Другие крепкие', icon: 'decanter' },
-  { value: 'Вина и игристые', title: 'Вина и игристые', icon: 'grapes' },
-  { value: 'Коллекция целиком / другое', title: 'Коллекция целиком / другое', icon: 'other' },
+  { value: 'Выдержанные крепкие', title: 'Выдержанные крепкие', note: 'Виски · коньяк · арманьяк' },
+  { value: 'Другие крепкие', title: 'Другие крепкие', note: 'Водка · ром · текила' },
+  { value: 'Вина и игристые', title: 'Вина и игристые', note: 'Редкие и винтажные выпуски' },
+  { value: 'Коллекция целиком / другое', title: 'Коллекция целиком / другое', note: 'Несколько бутылок или иной напиток' },
 ];
 const faqs = [
   ['Какие бутылки стоит отправлять на оценку?', 'Можно предложить любые коллекционные и премиальные бутылки — импортные, советские, винтажные. Интерес зависит не только от марки, но и от конкретного выпуска, состояния и спроса.'],
@@ -63,7 +63,6 @@ const faqs = [
 
     <main id="top">
       <section class="hero">
-        <div class="hero-orbit" aria-hidden="true"></div>
         <div class="shell hero-grid">
           <div class="hero-copy">
             <p class="eyebrow">Профессиональная оценка с 2014 года</p>
@@ -108,12 +107,7 @@ const faqs = [
             <div class="quiz-head"><span>Расчёт стоимости онлайн</span><b><i data-current>1</i>/6</b></div><div class="progress"><i data-progress></i></div>
             <div class="quiz-body">
               <fieldset class="quiz-step is-active" data-step="1"><legend>Что хотите оценить?</legend><p class="hint">Выберите один вариант</p><div class="category-grid">
-                {categories.map((item) => <label class="category"><input type="radio" name="category" value={item.value}/><span class="category-icon">
-                  {item.icon === 'barrel' && <svg viewBox="0 0 90 70" role="img" aria-label={item.title}><path d="M23 11c12 4 32 4 44 0M23 59c12-4 32-4 44 0M23 11c-4 14-4 34 0 48M67 11c4 14 4 34 0 48M17 25h56M17 45h56M45 11v48"/></svg>}
-                  {item.icon === 'decanter' && <svg viewBox="0 0 90 70" role="img" aria-label={item.title}><path d="M40 8h10l3 9-5 8c14 5 19 17 19 34H23c0-17 5-29 19-34l-5-8 3-9ZM30 45h30M35 35h20"/></svg>}
-                  {item.icon === 'grapes' && <svg viewBox="0 0 90 70" role="img" aria-label={item.title}><path d="M45 18c-5-8-11-9-17-8 2 8 8 12 17 8Zm0 0c6-9 13-10 19-8-3 8-9 12-19 8Zm0 0v9M36 29a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm18 0a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM45 39a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-9 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm18 0a7 7 0 1 0 0 14 7 7 0 0 0 0-14Z"/></svg>}
-                  {item.icon === 'other' && <svg viewBox="0 0 90 70" role="img" aria-label={item.title}><path d="M35 26c1-10 20-12 21 1 1 8-11 8-11 17M45 56h.1"/></svg>}
-                </span><b>{item.title}</b></label>)}
+                {categories.map((item) => <label class="category"><input type="radio" name="category" value={item.value}/><span class="category-copy"><b>{item.title}</b><small>{item.note}</small><i aria-hidden="true">Выбрать →</i></span></label>)}
               </div></fieldset>
               <fieldset class="quiz-step" data-step="2"><legend>Есть ли подарочная упаковка?</legend><div class="radio-list"><label><input type="radio" name="package" value="Да"/><span>Да</span></label><label><input type="radio" name="package" value="Нет"/><span>Нет</span></label><label><input type="radio" name="package" value="Частично"/><span>Частично</span></label></div></fieldset>
               <fieldset class="quiz-step" data-step="3"><legend>Есть документы или сертификат?</legend><div class="radio-list"><label><input type="radio" name="documents" value="Да"/><span>Да</span></label><label><input type="radio" name="documents" value="Нет"/><span>Нет</span></label></div></fieldset>
@@ -145,7 +139,6 @@ const faqs = [
 
       <section class="faq"><div class="shell faq-grid"><div><p class="eyebrow">Вопросы и ответы</p><h2>Что важно знать до оценки</h2></div><div class="faq-list">{faqs.map(([q,a]) => <details><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></div></section>
 
-      <section class="photo-cta"><div class="photo-cta-noise" aria-hidden="true"></div><div class="shell photo-cta-grid"><div><p class="eyebrow">Оценка по фото</p><h2>Профессиональная оценка коллекции</h2><p>Редкая бутылка — это ценный актив: отдельные экземпляры стоят как автомобиль. Andrewine помогает оценить и выгодно реализовать такие позиции.</p><a class="btn btn-light" href="#online-valuation">Начать оценку →</a></div><img src="/assets/andrew-quiz.png" alt="Эксперт Andrewine" width="420" height="600" loading="lazy" decoding="async"/></div></section>
     </main>
 
     <footer><div class="shell footer-grid"><div class="logo">Andrewine</div><nav><a href="#online-valuation">Онлайн-оценка</a><a href="#contacts">Контакты</a><button type="button" data-policy-open>Пользовательское соглашение</button></nav><p>© 2014–2026, Andrewine — оценка и выкуп коллекций.</p></div></footer>
@@ -234,6 +227,14 @@ const faqs = [
           }
         });
       });
+      document.querySelectorAll<HTMLDetailsElement>('.faq-list details').forEach((item) => {
+        item.addEventListener('toggle', () => {
+          if (!item.open) return;
+          document.querySelectorAll<HTMLDetailsElement>('.faq-list details[open]').forEach((other) => {
+            if (other !== item) other.open = false;
+          });
+        });
+      });
       const dialog = document.querySelector<HTMLDialogElement>('[data-policy]')!; document.querySelector('[data-policy-open]')?.addEventListener('click', () => dialog.showModal()); document.querySelector('[data-policy-close]')?.addEventListener('click', () => dialog.close());
     </script>
   </body>
@@ -247,11 +248,10 @@ const faqs = [
 
 <style is:global>
   .hero{
-    background-image:linear-gradient(90deg,rgba(7,3,3,.98) 0%,rgba(10,3,4,.9) 44%,rgba(20,2,5,.34) 100%),url('/assets/ocenka-appraisal-background-v2.webp');
+    background-image:radial-gradient(circle at 82% 38%,rgba(155,0,16,.34),transparent 36%),linear-gradient(115deg,#070303 0%,#120405 54%,#250308 100%);
     background-position:center;background-size:cover
   }
-  .hero::before{opacity:.13}
-  .hero-orbit{opacity:.48;mix-blend-mode:screen}
+  .hero::before{opacity:.16;background-image:radial-gradient(rgba(255,255,255,.28) .55px,transparent .55px);background-size:8px 8px;mask-image:linear-gradient(90deg,transparent 5%,#000 45%,#000)}
   .hero-visual img{filter:drop-shadow(0 28px 38px rgba(0,0,0,.5))}
   .hero-stats{grid-template-columns:repeat(4,1fr);gap:12px}
   .hero-stats>span{display:flex;align-items:center;gap:12px;padding-top:18px}
@@ -273,10 +273,10 @@ const faqs = [
   .step-icon{display:grid;place-items:center;width:86px;height:86px;border-radius:50%;background:linear-gradient(145deg,#fff,#efe5dc);box-shadow:inset 0 0 0 1px rgba(155,0,16,.1),0 12px 28px rgba(77,20,24,.1)}
   .step-icon svg{width:50px;height:50px;transition:transform .35s ease}
   .steps article:hover .step-icon svg{transform:scale(1.08) rotate(-3deg)}
-  .category>span{position:relative;overflow:hidden;background:radial-gradient(circle at 50% 35%,#811827,#541017 70%)}
-  .category>span::before{content:"";position:absolute;width:120px;height:120px;border:1px solid rgba(255,255,255,.1);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.025)}
-  .category-icon{position:relative;z-index:1}.category-icon svg{filter:drop-shadow(0 8px 13px rgba(0,0,0,.24));transition:transform .3s ease,filter .3s ease}
-  .category:hover .category-icon svg{transform:scale(1.1);filter:drop-shadow(0 10px 16px rgba(0,0,0,.32))}
+  .category>span.category-copy{position:relative;overflow:hidden;height:145px;display:flex;align-items:flex-start;justify-content:flex-end;flex-direction:column;padding:24px;background:linear-gradient(135deg,#75111d,#4b0d13);border:2px solid transparent}
+  .category>span.category-copy::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.055),transparent 42%);pointer-events:none}
+  .category-copy b{position:relative;color:#fff;font:400 23px/1.08 Georgia,serif}.category-copy small{position:relative;margin-top:8px;color:#d9c6c7;font-size:12px}.category-copy i{position:absolute;right:20px;top:18px;color:#fff;font:700 10px Arial;text-transform:uppercase;letter-spacing:.12em;opacity:.5}
+  .category:hover>span.category-copy{background:linear-gradient(135deg,#8e1020,#5a0c15)}.category input:checked+span.category-copy{border-color:var(--red-bright);box-shadow:0 0 0 3px rgba(215,25,45,.16)}
   .quiz-card{background-color:var(--paper);background-image:linear-gradient(rgba(244,239,231,.89),rgba(244,239,231,.89)),url('/assets/ocenka-paper-texture-v2.webp');background-size:auto,760px auto}
   .contacts-grid{gap:55px}
   .icon-messengers{gap:12px}
@@ -301,10 +301,11 @@ const faqs = [
   .map-card iframe{display:block;width:100%;height:450px;border:0;filter:grayscale(1) contrast(.96)}
   .map-caption{position:absolute;left:28px;bottom:28px;width:min(350px,calc(100% - 56px));display:flex;flex-direction:column;gap:7px;padding:24px 26px;border-radius:20px;background:rgba(8,5,5,.93);color:#fff;box-shadow:0 12px 35px rgba(0,0,0,.28);backdrop-filter:blur(14px)}
   .map-caption span{color:var(--red-bright);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.map-caption b{font:400 24px Georgia,serif}.map-caption small{color:#bbaeb0}.map-caption a{margin-top:9px;font-size:13px;font-weight:700;color:#fff;text-decoration:underline;text-underline-offset:4px}
-  .faq{position:relative;isolation:isolate;background-image:linear-gradient(90deg,rgba(6,4,4,.83) 0%,rgba(6,4,4,.94) 47%,rgba(6,4,4,.86) 100%),url('/assets/ocenka-cellar-faq-v2.webp');background-position:center;background-size:cover;background-attachment:fixed}
+  .faq{position:relative;isolation:isolate;height:760px;overflow:hidden;background-image:linear-gradient(90deg,rgba(6,4,4,.83) 0%,rgba(6,4,4,.94) 47%,rgba(6,4,4,.86) 100%),url('/assets/ocenka-cellar-faq-v2.webp');background-position:center;background-size:cover;background-attachment:fixed}
   .faq::before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(circle at 21% 50%,rgba(185,0,22,.14),transparent 32%),linear-gradient(180deg,rgba(0,0,0,.2),transparent 18%,transparent 82%,rgba(0,0,0,.28))}
   .faq-grid{position:relative}.faq-grid>div:first-child{padding:40px 35px 45px;border-left:2px solid var(--red-bright);background:rgba(4,3,3,.38);backdrop-filter:blur(3px)}
-  .faq-list{padding:5px 28px;border-radius:26px;background:rgba(4,3,3,.57);backdrop-filter:blur(7px)}
+  .faq-list{height:540px;padding:5px 28px;border-radius:26px;background:rgba(4,3,3,.57);backdrop-filter:blur(7px)}
+  .faq-list details p{margin:13px 0 0}.faq-list details[open] summary span{transform:rotate(45deg)}.faq-list summary span{transition:transform .2s ease}
   .photo-cta{position:relative;isolation:isolate;overflow:hidden;padding:0;background:linear-gradient(105deg,#8f0010 0%,#ae0015 58%,#71000b 100%)}
   .photo-cta::before{content:"";position:absolute;z-index:-1;inset:0;background-image:radial-gradient(circle at 82% 40%,rgba(0,0,0,.2),transparent 38%),linear-gradient(90deg,rgba(255,255,255,.035),transparent 55%)}
   .photo-cta-noise{position:absolute;z-index:-1;inset:0;opacity:.14;mix-blend-mode:overlay;background-image:url('/assets/ocenka-paper-texture-v2.webp');background-size:720px auto}
@@ -313,7 +314,7 @@ const faqs = [
   .photo-cta-grid>img{align-self:end;width:360px;height:500px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 24px 34px rgba(0,0,0,.38))}
   .photo-cta h2{max-width:780px}.photo-cta p:not(.eyebrow){max-width:720px}.photo-cta .btn-light{margin-top:12px;box-shadow:0 12px 28px rgba(58,0,5,.22)}
   @media(max-width:980px){.hero-stats{grid-template-columns:repeat(2,1fr)}.map-card{margin-top:0}}
-  @media(max-width:980px){.photo-cta-grid{grid-template-columns:minmax(0,1fr) 280px}.photo-cta-grid>img{width:300px;height:440px}.faq{background-attachment:scroll}.faq-grid>div:first-child{padding:30px}.faq-list{padding:5px 24px}}
+  @media(max-width:980px){.photo-cta-grid{grid-template-columns:minmax(0,1fr) 280px}.photo-cta-grid>img{width:300px;height:440px}.faq{height:auto;min-height:760px;background-attachment:scroll}.faq-grid>div:first-child{padding:30px}.faq-list{height:auto;min-height:540px;padding:5px 24px}}
   @media(max-width:660px){.hero{background-position:64% center}.hero-stats{grid-template-columns:1fr 1fr}.hero-stats>span{display:flex;padding:14px 4px 0 0}.stat-icon{flex-basis:38px;width:38px;height:38px}.stat-icon svg{width:19px;height:19px}.ticker{height:66px}.ticker span{font-size:21px;margin-right:34px}.ticker span::before{margin-right:34px}.big-phone{font-size:25px;gap:11px}.ringing-phone{flex-basis:45px;width:45px;height:45px}.map-card,.map-card iframe{min-height:480px;height:480px}.map-caption{left:14px;bottom:14px;width:calc(100% - 28px);padding:20px}.map-caption b{font-size:21px}.faq{background-position:62% center}.faq-grid>div:first-child{padding:25px 22px}.faq-list{padding:0 18px}.photo-cta-grid{display:grid;grid-template-columns:1fr;min-height:0}.photo-cta-grid>div{padding:72px 0 0}.photo-cta-grid>img{justify-self:end;width:260px;height:360px;margin-top:-15px}.photo-cta h2{font-size:44px}}
   @media(prefers-reduced-motion:reduce){.ticker-track,.stat-icon::before,.ringing-phone::before,.ringing-phone::after,.ringing-phone svg{animation:none}.ticker-track{transform:none}.steps article,.category-icon svg{transition:none}}
 </style>
