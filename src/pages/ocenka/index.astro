@@ -1,5 +1,6 @@
 ---
 import CallWidget from '../../components/CallWidget.astro';
+import { BadgeCheck, Bike, Camera, ClipboardCheck, Clock3, Images, MapPin, MessageCircle, PhoneCall, Send, Upload } from '@lucide/astro';
 
 const phone = '+7 (986) 345-82-35';
 const phoneHref = 'tel:+79863458235';
@@ -71,10 +72,10 @@ const faqs = [
             <p class="hero-trust">Дорого <i></i> Экспертно <i></i> Конфиденциально</p>
             <div class="hero-actions"><a class="btn btn-primary" href="#online-valuation">Отправить на оценку</a><a class="text-link track-phone" href={phoneHref}>Позвонить эксперту →</a></div>
             <div class="hero-stats">
-              <span><i class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><span><b>≈ 15 минут</b>на предварительную оценку</span></span>
-              <span><i class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="m3 15 4-4 4 4 2-2 4 4M8 9h.01M19 8h2v13H8v-2"/></svg></i><span><b>До 10 фото</b>в одной заявке</span></span>
-              <span><i class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></i><span><b>Москва и МО</b>выезд специалиста</span></span>
-              <span><i class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h2l2-8h10l2 8h2M6 17h12M8 9l2-4h4l2 4"/><circle cx="8" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg></i><span><b>Курьер</b>в удобную точку</span></span>
+              <span><i class="stat-icon"><Clock3 aria-hidden="true" /></i><span><b>≈ 15 минут</b>на предварительную оценку</span></span>
+              <span><i class="stat-icon"><Images aria-hidden="true" /></i><span><b>До 10 фото</b>в одной заявке</span></span>
+              <span><i class="stat-icon"><MapPin aria-hidden="true" /></i><span><b>Москва и МО</b>выезд специалиста</span></span>
+              <span><i class="stat-icon"><Bike aria-hidden="true" /></i><span><b>Курьер</b>в удобную точку</span></span>
             </div>
           </div>
           <div class="hero-visual" aria-hidden="true">
@@ -90,9 +91,9 @@ const faqs = [
 
       <section class="steps" aria-label="Как проходит оценка">
         <div class="shell steps-grid">
-          <article><span>01</span><i class="step-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M9 20h10l4-6h18l4 6h10v31H9z"/><circle cx="32" cy="35" r="11"/><path d="M49 25h.01"/></svg></i><h2>Сфотографируйте</h2><p>Покажите бутылку, этикетку, пробку и упаковку.</p></article>
-          <article><span>02</span><i class="step-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M17 11h30v42H17zM24 22h16M24 32h10M24 42h13M40 39l4 4 8-10"/></svg></i><h2>Ответьте на вопросы</h2><p>Укажите состояние и добавьте контакт для ответа.</p></article>
-          <article><span>03</span><i class="step-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="31" r="20"/><path d="m22 31 7 7 14-16M20 51l-3 7 9-3M44 51l3 7-9-3"/></svg></i><h2>Получите расчёт</h2><p>Эксперт проверит позицию и свяжется с вами.</p></article>
+          <article><span>01</span><i class="step-icon"><Camera aria-hidden="true" /></i><h2>Сфотографируйте</h2><p>Покажите бутылку, этикетку, пробку и упаковку.</p></article>
+          <article><span>02</span><i class="step-icon"><ClipboardCheck aria-hidden="true" /></i><h2>Ответьте на вопросы</h2><p>Укажите состояние и добавьте контакт для ответа.</p></article>
+          <article><span>03</span><i class="step-icon"><BadgeCheck aria-hidden="true" /></i><h2>Получите расчёт</h2><p>Эксперт проверит позицию и свяжется с вами.</p></article>
         </div>
       </section>
 
@@ -137,14 +138,14 @@ const faqs = [
         <article><span>04</span><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M9 20h46v31H9zM9 28h46M17 42h12M43 36l5 5 8-10"/></svg><h3>Расчёт сразу</h3><p>Фиксируем условия после проверки и не меняем их в последний момент.</p></article>
       </div></div></section>
 
-      <section class="contacts" id="contacts"><div class="shell contacts-grid"><div><p class="eyebrow">Контакты</p><h2>Свяжитесь с экспертом</h2><p>Оценка и выкуп коллекций в Москве и Московской области. Перед визитом свяжитесь с нами — часть обращений принимаем дистанционно по фотографиям.</p><a class="big-phone track-phone" href={phoneHref}>{phone}</a><p class="address">Москва, улица Покрышкина, 5<br/><small>Приём по предварительной договорённости</small></p><div class="messengers icon-messengers"><a class="track-tg" href={telegramHref} target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-7.5 18-4.2-7.1L3 10.8 21 3Zm-11.7 10.9L21 3"/></svg></a><a class="track-wa" href={whatsappHref} target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.6a8 8 0 0 1-11.8 7L4 20l1.4-4.1A8 8 0 1 1 20 11.6Z"/><path d="M9 8.5c.4 2.4 2.1 4 4.5 4.9l1.1-1.1 1.9.9c-.2 1.3-1.1 2.1-2.4 2.1-3.8-.3-6.8-3.1-7.3-6.8 0-1.2.8-2.1 2-2.4L9 8.5Z"/></svg></a><a class="track-max max-mark" href={maxHref} target="_blank" rel="noopener" aria-label="MAX">M</a></div></div>
-        <form class="quick-form" data-quick-form novalidate><p class="eyebrow">Быстрая заявка</p><h3>Получите предварительную оценку</h3><label class="field"><span>Ваше имя</span><input name="name" maxlength="80" autocomplete="name" placeholder="Как к вам обращаться?"/></label><label class="field"><span>Номер телефона</span><input name="phone" type="tel" inputmode="tel" maxlength="18" autocomplete="tel" placeholder="+7 (000) 000-00-00"/></label><label class="field"><span>Комментарий</span><textarea name="message" maxlength="1000" rows="3" placeholder="Кратко опишите вашу коллекцию"></textarea></label><input class="trap" name="website" tabindex="-1" autocomplete="off"/><p class="consent">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p><p class="form-error" data-quick-error aria-live="polite"></p><button class="btn btn-primary" type="submit">Отправить заявку →</button><div class="quick-success" data-quick-success hidden><b>Заявка отправлена</b><span>В ближайшее время мы свяжемся с вами и сообщим точную стоимость.</span></div></form>
+      <section class="contacts" id="contacts"><div class="shell contacts-grid"><div><p class="eyebrow">Контакты</p><h2>Свяжитесь с экспертом</h2><p>Оценка и выкуп коллекций в Москве и Московской области. Перед визитом свяжитесь с нами — часть обращений принимаем дистанционно по фотографиям.</p><a class="big-phone track-phone" href={phoneHref}><i class="ringing-phone"><PhoneCall aria-hidden="true" /></i>{phone}</a><p class="address">Москва, улица Покрышкина, 5<br/><small>Приём по предварительной договорённости</small></p><div class="messengers icon-messengers"><a class="track-tg" href={telegramHref} target="_blank" rel="noopener" aria-label="Telegram"><Send aria-hidden="true" /></a><a class="track-wa" href={whatsappHref} target="_blank" rel="noopener" aria-label="WhatsApp"><MessageCircle aria-hidden="true" /></a><a class="track-max max-mark" href={maxHref} target="_blank" rel="noopener" aria-label="MAX">M</a></div></div>
+        <form class="quick-form" data-quick-form novalidate><p class="eyebrow">Быстрая заявка</p><h3>Получите предварительную оценку</h3><label class="field"><span>Ваше имя</span><input name="name" maxlength="80" autocomplete="name" placeholder="Как к вам обращаться?"/></label><label class="field"><span>Номер телефона</span><input name="phone" type="tel" inputmode="tel" maxlength="18" autocomplete="tel" placeholder="+7 (000) 000-00-00"/></label><label class="field"><span>Комментарий</span><textarea name="message" maxlength="1000" rows="3" placeholder="Кратко опишите вашу коллекцию"></textarea></label><label class="quick-upload"><input type="file" name="photos" accept="image/jpeg,image/png,image/webp" multiple data-quick-photos/><Upload aria-hidden="true"/><span><b>Добавить фотографии</b><small>До 10 файлов · JPG, PNG или WEBP</small></span></label><div class="quick-previews" data-quick-previews></div><input class="trap" name="website" tabindex="-1" autocomplete="off"/><p class="consent">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p><p class="form-error" data-quick-error aria-live="polite"></p><button class="btn btn-primary" type="submit">Отправить заявку →</button><div class="quick-success" data-quick-success hidden><b>Заявка отправлена</b><span>В ближайшее время мы свяжемся с вами и сообщим точную стоимость.</span></div></form>
         <div class="map-card"><iframe src="https://yandex.ru/map-widget/v1/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9F%D0%BE%D0%BA%D1%80%D1%8B%D1%88%D0%BA%D0%B8%D0%BD%D0%B0%2C%205&z=16" title="Andrewine на Яндекс Картах" loading="lazy" allowfullscreen></iframe><div class="map-caption"><span>Шоурум Andrewine</span><b>Москва, улица Покрышкина, 5</b><small>Встречи по предварительной договорённости</small><a href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9F%D0%BE%D0%BA%D1%80%D1%8B%D1%88%D0%BA%D0%B8%D0%BD%D0%B0%2C%205" target="_blank" rel="noopener">Открыть маршрут →</a></div></div>
       </div></section>
 
       <section class="faq"><div class="shell faq-grid"><div><p class="eyebrow">Вопросы и ответы</p><h2>Что важно знать до оценки</h2></div><div class="faq-list">{faqs.map(([q,a]) => <details><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></div></section>
 
-      <section class="photo-cta"><div class="shell photo-cta-grid"><div><p class="eyebrow">Оценка по фото</p><h2>Профессиональная оценка коллекции</h2><p>Редкая бутылка — это ценный актив: отдельные экземпляры стоят как автомобиль. Andrewine помогает оценить и выгодно реализовать такие позиции.</p></div><a class="btn btn-light" href="#online-valuation">Начать оценку →</a></div></section>
+      <section class="photo-cta"><div class="photo-cta-noise" aria-hidden="true"></div><div class="shell photo-cta-grid"><div><p class="eyebrow">Оценка по фото</p><h2>Профессиональная оценка коллекции</h2><p>Редкая бутылка — это ценный актив: отдельные экземпляры стоят как автомобиль. Andrewine помогает оценить и выгодно реализовать такие позиции.</p><a class="btn btn-light" href="#online-valuation">Начать оценку →</a></div><img src="/assets/andrew-quiz.png" alt="Эксперт Andrewine" width="420" height="600" loading="lazy" decoding="async"/></div></section>
     </main>
 
     <footer><div class="shell footer-grid"><div class="logo">Andrewine</div><nav><a href="#online-valuation">Онлайн-оценка</a><a href="#contacts">Контакты</a><button type="button" data-policy-open>Пользовательское соглашение</button></nav><p>© 2014–2026, Andrewine — оценка и выкуп коллекций.</p></div></footer>
@@ -191,7 +192,48 @@ const faqs = [
         form.addEventListener('submit', async (event) => { event.preventDefault(); const message = validate(); if (message) return void (error.textContent = message); const selected = Array.from(files.files || []); const bad = selected.find((f) => !['image/jpeg','image/png','image/webp'].includes(f.type) || f.size > 10 * 1024 * 1024); if (bad) return void (error.textContent = `Проверьте формат и размер файла «${bad.name}»`); const data = new FormData(); data.set('category', value('category')); data.set('name', value('name')); data.set('phone', value('phone')); data.set('message', `Подарочная упаковка: ${value('package')}\nДокументы/сертификат: ${value('documents')}\nИсточник: рекламная страница`); data.set('source', sourceUrl()); data.set('website', value('website')); selected.forEach((f) => data.append('photos', f, f.name)); submit.disabled = true; submit.textContent = 'Отправляем…'; try { await send(data); goal('quiz_submit'); const body = form.querySelector<HTMLElement>('.quiz-body')!; const success = form.querySelector<HTMLElement>('[data-success]')!; body.hidden = true; success.hidden = false; } catch (reason) { error.textContent = reason instanceof Error ? reason.message : 'Не удалось отправить заявку'; submit.disabled = false; submit.textContent = 'Отправить заявку →'; } }); show(0);
       });
 
-      document.querySelectorAll<HTMLFormElement>('[data-quick-form]').forEach((form) => form.addEventListener('submit', async (event) => { event.preventDefault(); const error = form.querySelector<HTMLElement>('[data-quick-error]')!; const name = form.elements.namedItem('name') as HTMLInputElement; const phoneInput = form.elements.namedItem('phone') as HTMLInputElement; if (!name.value.trim()) return void (error.textContent = 'Укажите ваше имя'); if (phoneInput.value.replace(/\D/g,'').length !== 11) return void (error.textContent = 'Укажите корректный номер телефона'); const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!; const data = new FormData(form); data.set('category', 'Быстрая заявка'); data.set('source', sourceUrl()); button.disabled = true; button.textContent = 'Отправляем…'; try { await send(data); goal('form_submit'); form.querySelectorAll<HTMLElement>('label,.consent,.form-error,button[type="submit"],h3,.eyebrow').forEach((el) => el.hidden = true); form.querySelector<HTMLElement>('[data-quick-success]')!.hidden = false; } catch (reason) { error.textContent = reason instanceof Error ? reason.message : 'Не удалось отправить заявку'; button.disabled = false; button.textContent = 'Отправить заявку →'; } }));
+      document.querySelectorAll<HTMLFormElement>('[data-quick-form]').forEach((form) => {
+        const error = form.querySelector<HTMLElement>('[data-quick-error]')!;
+        const photos = form.querySelector<HTMLInputElement>('[data-quick-photos]')!;
+        const previews = form.querySelector<HTMLElement>('[data-quick-previews]')!;
+        const renderPhotos = () => {
+          const selected = Array.from(photos.files || []);
+          previews.replaceChildren(...selected.map((file) => {
+            const chip = document.createElement('span');
+            chip.textContent = file.name;
+            return chip;
+          }));
+          error.textContent = selected.length > 10 ? 'Можно добавить не более 10 фотографий' : '';
+        };
+        photos.addEventListener('change', renderPhotos);
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const name = form.elements.namedItem('name') as HTMLInputElement;
+          const phoneInput = form.elements.namedItem('phone') as HTMLInputElement;
+          const selected = Array.from(photos.files || []);
+          if (!name.value.trim()) return void (error.textContent = 'Укажите ваше имя');
+          if (phoneInput.value.replace(/\D/g,'').length !== 11) return void (error.textContent = 'Укажите корректный номер телефона');
+          if (selected.length > 10) return void (error.textContent = 'Можно добавить не более 10 фотографий');
+          const bad = selected.find((file) => !['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 10 * 1024 * 1024);
+          if (bad) return void (error.textContent = `Проверьте формат и размер файла «${bad.name}»`);
+          const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+          const data = new FormData(form);
+          data.set('category', 'Быстрая заявка');
+          data.set('source', sourceUrl());
+          button.disabled = true;
+          button.textContent = 'Отправляем…';
+          try {
+            await send(data);
+            goal('form_submit');
+            form.querySelectorAll<HTMLElement>('label,.consent,.form-error,.quick-previews,button[type="submit"],h3,.eyebrow').forEach((el) => el.hidden = true);
+            form.querySelector<HTMLElement>('[data-quick-success]')!.hidden = false;
+          } catch (reason) {
+            error.textContent = reason instanceof Error ? reason.message : 'Не удалось отправить заявку';
+            button.disabled = false;
+            button.textContent = 'Отправить заявку →';
+          }
+        });
+      });
       const dialog = document.querySelector<HTMLDialogElement>('[data-policy]')!; document.querySelector('[data-policy-open]')?.addEventListener('click', () => dialog.showModal()); document.querySelector('[data-policy-close]')?.addEventListener('click', () => dialog.close());
     </script>
   </body>
@@ -242,11 +284,36 @@ const faqs = [
   .icon-messengers a:hover{transform:translateY(-4px);background:var(--red);color:#fff;box-shadow:0 10px 25px rgba(155,0,16,.22)}
   .icon-messengers svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .max-mark{font:800 18px Arial}
+  .big-phone{display:flex;align-items:center;gap:16px;width:max-content;max-width:100%}
+  .ringing-phone{position:relative;flex:0 0 54px;width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:var(--red);color:#fff;box-shadow:0 12px 28px rgba(155,0,16,.24)}
+  .ringing-phone::before,.ringing-phone::after{content:"";position:absolute;inset:-1px;border:2px solid rgba(155,0,16,.55);border-radius:inherit;animation:phone-ring-wave 2.25s ease-out infinite}
+  .ringing-phone::after{animation-delay:.75s}
+  .ringing-phone svg{width:25px;height:25px;stroke-width:2;animation:phone-ring 2.25s ease-in-out infinite;transform-origin:50% 55%}
+  @keyframes phone-ring{0%,72%,100%{transform:rotate(0)}76%{transform:rotate(12deg)}80%{transform:rotate(-11deg)}84%{transform:rotate(9deg)}88%{transform:rotate(-7deg)}92%{transform:rotate(0)}}
+  @keyframes phone-ring-wave{0%,62%{opacity:0;transform:scale(.92)}68%{opacity:.7}100%{opacity:0;transform:scale(1.55)}}
+  .quick-upload{position:relative;display:flex;align-items:center;gap:14px;margin-top:18px;padding:16px 18px;border:1.5px dashed #bca9a0;border-radius:18px;background:#faf7f2;color:var(--ink);cursor:pointer;transition:.2s ease}
+  .quick-upload:hover{border-color:var(--red);background:#fff;box-shadow:0 10px 24px rgba(80,20,25,.08)}
+  .quick-upload input{position:absolute;width:1px;height:1px;opacity:0}
+  .quick-upload>svg{flex:0 0 30px;width:30px;height:30px;color:var(--red);stroke-width:1.8}
+  .quick-upload>span{display:flex;flex-direction:column;gap:4px}.quick-upload b{color:var(--red);font-size:14px}.quick-upload small{color:#847572;font-size:11px}
+  .quick-previews{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.quick-previews:empty{display:none}.quick-previews span{max-width:190px;padding:7px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:999px;background:#eee5dc;color:#5f5050;font-size:11px}
   .map-card{grid-column:1/-1;position:relative;min-height:450px;margin-top:15px;border-radius:30px;overflow:hidden;background:#ddd;box-shadow:0 28px 75px rgba(54,16,19,.16);border:8px solid rgba(255,255,255,.75)}
   .map-card iframe{display:block;width:100%;height:450px;border:0;filter:grayscale(1) contrast(.96)}
   .map-caption{position:absolute;left:28px;bottom:28px;width:min(350px,calc(100% - 56px));display:flex;flex-direction:column;gap:7px;padding:24px 26px;border-radius:20px;background:rgba(8,5,5,.93);color:#fff;box-shadow:0 12px 35px rgba(0,0,0,.28);backdrop-filter:blur(14px)}
   .map-caption span{color:var(--red-bright);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.map-caption b{font:400 24px Georgia,serif}.map-caption small{color:#bbaeb0}.map-caption a{margin-top:9px;font-size:13px;font-weight:700;color:#fff;text-decoration:underline;text-underline-offset:4px}
+  .faq{position:relative;isolation:isolate;background-image:linear-gradient(90deg,rgba(6,4,4,.83) 0%,rgba(6,4,4,.94) 47%,rgba(6,4,4,.86) 100%),url('/assets/ocenka-cellar-faq-v2.webp');background-position:center;background-size:cover;background-attachment:fixed}
+  .faq::before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(circle at 21% 50%,rgba(185,0,22,.14),transparent 32%),linear-gradient(180deg,rgba(0,0,0,.2),transparent 18%,transparent 82%,rgba(0,0,0,.28))}
+  .faq-grid{position:relative}.faq-grid>div:first-child{padding:40px 35px 45px;border-left:2px solid var(--red-bright);background:rgba(4,3,3,.38);backdrop-filter:blur(3px)}
+  .faq-list{padding:5px 28px;border-radius:26px;background:rgba(4,3,3,.57);backdrop-filter:blur(7px)}
+  .photo-cta{position:relative;isolation:isolate;overflow:hidden;padding:0;background:linear-gradient(105deg,#8f0010 0%,#ae0015 58%,#71000b 100%)}
+  .photo-cta::before{content:"";position:absolute;z-index:-1;inset:0;background-image:radial-gradient(circle at 82% 40%,rgba(0,0,0,.2),transparent 38%),linear-gradient(90deg,rgba(255,255,255,.035),transparent 55%)}
+  .photo-cta-noise{position:absolute;z-index:-1;inset:0;opacity:.14;mix-blend-mode:overlay;background-image:url('/assets/ocenka-paper-texture-v2.webp');background-size:720px auto}
+  .photo-cta-grid{display:grid;grid-template-columns:minmax(0,1fr) 350px;min-height:530px;align-items:center;gap:30px}
+  .photo-cta-grid>div{position:relative;z-index:2;max-width:790px;padding:85px 0}
+  .photo-cta-grid>img{align-self:end;width:360px;height:500px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 24px 34px rgba(0,0,0,.38))}
+  .photo-cta h2{max-width:780px}.photo-cta p:not(.eyebrow){max-width:720px}.photo-cta .btn-light{margin-top:12px;box-shadow:0 12px 28px rgba(58,0,5,.22)}
   @media(max-width:980px){.hero-stats{grid-template-columns:repeat(2,1fr)}.map-card{margin-top:0}}
-  @media(max-width:660px){.hero{background-position:64% center}.hero-stats{grid-template-columns:1fr 1fr}.hero-stats>span{display:flex;padding:14px 4px 0 0}.stat-icon{flex-basis:38px;width:38px;height:38px}.stat-icon svg{width:19px;height:19px}.ticker{height:66px}.ticker span{font-size:21px;margin-right:34px}.ticker span::before{margin-right:34px}.map-card,.map-card iframe{min-height:480px;height:480px}.map-caption{left:14px;bottom:14px;width:calc(100% - 28px);padding:20px}.map-caption b{font-size:21px}}
-  @media(prefers-reduced-motion:reduce){.ticker-track,.stat-icon::before{animation:none}.ticker-track{transform:none}.steps article,.category-icon svg{transition:none}}
+  @media(max-width:980px){.photo-cta-grid{grid-template-columns:minmax(0,1fr) 280px}.photo-cta-grid>img{width:300px;height:440px}.faq{background-attachment:scroll}.faq-grid>div:first-child{padding:30px}.faq-list{padding:5px 24px}}
+  @media(max-width:660px){.hero{background-position:64% center}.hero-stats{grid-template-columns:1fr 1fr}.hero-stats>span{display:flex;padding:14px 4px 0 0}.stat-icon{flex-basis:38px;width:38px;height:38px}.stat-icon svg{width:19px;height:19px}.ticker{height:66px}.ticker span{font-size:21px;margin-right:34px}.ticker span::before{margin-right:34px}.big-phone{font-size:25px;gap:11px}.ringing-phone{flex-basis:45px;width:45px;height:45px}.map-card,.map-card iframe{min-height:480px;height:480px}.map-caption{left:14px;bottom:14px;width:calc(100% - 28px);padding:20px}.map-caption b{font-size:21px}.faq{background-position:62% center}.faq-grid>div:first-child{padding:25px 22px}.faq-list{padding:0 18px}.photo-cta-grid{display:grid;grid-template-columns:1fr;min-height:0}.photo-cta-grid>div{padding:72px 0 0}.photo-cta-grid>img{justify-self:end;width:260px;height:360px;margin-top:-15px}.photo-cta h2{font-size:44px}}
+  @media(prefers-reduced-motion:reduce){.ticker-track,.stat-icon::before,.ringing-phone::before,.ringing-phone::after,.ringing-phone svg{animation:none}.ticker-track{transform:none}.steps article,.category-icon svg{transition:none}}
 </style>
