@@ -41,9 +41,11 @@ jobs:
             echo '--- application stack location ---'
             docker inspect alcohol-evaluation-platform-backend-1 --format 'WorkingDir={{.Config.WorkingDir}} Labels={{json .Config.Labels}} Mounts={{json .Mounts}}' 2>/dev/null || true
             echo '--- backend routes ---'
-            curl -fsS http://127.0.0.1:8081/openapi.json 2>/dev/null | python3 -c 'import json,sys; d=json.load(sys.stdin); print("\n".join(sorted(d.get("paths",{}))))' || true
+            for path in /openapi.json /api/openapi.json /api/docs; do curl -sS -o /tmp/backend-route.out -w "$path HTTP %{http_code}\n" "http://127.0.0.1:8081$path" || true; head -c 240 /tmp/backend-route.out; echo; done
+            echo '--- application endpoint source ---'
+            grep -R -n -E 'applications/web|def .*application|UploadFile|photos' /root/alcohol-evaluation-platform/backend 2>/dev/null | head -120 || true
             echo '--- endpoint preflight ---'
-            curl -sS -o /tmp/quiz-preflight.out -w 'HTTP %{http_code}\n' -X POST -H 'Host: andrewine.ru' http://127.0.0.1/api/applications/web || true
+            curl -sS -o /tmp/quiz-preflight.out -w 'HTTP %{http_code}\n' -X POST http://127.0.0.1:8081/api/applications/web || true
             head -c 800 /tmp/quiz-preflight.out 2>/dev/null || true
 
   deploy:
