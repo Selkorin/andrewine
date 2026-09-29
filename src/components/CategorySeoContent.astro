@@ -1,0 +1,36 @@
+---
+import { categorySeoContentByFile } from '../data/categorySeoContent';
+
+interface Props { file: string; root?: string }
+const { file, root = '../' } = Astro.props;
+const content = categorySeoContentByFile[file];
+const localHref = (href: string) => `${root}${href.replace(/^\//, '')}`;
+---
+
+{content && (
+  <section class="category-seo" aria-labelledby={`category-seo-${file}`}>
+    <div class="category-seo__inner">
+      <header class="category-seo__intro">
+        <p class="category-seo__eyebrow">{content.eyebrow}</p>
+        <h2 id={`category-seo-${file}`}>{content.title}</h2>
+        {content.intro.map((paragraph) => <p>{paragraph}</p>)}
+      </header>
+      <aside class="category-seo__brands" aria-label="Марки, которые мы оцениваем">
+        <p>Примеры марок</p>
+        <ul>{content.brands.map((brand) => <li>{brand}</li>)}</ul>
+      </aside>
+      <div class="category-seo__factors">
+        {content.factors.map((factor, index) => (
+          <article><span>0{index + 1}</span><h3>{factor.title}</h3><p>{factor.text}</p></article>
+        ))}
+      </div>
+      <div class="category-seo__action">
+        <p>{content.note}</p>
+        <div class="category-seo__links">
+          {content.brandLinks?.map((link) => <a href={localHref(link.href)}>{link.label} <span aria-hidden="true">→</span></a>)}
+          <a class="category-seo__cta" href="#request">Получить оценку по фото</a>
+        </div>
+      </div>
+    </div>
+  </section>
+)}

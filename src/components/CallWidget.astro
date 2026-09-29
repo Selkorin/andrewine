@@ -1,0 +1,29 @@
+<details class="call-widget">
+  <summary aria-label="Выбрать способ связи">
+    <span class="call-widget__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7.2 3.8 5.7 5.1c-.8.7-.9 1.9-.4 2.8 2.2 4 5.1 6.9 9.1 9.1.9.5 2.1.4 2.8-.4l1.3-1.5c.4-.5.4-1.2-.1-1.6l-2.5-1.8c-.4-.3-1-.3-1.4 0l-1.2.9a12.7 12.7 0 0 1-2.9-2.9l.9-1.2c.3-.4.3-1 0-1.4L8.8 3.9c-.4-.5-1.1-.5-1.6-.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+  </summary>
+  <div class="call-widget__menu" role="menu">
+    <a href="tel:+79863458235" role="menuitem"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7.2 3.8 5.7 5.1c-.8.7-.9 1.9-.4 2.8 2.2 4 5.1 6.9 9.1 9.1.9.5 2.1.4 2.8-.4l1.3-1.5c.4-.5.4-1.2-.1-1.6l-2.5-1.8c-.4-.3-1-.3-1.4 0l-1.2.9a12.7 12.7 0 0 1-2.9-2.9l.9-1.2c.3-.4.3-1 0-1.4L8.8 3.9c-.4-.5-1.1-.5-1.6-.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span> Позвонить</a>
+    <a href="https://t.me/AWONLINE_BOT" target="_blank" rel="noopener noreferrer" role="menuitem"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m21.4 4.2-3 14.3c-.2 1- .8 1.3-1.6.8l-4.4-3.2-2.1 2c-.2.2-.4.4-.8.4l.3-4.5 8.2-7.4c.4-.4-.1-.6-.6-.2L7.3 12l-4.3-1.4c-.9-.3-.9-.9.2-1.3L20 3.4c.8-.3 1.6.2 1.4.8Z"/></svg></span> Написать в Telegram</a>
+  </div>
+</details>
+
+<style>
+  .call-widget { position: fixed; right: 22px; bottom: 22px; z-index: 1200; color: #fff; font-family: Manrope, Arial, sans-serif; }
+  .call-widget summary { display: grid; width: 62px; height: 62px; place-items: center; border: 3px solid #fff; border-radius: 50%; background: #7e010b; box-shadow: 0 10px 30px rgba(49, 0, 4, .34); cursor: pointer; list-style: none; transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease; }
+  .call-widget summary::-webkit-details-marker { display: none; }
+  .call-widget summary::marker { content: ''; font-size: 0; }
+  .call-widget summary:hover, .call-widget summary:focus-visible { background: #970912; box-shadow: 0 13px 34px rgba(49, 0, 4, .42); transform: scale(1.04); }
+  .call-widget summary:focus-visible { outline: 3px solid #f5c36b; outline-offset: 3px; }
+  .call-widget__icon { display: grid; width: 32px; height: 32px; place-items: center; color: #fff; animation: call-ring 2.4s ease-in-out infinite; }
+  .call-widget__icon svg { width: 32px; height: 32px; }
+  .call-widget__text { display: none; }
+  .call-widget__menu { position: absolute; right: 0; bottom: 74px; display: grid; min-width: 235px; gap: 5px; padding: 8px; border-radius: 16px; background: #fff; box-shadow: 0 12px 36px rgba(35, 31, 32, .25); }
+  .call-widget__menu a { display: flex; align-items: center; gap: 10px; padding: 12px 13px; border-radius: 10px; color: #231f20; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .call-widget__menu a:hover, .call-widget__menu a:focus-visible { background: #f4e9e8; color: #7e010b; outline: none; }
+  .call-widget__menu a span { display: grid; width: 22px; height: 22px; place-items: center; color: #7e010b; text-align: center; }
+  .call-widget__menu a svg { width: 21px; height: 21px; }
+  @keyframes call-ring { 0%, 65%, 100% { transform: rotate(0); } 8%, 18%, 28% { transform: rotate(-12deg); } 13%, 23%, 33% { transform: rotate(12deg); } 40% { transform: rotate(0); } }
+  @media (max-width: 720px) { .call-widget { right: 12px; bottom: 14px; } .call-widget summary { width: 56px; height: 56px; } .call-widget__icon, .call-widget__icon svg { width: 29px; height: 29px; } }
+  @media (prefers-reduced-motion: reduce) { .call-widget__icon { animation: none; } .call-widget { transition: none; } }
+</style>

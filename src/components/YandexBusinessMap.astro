@@ -1,0 +1,46 @@
+<section class="business-map" id="contacts" aria-labelledby="business-map-title">
+  <div class="business-map__inner">
+    <div class="business-map__copy">
+      <p class="business-map__eyebrow">Контакты</p>
+      <h2 id="business-map-title">Где мы работаем</h2>
+      <p>Оценка и выкуп элитного алкоголя в Москве и Московской области. Перед визитом свяжитесь с нами — часть обращений принимаем дистанционно по фотографиям.</p>
+      <address class="business-map__details">
+        <a href="tel:+79863458235">+7 (986) 345-82-35</a>
+        <span>Москва, улица Покрышкина, 5</span>
+        <small>Приём по предварительной договорённости</small>
+      </address>
+      <div class="business-map__actions">
+        <a class="business-map__button" href="tel:+79863458235">Позвонить</a>
+        <a class="business-map__link" href="https://yandex.ru/maps/?oid=94413976387" target="_blank" rel="noopener noreferrer">Открыть в Яндекс Картах</a>
+      </div>
+    </div>
+    <div class="business-map__frame">
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=94413976387"
+        title="Andrewine на Яндекс Картах"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<style>
+  .business-map { padding: clamp(48px, 7vw, 96px) 20px; background: #f4f0ea; color: #231f20; }
+  .business-map__inner { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.7fr); gap: clamp(24px, 5vw, 72px); max-width: 1180px; margin: 0 auto; align-items: stretch; }
+  .business-map__copy { align-self: center; }
+  .business-map__eyebrow { margin: 0 0 12px; color: #7e010b; font: 700 12px/1.2 Manrope, Arial, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+  .business-map h2 { margin: 0 0 16px; font: 600 clamp(28px, 4vw, 48px)/1.05 'Playfair Display', Georgia, serif; }
+  .business-map__copy p:last-child { max-width: 38em; margin: 0; color: #595254; font: 400 16px/1.65 Manrope, Arial, sans-serif; }
+  .business-map__details { display: grid; gap: 6px; margin-top: 24px; font-style: normal; font-family: Manrope, Arial, sans-serif; }
+  .business-map__details a { color: #7e010b; font-size: 20px; font-weight: 700; text-decoration: none; }
+  .business-map__details span { color: #231f20; font-size: 16px; line-height: 1.45; }
+  .business-map__details small { color: #71696a; font-size: 13px; line-height: 1.4; }
+  .business-map__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 22px; font-family: Manrope, Arial, sans-serif; }
+  .business-map__button { padding: 12px 20px; border-radius: 999px; background: #7e010b !important; color: #fff !important; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .business-map__link { color: #7e010b; font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  .business-map__frame { min-height: 360px; overflow: hidden; border: 1px solid rgba(126, 1, 11, .18); border-radius: 18px; background: #ddd6cf; box-shadow: 0 18px 50px rgba(35, 31, 32, .12); }
+  .business-map iframe { display: block; width: 100%; min-height: 360px; height: 100%; border: 0; }
+  @media (max-width: 720px) { .business-map__inner { grid-template-columns: 1fr; } .business-map__frame, .business-map iframe { min-height: 300px; } }
+</style>

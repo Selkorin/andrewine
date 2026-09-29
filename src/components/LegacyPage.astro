@@ -3,11 +3,17 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import SeoSections from './SeoSections.astro';
 import CategoryArticles from './CategoryArticles.astro';
+import CategorySeoContent from './CategorySeoContent.astro';
 import SiteHeader from './SiteHeader.astro';
 import enhancementsCss from '../styles/enhancements.css?raw';
-import { rewriteLegacyLinks, resolveVendorPaths } from '../lib/legacyChrome';
+import { rewriteLegacyLinks, resolveVendorPaths, resolveTildaHead } from '../lib/legacyChrome';
 import { rebuildLegacyCategoryFaq, renderCategoryFaqFromData } from '../lib/categoryFaq';
 import { categoryFaqs } from '../data/categoryFaq';
+import LandingSeoHead from './LandingSeoHead.astro';
+import YandexMetrika from './YandexMetrika.astro';
+import YandexBusinessMap from './YandexBusinessMap.astro';
+import OnlineValuationQuiz from './OnlineValuationQuiz.astro';
+import { landingSeoByFile } from '../data/seo';
 
 interface Props {
   file: string;
@@ -15,6 +21,8 @@ interface Props {
 }
 
 const { file, editorial = false } = Astro.props;
+const showBusinessMap = file === 'page132437346.html';
+const seo = landingSeoByFile[file];
 const fileRoutes: Record<string, string> = {
   'page132437346.html': '/',
   'page136045756.html': '/buy_champagne',
@@ -81,6 +89,36 @@ source = source
   .replaceAll('https://алковыкуп.рф', 'https://andrewine.ru')
   .replaceAll('http://алковыкуп.рф', 'https://andrewine.ru');
 
+// The export contains a second footer phone from the retired project. Remove
+// that whole legacy element instead of replacing it and showing the current
+// number twice. The active phone remains in the header, contact block, widget
+// and the primary footer contact group.
+source = source.replace(
+  /<div class=['"]t396__elem[^>]*data-elem-id=['"]1776874730550000001['"][\s\S]*?<div class=['"]tn-atom['"][^>]*>[\s\S]*?<\/div>\s*<\/div>/gi,
+  '',
+);
+
+// The exported Tilda pages contain a second, stale LocalBusiness entity for
+// the retired brand "Алковыкуп". Keep the visible legacy markup for layout, but
+// remove that JSON-LD block so search engines only receive Andrewine's current
+// organization/service data from LandingSeoHead.
+source = source.replace(
+  /<script\s+type=["']application\/ld\+json["'][^>]*>[\s\S]*?(?:Алковыкуп|алковыкуп)[\s\S]*?<\/script>/gi,
+  '',
+);
+
+// The same export also injects keyword-stuffed alt text from JavaScript. It is
+// neither useful for users nor valid image descriptions, so remove it and keep
+// the curated alts supplied by the page data/components.
+source = source.replace(
+  /<script>\s*document\.addEventListener\(['"]DOMContentLoaded['"],[\s\S]*?var\s+altMap=[\s\S]*?<\/script>/gi,
+  '',
+);
+source = source.replace(
+  /<script>\s*document\.addEventListener\(['"]DOMContentLoaded['"],[\s\S]*?var\s+alts=\s*\[[\s\S]*?setAttribute\(['"]alt['"][\s\S]*?<\/script>/gi,
+  '',
+);
+
 // The original vertical experience badge is a small raster image and becomes
 // visibly blurred after Tilda scales and rotates it. Keep the original layout,
 // but replace both lazy-load URLs with a crisp, locally drawn SVG.
@@ -111,12 +149,26 @@ source = source
   .replaceAll('</script></script></style>', '</script>')
   .replaceAll('</script></script><!-- nominify end -->', '</script><!-- nominify end -->');
 
+// Old exports create an off-screen H1 after DOMContentLoaded. The visible hero
+// already contains the real H1, so keeping this script produces two primary
+// headings in the rendered DOM even though a static HTML audit sees only one.
+source = source.replace(
+  /<script>document\.addEventListener\(['"]DOMContentLoaded['"],function\(\)\{var h=document\.createElement\(['"]h1['"]\);[\s\S]*?document\.body\.insertBefore\(h,document\.body\.firstChild\);\}\);<\/script>/gi,
+  '',
+);
+
 // The retired /premium_alcohol route used to be sent to the home page here, which
 // ran before rewriteLegacyLinks could point it at the journal — so the menu item
 // reading "СТАТЬИ" landed on the home page. Leave the hrefs alone and let
 // rewriteLegacyLinks map them to the articles index.
 
-const head = resolveVendorPaths(source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '', file === 'page132437346.html' ? './' : '../');
+const legacyHead = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
+const cleanHead = legacyHead
+  .replace(/<title>[\s\S]*?<\/title>/gi, '')
+  .replace(/<meta[^>]+(?:name|property)=["'](?:description|robots|og:[^"']+|twitter:[^"']+)["'][^>]*>/gi, '')
+  .replace(/<link[^>]+rel=["']canonical["'][^>]*>/gi, '')
+  .replace(/<link[^>]+rel=["'](?:icon|apple-touch-icon)["'][^>]*>/gi, '');
+const head = resolveTildaHead(cleanHead, file === 'page132437346.html' ? './' : '../');
 const body = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
 const footerIndex = body.indexOf('<!--footer-->');
 const root = file === 'page132437346.html' ? './' : '../';
@@ -149,23 +201,84 @@ if (categoryFaq) {
 
 const journalCategory = journalCategoryByFile[file];
 const journalIndex = Object.keys(journalCategoryByFile).indexOf(file);
+
+// Tilda exports every image with alt="", including the main bottle photo.
+// Keep decorative textures empty, but describe the principal category image.
+const principalImageByFile: Record<string, string> = {
+  'page132437346.html': 'tild3535-3164-4430-a135-326635636130/Mask_group.png',
+  'page136045756.html': 'tild6563-3138-4333-b162-386333396239/__1.png',
+  'page136045966.html': 'tild3461-3761-4065-b330-633464613932/__1.png',
+  'page136046316.html': 'tild6339-6161-4239-b832-383733303766/2_1.png',
+  'page136046936.html': 'tild3835-6461-4638-b534-666361326633/photo.png',
+  'page136047606.html': 'tild6663-3730-4338-b133-623764313262/diplomatiko_1.png',
+  'page136048186.html': 'tild3035-3566-4032-b235-353665353831/_1.png',
+  'page136049296.html': 'tild3264-3533-4361-a466-616537623862/kkk_1.png',
+  'page136462246.html': 'tild3231-3134-4737-a235-653231313864/ChatGPT_Image_21__20.png',
+};
+
+const principalImage = principalImageByFile[file];
+if (seo && principalImage) {
+  contentBeforeFooter = contentBeforeFooter.replace(
+    new RegExp(`(<img\\b(?=[^>]*data-original=['"][^'"]*${principalImage.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^'"]*['"])[^>]*?)alt=(['"])\\2`, 'i'),
+    `$1alt="${seo.imageAlt}"`,
+  );
+}
+
+// Some responsive Tilda copies were exported as additional H1 elements.
+// Preserve their styling and text but expose only one primary heading to crawlers.
+let h1Seen = false;
+let convertCurrentH1 = false;
+contentBeforeFooter = contentBeforeFooter.replace(/<\/?h1\b[^>]*>/gi, (tag) => {
+  if (/^<h1/i.test(tag)) {
+    if (!h1Seen) { h1Seen = true; convertCurrentH1 = false; return tag; }
+    convertCurrentH1 = true;
+    return tag.replace(/^<h1/i, '<h2');
+  }
+  if (convertCurrentH1) {
+    convertCurrentH1 = false;
+    return tag.replace(/^<\/h1/i, '</h2');
+  }
+  return tag;
+});
+
+// On the home page the standalone online valuation quiz belongs directly
+// after the visual "three steps" record. Split the raw legacy markup at the
+// following technical record so Astro can render an accessible component in
+// the exact position without changing the original form further down the page.
+const quizInsertMarker = '<div id="rec2191281851"';
+const quizInsertIndex = editorial ? contentBeforeFooter.indexOf(quizInsertMarker) : -1;
+const contentBeforeQuiz = quizInsertIndex >= 0 ? contentBeforeFooter.slice(0, quizInsertIndex) : contentBeforeFooter;
+const contentAfterQuiz = quizInsertIndex >= 0 ? contentBeforeFooter.slice(quizInsertIndex) : '';
+
 ---
 
 <!doctype html>
 <html lang="ru">
   <head>
+    {seo && <LandingSeoHead seo={seo} />}
     <Fragment set:html={head} />
     <style is:inline set:html={resolveVendorPaths(enhancementsCss, root)} />
     <style is:global id="tilda-records-visibility-fix">.t-records{opacity:1!important}</style>
   </head>
   <body class:list={['t-body', 'legacy-page', { 'home-page': editorial }]} style="margin:0;">
+    <YandexMetrika />
     <SiteHeader root={root} active={(fileRoutes[file] ?? '/').replace(/^\//, '') || undefined} />
-    <Fragment set:html={contentBeforeFooter} />
+    <Fragment set:html={contentBeforeQuiz} />
+    {editorial && <OnlineValuationQuiz />}
+    {showBusinessMap && <YandexBusinessMap />}
+    <Fragment set:html={contentAfterQuiz} />
     {editorial && <SeoSections />}
+    {journalCategory && <CategorySeoContent file={file} root={root} />}
     {journalCategory && <CategoryArticles category={journalCategory.category} label={journalCategory.label} root={root} index={journalIndex} />}
     <Fragment set:html={footerAndScripts} />
     <script is:inline>
       (() => {
+        // Keep the original Tilda record intact, but promote the editorial
+        // "Элитный алкоголь" bridge so it sits immediately above the journal.
+        const editorialBridge = document.querySelector('#rec2127258581');
+        const journal = document.querySelector('[data-home-journal]');
+        if (editorialBridge && journal) journal.before(editorialBridge);
+
         // Opening an answer would otherwise grow the FAQ section and shove the
         // rest of the page down. Reserve the height of the tallest answer up
         // front, at every width, so expanding an item never moves the frame.
@@ -235,6 +348,123 @@ const journalIndex = Object.keys(journalCategoryByFile).indexOf(file);
           });
         }
         document.fonts?.ready.then(alignBrandRails);
+      })();
+    </script>
+    <script is:inline>
+      (() => {
+        const forms = document.querySelectorAll('form.t-form:has(input[type="file"])');
+
+        forms.forEach((form) => {
+          if (!(form instanceof HTMLFormElement) || form.dataset.adminLeadReady === 'true') return;
+          form.dataset.adminLeadReady = 'true';
+
+          const existingPhone = form.querySelector('input[name="Phone"], input[type="tel"]');
+          const emailGroup = form.querySelector('.t-input-group_em');
+          const phoneGroup = existingPhone ? null : emailGroup?.cloneNode(true);
+          if (phoneGroup instanceof HTMLElement) {
+            phoneGroup.classList.remove('t-input-group_em');
+            phoneGroup.classList.add('t-input-group_ph');
+            phoneGroup.dataset.fieldType = 'ph';
+            phoneGroup.dataset.fieldName = 'Phone';
+            const label = phoneGroup.querySelector('label');
+            const input = phoneGroup.querySelector('input');
+            const error = phoneGroup.querySelector('.t-input-error');
+            if (label && input instanceof HTMLInputElement) {
+              const id = `website_phone_${form.id || Math.random().toString(36).slice(2)}`;
+              label.textContent = 'Телефон';
+              label.setAttribute('for', id);
+              input.id = id;
+              input.type = 'tel';
+              input.name = 'Phone';
+              input.value = '';
+              input.placeholder = '+7 (___) ___-__-__';
+              input.autocomplete = 'tel';
+              input.required = true;
+              input.setAttribute('aria-required', 'true');
+              input.removeAttribute('data-tilda-rule');
+              if (error) error.id = `${id}_error`;
+              emailGroup.insertAdjacentElement('afterend', phoneGroup);
+            }
+          }
+
+          form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            const submit = form.querySelector('button[type="submit"]');
+            const success = form.querySelector('.js-successbox');
+            const errorBox = form.querySelector('.js-errorbox-all');
+            const phone = form.querySelector('input[name="Phone"]');
+            const photos = form.querySelector('input[type="file"]');
+            const phoneValue = phone instanceof HTMLInputElement ? phone.value.trim() : '';
+            const files = photos instanceof HTMLInputElement ? Array.from(photos.files || []) : [];
+            const digits = phoneValue.replace(/\D/g, '');
+
+            const showError = (message) => {
+              if (errorBox instanceof HTMLElement) {
+                errorBox.style.display = 'block';
+                const line = errorBox.querySelector('.js-rule-error-all');
+                if (line) line.textContent = message;
+              } else {
+                window.alert(message);
+              }
+            };
+
+            if (digits.length < 10) {
+              showError('Укажите корректный телефон');
+              phone?.focus();
+              return;
+            }
+            if (!files.length || files.length > 10) {
+              showError('Добавьте от 1 до 10 фотографий');
+              return;
+            }
+
+            const payload = new FormData();
+            const name = form.querySelector('input[name="Name"]');
+            const email = form.querySelector('input[name="Email"]');
+            const message = form.querySelector('textarea');
+            payload.set('phone', phoneValue);
+            payload.set('name', name instanceof HTMLInputElement ? name.value.trim() : '');
+            payload.set('email', email instanceof HTMLInputElement ? email.value.trim() : '');
+            payload.set('message', message instanceof HTMLTextAreaElement ? message.value.trim() : '');
+            payload.set('source', window.location.href);
+            payload.set('category', document.querySelector('h1')?.textContent?.trim() || 'Элитный алкоголь');
+            payload.set('website', '');
+            files.forEach((file) => payload.append('photos', file, file.name));
+
+            if (submit instanceof HTMLButtonElement) {
+              submit.disabled = true;
+              submit.setAttribute('aria-busy', 'true');
+              const text = submit.querySelector('.t-btnflex__text');
+              if (text) text.textContent = 'Отправляем…';
+            }
+            if (errorBox instanceof HTMLElement) errorBox.style.display = 'none';
+
+            try {
+              const response = await fetch('/api/applications/web', { method: 'POST', body: payload });
+              if (!response.ok) {
+                const result = await response.json().catch(() => null);
+                throw new Error(result?.detail || 'Не удалось отправить заявку');
+              }
+              form.reset();
+              const inputs = form.querySelector('.t-form__inputsbox');
+              if (inputs instanceof HTMLElement) inputs.style.display = 'none';
+              if (success instanceof HTMLElement) {
+                success.textContent = 'Спасибо! Заявка и фотографии переданы оценщику. Мы свяжемся с вами.';
+                success.style.display = 'block';
+              }
+            } catch (error) {
+              showError(error instanceof Error ? error.message : 'Не удалось отправить заявку');
+              if (submit instanceof HTMLButtonElement) {
+                submit.disabled = false;
+                submit.removeAttribute('aria-busy');
+                const text = submit.querySelector('.t-btnflex__text');
+                if (text) text.textContent = 'Отправить';
+              }
+            }
+          }, true);
+        });
       })();
     </script>
   </body>

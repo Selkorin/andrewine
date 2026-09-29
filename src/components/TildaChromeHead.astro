@@ -10,5 +10,6 @@ const tildaAssets = getTildaHeadAssets(root);
 ---
 
 <link rel="preconnect" href="https://fonts.gstatic.com" />
+<link rel="icon" type="image/svg+xml" sizes="any" href={`${root}favicon.svg`} />
 <script is:inline>if(!location.pathname.endsWith('/')&&!/\.[a-z0-9]+$/i.test(location.pathname))history.replaceState(null,'',location.pathname+'/'+location.search+location.hash);</script>
 <Fragment set:html={tildaAssets} />

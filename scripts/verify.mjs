@@ -20,11 +20,29 @@ for (const route of routes) {
     errors.push(`${route}: остался старый домен`);
   }
   if (!/<title>[^<]+<\/title>/.test(html)) errors.push(`${route}: нет title`);
+  if (!/<meta[^>]+name=["']description["'][^>]+content=["'][^"']{50,}["']/i.test(html)) errors.push(`${route}: нет полноценного description`);
+  if (!/<link[^>]+rel=["']canonical["'][^>]*>/i.test(html)) errors.push(`${route}: нет canonical`);
+  const canonical = html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)?.[1];
+  if (route !== '/' && canonical && !canonical.endsWith('/')) errors.push(`${route}: canonical должен оканчиваться слешем`);
   if (!/<h1(?:\s|>)/i.test(html)) errors.push(`${route}: нет H1`);
+  if ((html.match(/<h1(?:\s|>)/gi) ?? []).length !== 1) errors.push(`${route}: должен быть ровно один H1`);
+  if (/createElement\(['"]h1['"]\)/i.test(html)) errors.push(`${route}: скрипт создаёт скрытый дополнительный H1`);
   if (html.includes('</script></script>') || html.includes('</script></style>')) {
     errors.push(`${route}: остались повреждённые закрывающие теги`);
   }
   if (!html.includes('.t-records{opacity:1!important}')) errors.push(`${route}: нет защиты видимости Tilda-блоков`);
+  if (!/<style data-vendored-css="css\/tilda-grid-3\.0\.min\.css">/.test(html)) {
+    errors.push(`${route}: базовые стили Tilda не встроены в HTML`);
+  }
+  if (!/<style data-vendored-css="ws\/project22260796\/tilda-blocks-page\d+\.min\.css">/.test(html)) {
+    errors.push(`${route}: стили страницы Tilda не встроены в HTML`);
+  }
+  if (/href=["']https:\/\/static(?:3)?\.tildacdn\.com\/ws\/project22260796\/tilda-blocks-page/.test(html)) {
+    errors.push(`${route}: стили страницы всё ещё зависят от Tilda CDN`);
+  }
+  if (/vendor\/tilda|site-assets\/(?:[^snt/]|s(?:tatic)?\.tildacdn)/i.test(html)) {
+    errors.push(`${route}: публичный URL ресурса может быть заблокирован расширением браузера`);
+  }
 }
 
 for (const asset of ['robots.txt', 'sitemap.xml']) {
@@ -33,6 +51,17 @@ for (const asset of ['robots.txt', 'sitemap.xml']) {
   } catch {
     errors.push(`нет ${asset}`);
   }
+}
+
+const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8').catch(() => '');
+if ((sitemap.match(/<url>/g) ?? []).length !== 24) errors.push('sitemap должен содержать 24 индексируемые страницы (без 404)');
+if (!sitemap.includes('/articles/')) errors.push('в sitemap отсутствуют статьи');
+for (const slug of ['sell-macallan', 'sell-hennessy', 'sell-louis-xiii', 'sell-dom-perignon']) {
+  const html = await readFile(path.join(root, slug, 'index.html'), 'utf8').catch(() => '');
+  if (!html) errors.push(`/${slug}/: нет брендовой посадочной страницы`);
+  if ((html.match(/<h1(?:\s|>)/gi) ?? []).length !== 1) errors.push(`/${slug}/: должен быть ровно один H1`);
+  if (!html.includes('FAQPage') || !html.includes('schema.org')) errors.push(`/${slug}/: отсутствуют структурированные данные`);
+  if (!sitemap.includes(`/${slug}/`)) errors.push(`/${slug}/: адрес отсутствует в sitemap`);
 }
 
 async function collectHtml(directory) {
@@ -49,10 +78,14 @@ async function collectHtml(directory) {
 // deliberately carry neither the Tilda header nor its footer.
 const isPreview = (file) => path.relative(root, file).startsWith('preview-');
 
-const htmlFiles = (await collectHtml(root)).filter((file) => !isPreview(file));
+const isVerificationFile = (file) => /^(?:yandex_[a-f0-9]+|google[a-f0-9]+)\.html$/i.test(path.basename(file));
+const htmlFiles = (await collectHtml(root)).filter((file) => !isPreview(file) && !isVerificationFile(file));
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const route = path.relative(root, file);
+  if ((html.match(/113109306/g) ?? []).length < 2) errors.push(`${route}: не установлен счётчик Яндекс Метрики`);
+  if ((html.match(/tag\.js\?id=113109306/g) ?? []).length !== 1) errors.push(`${route}: счётчик Яндекс Метрики должен подключаться ровно один раз`);
+  if (!html.includes('webvisor:true') || !html.includes('clickmap:true')) errors.push(`${route}: не включены Вебвизор или карта кликов`);
   if (!html.includes('class="site-header"')) {
     errors.push(`${route}: отсутствует шапка сайта`);
   }
@@ -84,7 +117,7 @@ for (const articleFile of htmlFiles.filter(file => file.includes(`${path.sep}art
   }
 }
 
-if (htmlFiles.length !== 21) errors.push(`ожидалось 21 HTML-страниц, собрано ${htmlFiles.length}`);
+if (htmlFiles.length !== 25) errors.push(`ожидалось 25 HTML-страниц, собрано ${htmlFiles.length}`);
 
 if (errors.length) {
   console.error(`Проверка не пройдена:\n- ${errors.join('\n- ')}`);

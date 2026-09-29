@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 
 const source = readFileSync(
@@ -28,11 +28,97 @@ function normalizeRoot(root: string) {
   return root.endsWith('/') ? root : `${root}/`;
 }
 
+const tildaAssetUrl = /https?:\/\/[a-z0-9.-]*tildacdn\.[a-z]+\/[^\s\"'()\\<>]+/gi;
+
+// Keep CDN-looking host names out of public URLs. Privacy/ad-blocking extensions
+// can block a same-origin request purely because its path contains
+// "tildacdn.com"; when the page stylesheet is blocked, the absolutely
+// positioned footer covers the entire page and makes the content look empty.
+const publicAssetHosts: Record<string, string> = {
+  'static.tildacdn.com': 's',
+  'thb.tildacdn.com': 't',
+  'neo.tildacdn.com': 'n',
+};
+
+const vendorRoot = path.join(process.cwd(), 'public', 'vendor', 'tilda');
+
+function versionedPublicVendorPath(vendorPath: string, root: string) {
+  if (/\.(png|jpe?g)$/i.test(vendorPath)) {
+    const webpPath = vendorPath.replace(/\.(png|jpe?g)$/i, '.webp');
+    if (existsSync(webpPath)) vendorPath = webpPath;
+  }
+  const relative = path.relative(vendorRoot, vendorPath);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) return null;
+
+  const [host, ...parts] = relative.split(path.sep);
+  const publicHost = publicAssetHosts[host];
+  if (!publicHost || !existsSync(vendorPath)) return null;
+
+  const asset = statSync(vendorPath);
+  const version = `${asset.size}-${Math.trunc(asset.mtimeMs)}`;
+  return `${normalizeRoot(root)}site-assets/${publicHost}/${parts.join('/')}?v=${version}`;
+}
+
+function localVendorUrl(url: string, root: string) {
+  try {
+    const parsed = new URL(url);
+    const relativePath = decodeURIComponent(parsed.pathname).replace(/^\/+/, '');
+    const vendorPath = path.join(process.cwd(), 'public', 'vendor', 'tilda', parsed.hostname, relativePath);
+
+    if (!existsSync(vendorPath)) return url;
+
+    return versionedPublicVendorPath(vendorPath, root) ?? url;
+  } catch {
+    return url;
+  }
+}
+
+function inlineVendoredStylesheet(tag: string, root: string) {
+  const href = tag.match(/\bhref=["']([^"']+)["']/i)?.[1];
+  if (!href || !/tildacdn\.[a-z]+/i.test(href)) return resolveVendorPaths(tag, root);
+
+  try {
+    const parsed = new URL(href);
+    const relativePath = decodeURIComponent(parsed.pathname).replace(/^\/+/, '');
+    const vendorPath = path.join(vendorRoot, parsed.hostname, relativePath);
+    if (!existsSync(vendorPath) || !vendorPath.endsWith('.css')) return resolveVendorPaths(tag, root);
+
+    const css = readFileSync(vendorPath, 'utf8').replace(
+      /url\(\s*(["']?)([^"')]+)\1\s*\)/gi,
+      (whole, _quote, reference) => {
+        if (/^(data:|#)/i.test(reference)) return whole;
+        if (/^https?:\/\//i.test(reference)) {
+          const localized = localVendorUrl(reference, root);
+          return localized === reference ? whole : `url("${localized}")`;
+        }
+
+        const cleanReference = reference.split(/[?#]/, 1)[0];
+        const referencedFile = path.resolve(path.dirname(vendorPath), decodeURIComponent(cleanReference));
+        const localized = versionedPublicVendorPath(referencedFile, root);
+        return localized ? `url("${localized}")` : whole;
+      },
+    );
+
+    return `<style data-vendored-css="${relativePath}">${css}</style>`;
+  } catch {
+    return resolveVendorPaths(tag, root);
+  }
+}
+
+export function resolveTildaHead(markup: string, root = './') {
+  return resolveVendorPaths(
+    markup.replace(/<link[^>]*\brel=["']stylesheet["'][^>]*>/gi, tag => inlineVendoredStylesheet(tag, root)),
+    root,
+  );
+}
+
 // vendor-tilda.mjs rewrites tildacdn URLs to "__ROOT__vendor/tilda/...". The token
 // is resolved per page because the site is served from the domain root on
 // andrewine.ru but from a subdirectory on GitHub Pages.
 export function resolveVendorPaths(markup: string, root = './') {
-  return markup.replaceAll('__ROOT__', normalizeRoot(root));
+  return markup
+    .replaceAll('__ROOT__', normalizeRoot(root))
+    .replace(tildaAssetUrl, (url) => localVendorUrl(url, root));
 }
 
 export function rewriteLegacyLinks(markup: string, root = './') {
@@ -120,9 +206,9 @@ export function getOriginalFooter(root = './') {
 }
 
 export function getTildaHeadAssets(root = './') {
-  const head = resolveVendorPaths(source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '', root);
+  const head = source.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
   const tags = (head.match(/<link[^>]*\brel="stylesheet"[^>]*>|<script[^>]*\bsrc="[^"]+"[^>]*><\/script>|<script(?![^>]*\bsrc=)[^>]*>[\s\S]*?<\/script>/gi) ?? [])
     .filter(tag => !tag.startsWith('<script') || tag.includes(' src=') || tag.includes('t_onReady'));
   if (!tags.length) throw new Error('Tilda head assets were not found');
-  return tags.join('\n');
+  return tags.map(tag => tag.startsWith('<link') ? inlineVendoredStylesheet(tag, root) : resolveVendorPaths(tag, root)).join('\n');
 }

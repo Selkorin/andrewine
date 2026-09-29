@@ -4,6 +4,7 @@ import OriginalFooter from '../components/OriginalFooter.astro';
 import TildaChromeHead from '../components/TildaChromeHead.astro';
 import enhancementsCss from '../styles/enhancements.css?raw';
 import { resolveVendorPaths } from '../lib/legacyChrome';
+import YandexMetrika from '../components/YandexMetrika.astro';
 ---
 
 <!doctype html>
@@ -17,6 +18,7 @@ import { resolveVendorPaths } from '../lib/legacyChrome';
     <style is:inline set:html={resolveVendorPaths(enhancementsCss, "./")} />
   </head>
   <body class="t-body article-page">
+    <YandexMetrika />
     <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
     <SiteHeader root="./" />
     <main class="not-found article-main">

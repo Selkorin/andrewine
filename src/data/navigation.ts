@@ -15,8 +15,6 @@ export const categories = [
 export const contacts = {
   phone: '+7(986)345-82-35',
   phoneHref: 'tel:+79863458235',
-  secondPhone: '+7(936)525-99-56',
-  secondPhoneHref: 'tel:+79365259956',
   email: 'andrewine@mail.com',
   emailHref: 'mailto:andrewine@mail.com',
   telegram: '@AWONLINE_BOT',

@@ -7,6 +7,7 @@ import OriginalFooter from '../../components/OriginalFooter.astro';
 import TildaChromeHead from '../../components/TildaChromeHead.astro';
 import ArticleInfographic from '../../components/ArticleInfographic.astro';
 import { getArticleVisuals } from '../../data/articleVisuals';
+import YandexMetrika from '../../components/YandexMetrika.astro';
 
 export function getStaticPaths() {
   return articles.map(article => ({ params: { slug: article.slug }, props: { article } }));
@@ -34,12 +35,20 @@ const faq = [
     <meta name="viewport" content="width=device-width" />
     <title>{article.title} | Andrewine</title>
     <meta name="description" content={article.description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href={`https://andrewine.ru/articles/${article.slug}/`} />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Andrewine" />
+    <meta property="og:title" content={`${article.title} | Andrewine`} />
+    <meta property="og:description" content={article.description} />
+    <meta property="og:url" content={`https://andrewine.ru/articles/${article.slug}/`} />
     <TildaChromeHead root="../../" />
     <style is:inline set:html={resolveVendorPaths(enhancementsCss, "../../")} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'Article', headline:article.title, description:article.description, image:resolveVendorPaths(article.image, "../../"), author:{ '@type':'Organization', name:'Andrewine' }, publisher:{ '@type':'Organization', name:'Andrewine' }, mainEntityOfPage:`https://andrewine.ru/articles/${article.slug}/` })} />
   </head>
   <body class="t-body article-page">
+    <YandexMetrika />
     <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
     <SiteHeader root="../../" active="articles" />
     <main class="article-main">

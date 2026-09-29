@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build && npm run verify",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
+    "build": "npm run optimize:images && astro check && astro build && node scripts/prepare-site-assets.mjs && npm run verify",
     "check": "astro check",
     "verify": "node scripts/verify.mjs"
   },
@@ -15,6 +17,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@types/node": "^24.10.1",
+    "sharp": "^0.34.5",
     "typescript": "^5.9.3"
   }
 }

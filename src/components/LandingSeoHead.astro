@@ -1,0 +1,88 @@
+---
+import type { LandingSeo } from '../data/seo';
+import { siteUrl } from '../data/seo';
+
+interface Props { seo: LandingSeo }
+const { seo } = Astro.props;
+const canonicalRoute = seo.route === '/' ? '/' : `${seo.route.replace(/\/+$/, '')}/`;
+const canonical = new URL(canonicalRoute, siteUrl).href;
+const organizationId = `${siteUrl}/#organization`;
+const websiteId = `${siteUrl}/#website`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['Organization', 'ProfessionalService'],
+      '@id': organizationId,
+      name: 'Andrewine',
+      url: siteUrl,
+      logo: `${siteUrl}/site-assets/s/tild3435-3262-4264-a164-346331373138/_ANDREWINEwhite_1.png`,
+      telephone: '+7-986-345-82-35',
+      email: 'andrewine@mail.com',
+      contactPoint: [
+        { '@type': 'ContactPoint', telephone: '+7-986-345-82-35', contactType: 'оценка и выкуп алкоголя', areaServed: 'RU', availableLanguage: ['ru'] },
+      ],
+      areaServed: [
+        { '@type': 'City', name: 'Москва' },
+        { '@type': 'AdministrativeArea', name: 'Московская область' },
+      ],
+      sameAs: ['https://t.me/AWONLINE_BOT', 'https://vk.com/AndreWine'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      name: 'Andrewine',
+      url: siteUrl,
+      inLanguage: 'ru-RU',
+      publisher: { '@id': organizationId },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: seo.title,
+      description: seo.description,
+      inLanguage: 'ru-RU',
+      isPartOf: { '@id': websiteId },
+      about: { '@id': `${canonical}#service` },
+    },
+    {
+      '@type': 'Service',
+      '@id': `${canonical}#service`,
+      name: seo.service,
+      description: seo.description,
+      url: canonical,
+      provider: { '@id': organizationId },
+      areaServed: [{ '@type': 'City', name: 'Москва' }, { '@type': 'AdministrativeArea', name: 'Московская область' }],
+      availableChannel: {
+        '@type': 'ServiceChannel',
+        serviceUrl: canonical,
+        servicePhone: { '@type': 'ContactPoint', telephone: '+7-986-345-82-35', contactType: 'оценка по фото' },
+      },
+    },
+    ...(seo.route === '/' ? [] : [{
+      '@type': 'BreadcrumbList',
+      '@id': `${canonical}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Главная', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: seo.heading, item: canonical },
+      ],
+    }]),
+  ],
+};
+---
+<title>{seo.title}</title>
+<meta name="description" content={seo.description} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<link rel="canonical" href={canonical} />
+<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+<meta property="og:locale" content="ru_RU" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Andrewine" />
+<meta property="og:title" content={seo.title} />
+<meta property="og:description" content={seo.description} />
+<meta property="og:url" content={canonical} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={seo.title} />
+<meta name="twitter:description" content={seo.description} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

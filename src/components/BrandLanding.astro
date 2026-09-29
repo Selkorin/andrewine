@@ -1,0 +1,47 @@
+---
+import SiteHeader from './SiteHeader.astro';
+import OriginalFooter from './OriginalFooter.astro';
+import TildaChromeHead from './TildaChromeHead.astro';
+import type { BrandLandingData } from '../data/brandLandings';
+import enhancementsCss from '../styles/enhancements.css?raw';
+import { resolveVendorPaths } from '../lib/legacyChrome';
+import { contacts } from '../data/navigation';
+import YandexMetrika from './YandexMetrika.astro';
+
+interface Props { data: BrandLandingData }
+const { data } = Astro.props;
+const root = '../';
+const canonical = `https://andrewine.ru/${data.slug}/`;
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: data.faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
+const serviceSchema = { '@context': 'https://schema.org', '@graph': [
+  { '@type': 'Service', name: data.title, description: data.description, areaServed: [{ '@type': 'City', name: 'Москва' }, { '@type': 'AdministrativeArea', name: 'Московская область' }], provider: { '@type': ['Organization', 'ProfessionalService'], name: 'Andrewine', url: 'https://andrewine.ru/', telephone: '+7-986-345-82-35', email: 'andrewine@mail.com' }, availableChannel: { '@type': 'ServiceChannel', serviceUrl: canonical, servicePhone: { '@type': 'ContactPoint', telephone: '+7-986-345-82-35', contactType: 'оценка по фото' } } },
+  { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://andrewine.ru/' }, { '@type': 'ListItem', position: 2, name: data.categoryLabel, item: new URL(data.categoryHref, 'https://andrewine.ru/').href }, { '@type': 'ListItem', position: 3, name: data.title, item: canonical }] },
+] };
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{data.title} — Andrewine</title>
+    <meta name="description" content={data.description} /><meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" /><meta property="og:locale" content="ru_RU" /><meta property="og:site_name" content="Andrewine" />
+    <meta property="og:title" content={data.title} /><meta property="og:description" content={data.description} /><meta property="og:url" content={canonical} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} /><script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <TildaChromeHead root={root} /><style is:inline set:html={resolveVendorPaths(enhancementsCss, root)} />
+  </head>
+  <body class="t-body brand-page" style="margin:0">
+    <YandexMetrika />
+    <SiteHeader root={root} />
+    <main>
+      <section class="brand-landing__hero">
+        <div class="brand-landing__frame"><a href={`${root}${data.categoryHref.replace(/^\//,'')}`}>← {data.categoryLabel}</a><p>{data.eyebrow} · Москва</p><h1>{data.title}</h1><div class="brand-landing__lead"><p>{data.lead}</p><a href="#request">Получить оценку по фото</a></div></div>
+      </section>
+      <section class="brand-landing__releases"><div><p class="brand-landing__kicker">Что рассматриваем</p><h2>Релизы и серии</h2></div><ul>{data.brands.map((item) => <li>{item}</li>)}</ul></section>
+      <section class="brand-landing__factors"><p class="brand-landing__kicker">От чего зависит предложение</p><h2>Три основных фактора оценки</h2><div>{data.factors.map((factor, index) => <article><span>0{index + 1}</span><h3>{factor.title}</h3><p>{factor.text}</p></article>)}</div></section>
+      <section class="brand-landing__photos" id="request"><div><p class="brand-landing__kicker">Первый шаг</p><h2>Какие фото прислать</h2><p>Снимайте при дневном свете, без фильтров. Не вскрывайте бутылку и не очищайте старые этикетки.</p></div><ol>{data.sought.map((item) => <li>{item}</li>)}</ol><a href={contacts.telegramHref} rel="noopener">Отправить фотографии в Telegram</a></section>
+      <section class="brand-landing__faq"><p class="brand-landing__kicker">Ответы эксперта</p><h2>Частые вопросы</h2><div>{data.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></section>
+    </main>
+    <OriginalFooter root={root} />
+  </body>
+</html>

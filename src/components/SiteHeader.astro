@@ -1,5 +1,6 @@
 ---
 import { categories, contacts } from '../data/navigation';
+import CallWidget from './CallWidget.astro';
 
 interface Props {
   root?: string;
@@ -12,7 +13,7 @@ const url = (slug: string) => `${root}${slug}/`;
 
 <header class="site-header">
   <a class="site-header__brand" href={root} aria-label="Andrewine — на главную">
-    <img class="site-header__logo" src="https://static.tildacdn.com/tild3435-3262-4264-a164-346331373138/_ANDREWINEwhite_1.png" alt="Andrewine" width="290" height="46" decoding="async" />
+    <img class="site-header__logo" src={`${root}site-assets/s/tild3435-3262-4264-a164-346331373138/_ANDREWINEwhite_1.png`} alt="Andrewine" width="290" height="46" decoding="async" />
   </a>
 
   <input class="site-header__toggle" id="site-nav-toggle" type="checkbox" hidden />
@@ -37,6 +38,8 @@ const url = (slug: string) => `${root}${slug}/`;
     <a class="site-header__cta" href="#request">Отправить на оценку</a>
   </div>
 </header>
+
+<CallWidget />
 
 <style>
   .site-header {
@@ -238,11 +241,11 @@ const url = (slug: string) => `${root}${slug}/`;
     .site-header__side {
       order: 4;
       width: 100%;
-      display: none;
-      padding-bottom: 20px;
+      display: flex;
+      padding: 8px 0 12px;
     }
-    .site-header__toggle:checked ~ .site-header__side { display: flex; }
-    .site-header__cta { width: 100%; text-align: center; }
+    .site-header__cta { width: 100%; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; text-align: center; font-size: 13px; letter-spacing: .06em; background: #fff; border-color: #fff; color: var(--wine, #7e010b); box-shadow: 0 5px 14px rgba(0,0,0,.16); }
+    .site-header__cta:hover, .site-header__cta:focus-visible { background: #f8e9e8; border-color: #f8e9e8; color: var(--wine, #7e010b); }
   }
 
   @media (prefers-reduced-motion: reduce) {

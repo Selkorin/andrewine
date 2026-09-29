@@ -1,5 +1,7 @@
 ---
 import LegacyPage from '@/components/LegacyPage.astro';
+import BrandLanding from '@/components/BrandLanding.astro';
+import { brandLandings } from '@/data/brandLandings';
 
 export function getStaticPaths() {
   const pages = {
@@ -12,10 +14,13 @@ export function getStaticPaths() {
     buy_brandy: 'page136049296.html',
     buy_wine: 'page136462246.html',
   } as const;
-  return Object.entries(pages).map(([slug, file]) => ({ params: { slug }, props: { file } }));
+  return [
+    ...Object.entries(pages).map(([slug, file]) => ({ params: { slug }, props: { file } })),
+    ...brandLandings.map((brand) => ({ params: { slug: brand.slug }, props: { brand } })),
+  ];
 }
 
-const { file } = Astro.props;
+const { file, brand } = Astro.props;
 ---
 
-<LegacyPage file={file} />
+{file ? <LegacyPage file={file} /> : <BrandLanding data={brand} />}
