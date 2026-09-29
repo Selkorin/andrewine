@@ -52,11 +52,7 @@ const faqs = [
   <body>
     <header class="site-header">
       <div class="shell header-inner">
-        <a class="logo wine-logo" href="#top" aria-label="Andrewine">
-          <span class="logo-base">Andrewine</span>
-          <span class="logo-liquid" aria-hidden="true"><span>Andrewine</span></span>
-          <i class="logo-bubbles" aria-hidden="true"><b></b><b></b><b></b></i>
-        </a>
+        <a class="logo" href="#top" aria-label="Andrewine">Andrewine</a>
         <nav aria-label="Навигация по странице">
           <a href="#online-valuation">Онлайн-оценка</a><a href="#about">О нас</a><a href="#contacts">Контакты</a>
         </nav>
@@ -244,33 +240,6 @@ const faqs = [
       const privacy = document.querySelector<HTMLDialogElement>('[data-privacy]')!; document.querySelector('[data-privacy-open]')?.addEventListener('click', () => privacy.showModal()); document.querySelector('[data-privacy-close]')?.addEventListener('click', () => privacy.close());
 
       const motionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const wineLogo = document.querySelector<HTMLElement>('.wine-logo');
-      if (wineLogo && motionAllowed) {
-        let lastY = window.scrollY;
-        let lastTime = performance.now();
-        let frame = 0;
-        const settle = () => {
-          frame = 0;
-          const now = performance.now();
-          const delta = window.scrollY - lastY;
-          const elapsed = Math.max(16, now - lastTime);
-          const splash = Math.max(-8, Math.min(8, delta / elapsed * 13));
-          wineLogo.style.setProperty('--wine-left', `${50 - splash}%`);
-          wineLogo.style.setProperty('--wine-right', `${50 + splash}%`);
-          wineLogo.style.setProperty('--wine-kick', `${Math.min(4, Math.abs(splash) * .8)}%`);
-          lastY = window.scrollY;
-          lastTime = now;
-          window.setTimeout(() => {
-            wineLogo.style.setProperty('--wine-left', '50%');
-            wineLogo.style.setProperty('--wine-right', '50%');
-            wineLogo.style.setProperty('--wine-kick', '0%');
-          }, 110);
-        };
-        window.addEventListener('scroll', () => {
-          if (!frame) frame = window.requestAnimationFrame(settle);
-        }, { passive: true });
-      }
-
       if (motionAllowed) {
         document.querySelectorAll<HTMLElement>('.category-copy').forEach((card, cardIndex) => {
           const field = document.createElement('i');
@@ -319,18 +288,6 @@ const faqs = [
   .ticker span{display:flex;align-items:center;padding-left:0;margin-right:54px;font:italic 27px Georgia,serif}
   .ticker span::before{content:"✦";color:#fff;margin-right:54px;font:normal 18px Arial}
   @keyframes ticker-move{to{transform:translateX(-50%)}}
-  .wine-logo{--wine-left:50%;--wine-right:50%;--wine-kick:0%;position:relative;display:inline-grid;isolation:isolate;line-height:1;overflow:visible}
-  .wine-logo .logo-base,.wine-logo .logo-liquid>span{grid-area:1/1;white-space:nowrap}
-  .wine-logo .logo-base{color:#fff}
-  .wine-logo .logo-liquid{position:absolute;z-index:2;inset:0;color:var(--red-bright);clip-path:polygon(0 var(--wine-left),100% var(--wine-right),100% 105%,0 105%);transition:clip-path .34s cubic-bezier(.22,.8,.25,1);filter:drop-shadow(0 -1px 0 rgba(255,255,255,.08));pointer-events:none;transform-origin:50% 70%;animation:logo-liquid-idle 2.8s ease-in-out infinite}
-  .wine-logo .logo-liquid>span{font:inherit}
-  .wine-logo .logo-liquid::before{content:"";position:absolute;z-index:-1;left:-12%;top:calc(44% - var(--wine-kick));width:124%;height:15%;border-radius:50%;background:rgba(215,25,45,.28);filter:blur(2px);animation:logo-swell 3.8s ease-in-out infinite}
-  .logo-bubbles{position:absolute;z-index:3;inset:45% 2px 1px;overflow:hidden;pointer-events:none}
-  .logo-bubbles b{position:absolute;bottom:-4px;width:4px;height:4px;border:1px solid rgba(255,255,255,.58);border-radius:50%;opacity:0;animation:logo-bubble 3.4s ease-in infinite}
-  .logo-bubbles b:nth-child(1){left:23%;animation-delay:-.4s}.logo-bubbles b:nth-child(2){left:58%;width:3px;height:3px;animation-delay:-1.8s;animation-duration:2.8s}.logo-bubbles b:nth-child(3){left:82%;width:5px;height:5px;animation-delay:-2.6s;animation-duration:4.2s}
-  @keyframes logo-swell{0%,100%{transform:translateX(-2%) scaleY(.72)}50%{transform:translateX(2%) scaleY(1.08)}}
-  @keyframes logo-liquid-idle{0%,100%{transform:translateY(0) rotate(-.35deg)}50%{transform:translateY(1.5px) rotate(.55deg)}}
-  @keyframes logo-bubble{0%{opacity:0;transform:translate(0,4px) scale(.5)}18%{opacity:.8}75%{opacity:.35}100%{opacity:0;transform:translate(5px,-20px) scale(1.25)}}
   .steps,.contacts{background-color:var(--paper);background-image:linear-gradient(rgba(244,239,231,.82),rgba(244,239,231,.82)),url('/assets/ocenka-paper-texture-v2.webp');background-size:auto,760px auto}
   .steps article{overflow:hidden;background:rgba(255,255,255,.76);backdrop-filter:blur(5px);box-shadow:0 20px 55px rgba(55,16,19,.08);transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
   .steps article::after{content:"";position:absolute;width:150px;height:150px;border:1px solid rgba(155,0,16,.07);border-radius:50%;right:-60px;bottom:-65px;box-shadow:0 0 0 25px rgba(155,0,16,.025)}
@@ -404,5 +361,5 @@ const faqs = [
     .hero h1{text-shadow:0 3px 20px rgba(0,0,0,.85)}
     .hero-lead,.hero-trust{text-shadow:0 2px 12px rgba(0,0,0,.95)}
   }
-  @media(prefers-reduced-motion:reduce){.ticker-track,.stat-icon::before,.ringing-phone::before,.ringing-phone::after,.ringing-phone svg,.logo-liquid,.logo-liquid::before,.logo-bubbles b,.category-copy::before,.live-bubbles b{animation:none}.ticker-track{transform:none}.steps article,.category-icon svg{transition:none}}
+  @media(prefers-reduced-motion:reduce){.ticker-track,.stat-icon::before,.ringing-phone::before,.ringing-phone::after,.ringing-phone svg,.category-copy::before,.live-bubbles b{animation:none}.ticker-track{transform:none}.steps article,.category-icon svg{transition:none}}
 </style>
