@@ -21,6 +21,15 @@ jobs:
     if: inputs.mode == 'inspect'
     runs-on: ubuntu-latest
     steps:
+      - name: Check public DNS and HTTPS
+        run: |
+          echo '--- public DNS ---'
+          dig +short A andrewine.ru @1.1.1.1
+          dig +short AAAA andrewine.ru @1.1.1.1
+          echo '--- public HTTPS IPv4 ---'
+          curl -4 -fsSIL --connect-timeout 10 --max-time 20 https://andrewine.ru/ | head -20
+          echo '--- public HTTPS IPv6 ---'
+          curl -6 -sSIL --connect-timeout 10 --max-time 20 https://andrewine.ru/ | head -20 || true
       - name: Inspect Nginx and web roots
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -37,6 +46,12 @@ jobs:
             find /var/www -maxdepth 3 -type d 2>/dev/null | head -120 || true
             echo '--- containers ---'
             docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Ports}}' 2>/dev/null || true
+            echo '--- network and firewall ---'
+            ip -6 addr show scope global 2>/dev/null || true
+            ufw status verbose 2>/dev/null || true
+            iptables -S INPUT 2>/dev/null | head -80 || true
+            ip6tables -S INPUT 2>/dev/null | head -80 || true
+            fail2ban-client status 2>/dev/null || true
             echo '--- andrewine nginx config ---'
             sed -n '1,240p' /etc/nginx/sites-enabled/andrewine.ru 2>/dev/null || true
             echo '--- application stack location ---'
