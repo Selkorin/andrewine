@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Создаем крылья для бизнеса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0d0a;
+    --ink: #f3e7cf;
+    --accent: #d9a84e;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: var(--bg);
+  }
+
+  body {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .stage {
+    width: min(92vw, 1100px);
+    aspect-ratio: 1000 / 300;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .word {
+    font-family: "Caveat", "Segoe Script", cursive;
+    font-weight: 700;
+    font-size: 150px;
+    fill: var(--ink);
+  }
+
+  .pen {
+    transition: opacity .4s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pen { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <svg id="scene" viewBox="0 0 1000 300" role="img" aria-label="Создаем крылья для бизнеса">
+      <defs>
+        <!-- мягкая кромка «пера»: белый слева, чёрный справа -->
+        <linearGradient id="edge" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stop-color="#fff"/>
+          <stop offset="1" stop-color="#000"/>
+        </linearGradient>
+
+        <mask id="reveal" maskUnits="userSpaceOnUse" x="-200" y="-200" width="1400" height="700">
+          <rect id="revealed" x="-200" y="-200" width="0" height="700" fill="#fff"/>
+          <rect id="edgeRect" x="0" y="-200" width="60" height="700" fill="url(#edge)"/>
+        </mask>
+
+        <radialGradient id="tip" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#fff6dc"/>
+          <stop offset="0.45" stop-color="#d9a84e" stop-opacity=".9"/>
+          <stop offset="1" stop-color="#d9a84e" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <g mask="url(#reveal)">
+        <text id="word" class="word" x="60" y="200">Создаем крылья для бизнеса</text>
+      </g>
+
+      <!-- «палец/перо», которое ведёт по строке -->
+      <g id="pen" class="pen" opacity="0">
+        <circle id="glow" r="26" fill="url(#tip)"/>
+        <g id="penBody" transform="rotate(-32)">
+          <rect x="6" y="-7" width="150" height="14" rx="7" fill="#3a2d1c" stroke="#d9a84e" stroke-width="1.5"/>
+          <rect x="0" y="-5" width="14" height="10" rx="4" fill="#d9a84e"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+<script>
+(() => {
+  const DURATION = 3600;   // время написания, мс
+  const HOLD = 1800;       // пауза после написания
+  const FADE = 900;        // исчезновение перед повтором
+  const EDGE = 60;         // ширина мягкой кромки
+
+  const svg = document.getElementById('scene');
+  const word = document.getElementById('word');
+  const revealed = document.getElementById('revealed');
+  const edgeRect = document.getElementById('edgeRect');
+  const pen = document.getElementById('pen');
+  const glow = document.getElementById('glow');
+  const penBody = document.getElementById('penBody');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Плавный «человеческий» темп: медленный старт, ровное письмо, мягкая остановка
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  let box = null;
+
+  function measure() {
+    box = word.getBBox();
+    // подгоняем viewBox под текст, чтобы он был по центру и не обрезался
+    const pad = 40;
+    svg.setAttribute('viewBox',
+      `${box.x - pad} ${box.y - pad} ${box.width + pad * 2} ${box.height + pad * 2}`);
+    // сохраняем текущие координаты маски в пределах текста
+    const mask = document.getElementById('reveal');
+    mask.setAttribute('x', box.x - pad * 2);
+    mask.setAttribute('width', box.width + pad * 4);
+  }
+
+  // Точка на строке: y ≈ середина x-высоты, с лёгким «дрожанием» руки
+  function setFrame(p, t) {
+    const x0 = box.x;
+    const x1 = box.x + box.width;
+    const x = x0 + (x1 - x0) * p;
+
+    revealed.setAttribute('x', box.x - 200);
+    revealed.setAttribute('width', Math.max(0, x - (box.x - 200)));
+    edgeRect.setAttribute('x', x);
+
+    const baseY = box.y + box.height * 0.62;
+    const wobble = Math.sin(t * 0.012) * 5 + Math.sin(t * 0.031) * 2;
+    const y = baseY + wobble;
+
+    pen.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+    pen.setAttribute('opacity', p <= 0 || p >= 1 ? 0 : 1);
+    // перо чуть «покачивается» в такт письму
+    penBody.setAttribute('transform', `rotate(${(-32 + Math.sin(t * 0.015) * 4).toFixed(1)})`);
+  }
+
+  function showAll() {
+    revealed.setAttribute('width', box.width + 400);
+    edgeRect.setAttribute('x', box.x + box.width + 200);
+    pen.setAttribute('opacity', 0);
+  }
+
+  function run() {
+    let start = null;
+    let phase = 'write';
+    let phaseStart = 0;
+
+    function frame(now) {
+      if (start === null) { start = now; phaseStart = now; }
+      const elapsed = now - phaseStart;
+
+      if (phase === 'write') {
+        const p = Math.min(1, elapsed / DURATION);
+        setFrame(ease(p), now - start);
+        if (p >= 1) { phase = 'hold'; phaseStart = now; pen.setAttribute('opacity', 0); }
+      } else if (phase === 'hold') {
+        if (elapsed >= HOLD) { phase = 'fade'; phaseStart = now; }
+      } else if (phase === 'fade') {
+        const f = Math.min(1, elapsed / FADE);
+        word.style.opacity = String(1 - f);
+        if (f >= 1) {
+          // сброс перед новым циклом
+          word.style.opacity = '1';
+          revealed.setAttribute('width', 0);
+          edgeRect.setAttribute('x', box.x);
+          phase = 'write';
+          phaseStart = now;
+          start = now;
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const ready = document.fonts && document.fonts.load
+    ? document.fonts.load('700 150px "Caveat"', 'Создаем крылья для бизнеса')
+    : Promise.resolve();
+
+  ready.catch(() => {}).then(() => {
+    measure();
+    if (reduce) { showAll(); return; }
+    // начальное состояние: текст скрыт
+    revealed.setAttribute('width', 0);
+    edgeRect.setAttribute('x', box.x);
+    run();
+  });
+})();
+</script>
+</body>
+</html>
