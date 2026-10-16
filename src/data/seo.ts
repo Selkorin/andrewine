@@ -16,7 +16,7 @@ export const landingSeoByFile: Record<string, LandingSeo> = {
     description: 'Скупка элитного и коллекционного алкоголя в Москве. Бесплатно оценим вино, виски, коньяк или шампанское по фото и организуем выезд специалиста.',
     heading: 'Скупка и оценка элитного алкоголя в Москве',
     service: 'Выкуп элитного и коллекционного алкоголя',
-    imageAlt: 'Коллекционные бутылки элитного алкоголя',
+    imageAlt: 'Коллекционные Macallan, Hennessy и Dom Pérignon',
   },
   'page136045756.html': {
     route: '/buy_champagne',
