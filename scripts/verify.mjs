@@ -41,7 +41,7 @@ for (const asset of ['robots.txt', 'sitemap.xml']) {
 }
 
 const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8').catch(() => '');
-if ((sitemap.match(/<url>/g) ?? []).length !== 25) errors.push('sitemap должен содержать 25 индексируемых страниц (без 404)');
+if ((sitemap.match(/<url>/g) ?? []).length !== 27) errors.push('sitemap должен содержать 27 индексируемых страниц (без 404)');
 if (!sitemap.includes('/articles/')) errors.push('в sitemap отсутствуют статьи');
 for (const slug of ['sell-alcohol', 'sell-macallan', 'sell-hennessy', 'sell-louis-xiii', 'sell-dom-perignon']) {
   const html = await readFile(path.join(root, slug, 'index.html'), 'utf8').catch(() => '');
@@ -94,7 +94,7 @@ for (const articleFile of htmlFiles.filter(file => file.includes(`${path.sep}art
   if (html.includes('tildacdn.com')) errors.push(`${route}: статья зависит от Tilda CDN`);
 }
 
-if (htmlFiles.length !== 27) errors.push(`ожидалось 27 HTML-страниц, собрано ${htmlFiles.length}`);
+if (htmlFiles.length !== 29) errors.push(`ожидалось 29 HTML-страниц, собрано ${htmlFiles.length}`);
 
 if (errors.length) {
   console.error(`Проверка не пройдена:\n- ${errors.join('\n- ')}`);
