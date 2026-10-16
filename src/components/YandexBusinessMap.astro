@@ -14,15 +14,7 @@
         <a class="business-map__link" href="https://yandex.ru/maps/?oid=94413976387" target="_blank" rel="noopener noreferrer">Открыть в Яндекс Картах</a>
       </div>
     </div>
-    <div class="business-map__frame">
-      <iframe
-        src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=94413976387"
-        title="Andrewine на Яндекс Картах"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen
-      ></iframe>
-    </div>
+    <a class="business-map__frame business-map__surface" href="https://yandex.ru/maps/?oid=94413976387" target="_blank" rel="noopener noreferrer" aria-label="Открыть Andrewine на Яндекс Картах"><span class="map-grid" aria-hidden="true"></span><span class="map-road map-road--one" aria-hidden="true"></span><span class="map-road map-road--two" aria-hidden="true"></span><span class="map-pin" aria-hidden="true">●</span><span class="map-caption">Москва<br /><b>ул. Покрышкина, 5</b><small>Открыть в Яндекс Картах ↗</small></span></a>
   </div>
   <div class="business-reviews" aria-labelledby="business-reviews-title">
     <div>
@@ -31,7 +23,7 @@
       <p>Читайте актуальные отзывы и оценки Andrewine в официальной карточке организации на Яндекс Картах.</p>
       <a class="business-map__button" href="https://yandex.ru/maps/?oid=94413976387&tab=reviews" target="_blank" rel="noopener noreferrer">Все отзывы на Яндекс Картах</a>
     </div>
-    <div class="business-reviews__frame"><iframe src="https://yandex.ru/maps-reviews-widget/94413976387?comments" title="Отзывы Andrewine в Яндекс Бизнесе" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <a class="business-reviews__frame reviews-card" href="https://yandex.ru/maps/?oid=94413976387&tab=reviews" target="_blank" rel="noopener noreferrer"><span class="reviews-card__mark">“</span><strong>Официальная карточка Andrewine</strong><p>Актуальные отзывы, оценки и ответы компании находятся в Яндекс Бизнесе.</p><span class="reviews-card__cta">Читать отзывы на Яндекс Картах ↗</span></a>
   </div>
 </section>
 
@@ -50,11 +42,13 @@
   .business-map__button { padding: 12px 20px; border-radius: 999px; background: #7e010b !important; color: #fff !important; font-size: 14px; font-weight: 700; text-decoration: none; }
   .business-map__link { color: #7e010b; font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
   .business-map__frame { min-height: 360px; overflow: hidden; border: 1px solid rgba(126, 1, 11, .18); border-radius: 18px; background: #ddd6cf; box-shadow: 0 18px 50px rgba(35, 31, 32, .12); }
-  .business-map iframe { display: block; width: 100%; min-height: 360px; height: 100%; border: 0; }
+  .business-map__surface { position: relative; display:block; color:#231f20; background: radial-gradient(circle at 65% 38%,rgba(255,255,255,.8),transparent 20%),linear-gradient(135deg,#d9ded8,#bfc9c1); }
+  .map-grid { position:absolute; inset:0; opacity:.35; background-image:linear-gradient(25deg,transparent 47%,#fff 48%,#fff 50%,transparent 51%),linear-gradient(115deg,transparent 47%,#fff 48%,#fff 50%,transparent 51%); background-size:120px 90px,160px 110px; }
+  .map-road { position:absolute; display:block; height:18px; background:#f6f2ea; border:2px solid #c4bcb0; border-radius:99px; transform:rotate(-24deg); box-shadow:0 0 0 4px rgba(255,255,255,.22); }.map-road--one{width:78%;left:-10%;top:43%}.map-road--two{width:70%;right:-12%;top:63%;transform:rotate(28deg)}.map-pin{position:absolute;left:56%;top:40%;display:grid;place-items:center;width:42px;height:42px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#7e010b;color:#fff;font-size:18px;box-shadow:0 8px 16px rgba(80,0,0,.28)}.map-caption{position:absolute;left:28px;bottom:24px;padding:15px 18px;border-radius:12px;background:rgba(255,255,255,.9);font:13px/1.45 Manrope,Arial,sans-serif;box-shadow:0 8px 24px rgba(35,31,32,.12)}.map-caption b{font-size:15px}.map-caption small{display:block;margin-top:7px;color:#7e010b;font-weight:700}
   .business-reviews { display:grid; grid-template-columns:minmax(220px,.8fr) minmax(0,1.7fr); gap:clamp(24px,5vw,72px); max-width:1180px; margin:48px auto 0; padding-top:48px; border-top:1px solid rgba(126,1,11,.16); align-items:stretch; }
   .business-reviews h2 { margin:0 0 16px; font:600 clamp(28px,4vw,48px)/1.05 'Playfair Display',Georgia,serif; }
   .business-reviews p:not(.business-map__eyebrow) { max-width:38em; margin:0 0 22px; color:#595254; font:400 16px/1.65 Manrope,Arial,sans-serif; }
   .business-reviews__frame { min-height:360px; overflow:hidden; border:1px solid rgba(126,1,11,.18); border-radius:18px; background:#fff; }
-  .business-reviews__frame iframe { display:block; width:100%; min-height:360px; height:100%; border:0; }
+  .reviews-card{display:flex;flex-direction:column;justify-content:center;padding:42px;background:linear-gradient(145deg,#fff,#f6efe7);color:#231f20;text-decoration:none}.reviews-card__mark{color:#7e010b;font:500 88px/.55 'Playfair Display',Georgia,serif}.reviews-card strong{margin-top:20px;font:500 30px/1.15 'Playfair Display',Georgia,serif}.reviews-card p{max-width:28em!important;margin:16px 0 24px!important;color:#716565!important}.reviews-card__cta{color:#7e010b;font:700 14px Manrope,Arial,sans-serif;text-decoration:underline;text-underline-offset:4px}
   @media (max-width: 720px) { .business-map__inner,.business-reviews { grid-template-columns: 1fr; } .business-map__frame, .business-map iframe,.business-reviews__frame,.business-reviews__frame iframe { min-height: 300px; } }
 </style>
