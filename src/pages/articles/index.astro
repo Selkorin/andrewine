@@ -9,6 +9,7 @@ import journalLibrary from '../../assets/article-journal-library.webp';
 import journalHennessy from '../../assets/article-journal-hennessy-xo.webp';
 import { Image, getImage } from 'astro:assets';
 import YandexMetrika from '../../components/YandexMetrika.astro';
+import YandexBusinessMap from '../../components/YandexBusinessMap.astro';
 
 const [featured, ...remainingArticles] = articles;
 const optimizedLibrary = await getImage({ src: journalLibrary, format: 'webp', quality: 82 });
@@ -94,6 +95,7 @@ const collectionSchema = {
         ))}
         </div>
       </div>
+      <YandexBusinessMap />
     </main>
     <CleanFooter root="../" />
   </body>

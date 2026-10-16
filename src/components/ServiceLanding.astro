@@ -3,6 +3,7 @@ import SiteHeader from './SiteHeader.astro';
 import CleanFooter from './CleanFooter.astro';
 import OnlineValuationQuiz from './OnlineValuationQuiz.astro';
 import YandexMetrika from './YandexMetrika.astro';
+import YandexBusinessMap from './YandexBusinessMap.astro';
 import { categories, contacts } from '../data/navigation';
 import { landingSeoByFile } from '../data/seo';
 import { serviceLandingByFile } from '../data/serviceLandings';
@@ -63,6 +64,7 @@ const schema = { '@context':'https://schema.org', '@graph': [
       <section class="process"><div><p class="kicker">Как это работает</p><h2>От фотографий до расчёта</h2></div><ol><li><b>Отправьте фото</b><span>Общий вид, этикетки, пробка, уровень и упаковка.</span></li><li><b>Получите оценку</b><span>Сверим выпуск, состояние и текущий спрос.</span></li><li><b>Согласуйте встречу</b><span>Эксперт осмотрит бутылку и подтвердит предложение.</span></li><li><b>Получите расчёт</b><span>Фиксируем условия после проверки.</span></li></ol></section>
 
       <OnlineValuationQuiz />
+      <YandexBusinessMap />
 
       <section class="trust" id="about"><div><p class="kicker">Andrewine</p><h2>Специализация вместо массовой скупки</h2></div><div><p>Работаем с редкими напитками и частными коллекциями. Не называем цену только по названию бренда: сначала определяем точный выпуск и проверяем состояние.</p><p>Предварительная оценка бесплатна. Финальное предложение подтверждаем после осмотра бутылки и комплекта.</p></div></section>
     </main>

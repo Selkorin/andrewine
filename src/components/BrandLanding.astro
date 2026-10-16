@@ -6,6 +6,7 @@ import type { BrandLandingData } from '../data/brandLandings';
 import '../styles/enhancements.css';
 import { contacts } from '../data/navigation';
 import YandexMetrika from './YandexMetrika.astro';
+import YandexBusinessMap from './YandexBusinessMap.astro';
 
 interface Props { data: BrandLandingData }
 const { data } = Astro.props;
@@ -43,6 +44,7 @@ const serviceSchema = { '@context': 'https://schema.org', '@graph': [
       <section class="brand-landing__releases"><div><p class="brand-landing__kicker">Подход Andrewine</p><h2>Как проходит оценка</h2></div><div><p>{data.assessment}</p><p>Предварительный диапазон рассчитываем по фотографиям, а окончательное предложение подтверждаем после проверки подлинности, сохранности и комплектности. Не очищайте этикетку, не вскрывайте бутылку и сохраните коробку, документы и аксессуары: эти детали могут заметно влиять на коллекционную стоимость.</p></div></section>
       <section class="brand-landing__photos" id="request"><div><p class="brand-landing__kicker">Первый шаг</p><h2>Какие фото прислать</h2><p>Снимайте при дневном свете, без фильтров. Не вскрывайте бутылку и не очищайте старые этикетки.</p></div><ol>{data.sought.map((item) => <li>{item}</li>)}</ol><a href={contacts.telegramHref} rel="noopener">Отправить фотографии в Telegram</a></section>
       <section class="brand-landing__faq"><p class="brand-landing__kicker">Ответы эксперта</p><h2>Частые вопросы</h2><div>{data.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></section>
+      <YandexBusinessMap />
     </main>
     <CleanFooter root={root} />
   </body>

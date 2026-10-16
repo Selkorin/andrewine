@@ -1,5 +1,6 @@
 ---
 import CallWidget from '../../components/CallWidget.astro';
+import YandexBusinessMap from '../../components/YandexBusinessMap.astro';
 import { BadgeCheck, Bike, Camera, ClipboardCheck, Clock3, Images, MapPin, MessageCircle, PhoneCall, Send, Upload } from '@lucide/astro';
 
 const phone = '+7 (986) 345-82-35';
@@ -142,6 +143,7 @@ const faqs = [
 
     </main>
 
+    <YandexBusinessMap />
     <footer><div class="shell footer-grid"><div class="footer-brand"><div class="logo">Andrewine</div><p>Оценка и выкуп частных коллекций</p></div><nav><a href="#online-valuation">Онлайн-оценка</a><a href="#contacts">Контакты</a><button type="button" data-policy-open>Пользовательское соглашение</button><button type="button" data-privacy-open>Политика конфиденциальности</button></nav><div class="footer-contacts"><a class="track-phone" href={phoneHref}>{phone}</a><span>Москва, улица Покрышкина, 5</span><small>© 2014–2026, Andrewine</small></div></div></footer>
     <dialog class="policy" data-policy><button type="button" aria-label="Закрыть" data-policy-close>×</button><h2>Пользовательское соглашение</h2><p>Отправляя форму, вы добровольно предоставляете контактные данные для обработки обращения, подготовки оценки и обратной связи. Данные не используются для посторонних целей и передаются только специалистам Andrewine, участвующим в обработке заявки.</p></dialog>
     <dialog class="policy" data-privacy><button type="button" aria-label="Закрыть" data-privacy-close>×</button><h2>Политика конфиденциальности</h2><p>Andrewine обрабатывает имя, номер телефона, комментарий и прикреплённые фотографии только для рассмотрения заявки, предварительной оценки коллекции и обратной связи с заявителем.</p><p>Данные не публикуются и не передаются третьим лицам, за исключением случаев, предусмотренных законодательством Российской Федерации. Доступ к обращениям имеют только специалисты, участвующие в обработке заявки.</p><p>Вы можете запросить уточнение или удаление предоставленных данных, связавшись с нами по телефону {phone}. Адрес: Москва, улица Покрышкина, 5.</p></dialog>

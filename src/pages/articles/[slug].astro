@@ -8,6 +8,7 @@ import CleanChromeHead from '../../components/CleanChromeHead.astro';
 import ArticleInfographic from '../../components/ArticleInfographic.astro';
 import { getArticleVisuals } from '../../data/articleVisuals';
 import YandexMetrika from '../../components/YandexMetrika.astro';
+import YandexBusinessMap from '../../components/YandexBusinessMap.astro';
 
 export function getStaticPaths() {
   return articles.map(article => ({ params: { slug: article.slug }, props: { article } }));
@@ -125,6 +126,7 @@ const faq = [
           ))}
         </div>
       </section>
+      <YandexBusinessMap />
     </main>
     <CleanFooter root="../../" />
     <script is:inline>

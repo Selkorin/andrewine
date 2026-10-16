@@ -24,6 +24,15 @@
       ></iframe>
     </div>
   </div>
+  <div class="business-reviews" aria-labelledby="business-reviews-title">
+    <div>
+      <p class="business-map__eyebrow">Отзывы клиентов</p>
+      <h2 id="business-reviews-title">Отзывы в Яндекс Бизнесе</h2>
+      <p>Читайте актуальные отзывы и оценки Andrewine в официальной карточке организации на Яндекс Картах.</p>
+      <a class="business-map__button" href="https://yandex.ru/maps/?oid=94413976387&tab=reviews" target="_blank" rel="noopener noreferrer">Все отзывы на Яндекс Картах</a>
+    </div>
+    <div class="business-reviews__frame"><iframe src="https://yandex.ru/maps-reviews-widget/94413976387?comments" title="Отзывы Andrewine в Яндекс Бизнесе" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  </div>
 </section>
 
 <style>
@@ -42,5 +51,10 @@
   .business-map__link { color: #7e010b; font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
   .business-map__frame { min-height: 360px; overflow: hidden; border: 1px solid rgba(126, 1, 11, .18); border-radius: 18px; background: #ddd6cf; box-shadow: 0 18px 50px rgba(35, 31, 32, .12); }
   .business-map iframe { display: block; width: 100%; min-height: 360px; height: 100%; border: 0; }
-  @media (max-width: 720px) { .business-map__inner { grid-template-columns: 1fr; } .business-map__frame, .business-map iframe { min-height: 300px; } }
+  .business-reviews { display:grid; grid-template-columns:minmax(220px,.8fr) minmax(0,1.7fr); gap:clamp(24px,5vw,72px); max-width:1180px; margin:48px auto 0; padding-top:48px; border-top:1px solid rgba(126,1,11,.16); align-items:stretch; }
+  .business-reviews h2 { margin:0 0 16px; font:600 clamp(28px,4vw,48px)/1.05 'Playfair Display',Georgia,serif; }
+  .business-reviews p:not(.business-map__eyebrow) { max-width:38em; margin:0 0 22px; color:#595254; font:400 16px/1.65 Manrope,Arial,sans-serif; }
+  .business-reviews__frame { min-height:360px; overflow:hidden; border:1px solid rgba(126,1,11,.18); border-radius:18px; background:#fff; }
+  .business-reviews__frame iframe { display:block; width:100%; min-height:360px; height:100%; border:0; }
+  @media (max-width: 720px) { .business-map__inner,.business-reviews { grid-template-columns: 1fr; } .business-map__frame, .business-map iframe,.business-reviews__frame,.business-reviews__frame iframe { min-height: 300px; } }
 </style>
