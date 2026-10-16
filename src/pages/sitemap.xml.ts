@@ -5,7 +5,7 @@ import { brandLandings } from '../data/brandLandings';
 
 export const prerender = true;
 
-const routes = [...landingRoutes, ...brandLandings.map(({ slug }) => `/${slug}/`), '/articles/', ...articles.map(({ slug }) => `/articles/${slug}/`)];
+const routes = [...landingRoutes, '/ocenka/', ...brandLandings.map(({ slug }) => `/${slug}/`), '/articles/', ...articles.map(({ slug }) => `/articles/${slug}/`)];
 
 export const GET: APIRoute = () => {
   const urls = routes.map((route) => `<url><loc>${new URL(route, siteUrl).href}</loc><changefreq>${route.startsWith('/articles/') ? 'monthly' : 'weekly'}</changefreq><priority>${route === '/' ? '1.0' : route === '/articles/' ? '0.8' : '0.9'}</priority></url>`).join('');

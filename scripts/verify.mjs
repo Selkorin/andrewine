@@ -41,7 +41,7 @@ for (const asset of ['robots.txt', 'sitemap.xml']) {
 }
 
 const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8').catch(() => '');
-if ((sitemap.match(/<url>/g) ?? []).length !== 27) errors.push('sitemap должен содержать 27 индексируемых страниц (без 404)');
+if ((sitemap.match(/<url>/g) ?? []).length !== 28) errors.push('sitemap должен содержать 28 индексируемых страниц (без 404)');
 if (!sitemap.includes('/articles/')) errors.push('в sitemap отсутствуют статьи');
 for (const slug of ['sell-alcohol', 'sell-macallan', 'sell-hennessy', 'sell-louis-xiii', 'sell-dom-perignon']) {
   const html = await readFile(path.join(root, slug, 'index.html'), 'utf8').catch(() => '');
