@@ -16,7 +16,13 @@ const root = isHome ? './' : '../';
 const canonical = new URL(isHome ? '/' : `${seo.route}/`, 'https://andrewine.ru').href;
 const schema = { '@context':'https://schema.org', '@graph': [
   { '@type':['Organization','ProfessionalService'], '@id':'https://andrewine.ru/#organization', name:'Andrewine', url:'https://andrewine.ru/', telephone:'+7-986-345-82-35', email:'andrewine@mail.com', areaServed:['Москва','Московская область'] },
+  { '@type':'WebSite', '@id':'https://andrewine.ru/#website', name:'Andrewine', url:'https://andrewine.ru/', inLanguage:'ru-RU', publisher:{ '@id':'https://andrewine.ru/#organization' } },
+  { '@type':'WebPage', '@id':`${canonical}#webpage`, name:seo.title, description:seo.description, url:canonical, inLanguage:'ru-RU', isPartOf:{ '@id':'https://andrewine.ru/#website' }, about:{ '@id':`${canonical}#service` } },
   { '@type':'Service', '@id':`${canonical}#service`, name:seo.service, description:seo.description, url:canonical, provider:{ '@id':'https://andrewine.ru/#organization' }, areaServed:['Москва','Московская область'] },
+  ...(!isHome ? [{ '@type':'BreadcrumbList', '@id':`${canonical}#breadcrumb`, itemListElement:[
+    { '@type':'ListItem', position:1, name:'Главная', item:'https://andrewine.ru/' },
+    { '@type':'ListItem', position:2, name:seo.heading, item:canonical },
+  ] }] : []),
 ] };
 ---
 <!doctype html>
@@ -42,7 +48,7 @@ const schema = { '@context':'https://schema.org', '@graph': [
       <section class:list={['clean-hero',{'clean-hero--home':isHome}]}>
         <div class="clean-hero__copy">
           <p class="kicker">{data.eyebrow}</p><h1>{seo.heading}</h1><p class="clean-hero__lead">{data.intro}</p>
-          <div class="clean-hero__actions"><a class="button" href="#online-valuation">Оценить по фото</a><a class="text-link" href={contacts.phoneHref}>Позвонить эксперту</a></div>
+          <div class="clean-hero__actions"><a class="button" href="#online-valuation">Оценить по фото</a><a class="text-link" href={contacts.phoneHref}>Позвонить эксперту</a>{isHome && <a class="text-link" href="./sell-alcohol/">Продать алкоголь</a>}</div>
           <div class="clean-hero__facts"><span><b>С 2014 года</b> работаем с частными коллекциями</span><span><b>15 минут</b> на предварительную оценку</span><span><b>Конфиденциально</b> без публикации данных</span></div>
         </div>
         <div class="clean-hero__visual"><div class="clean-hero__halo"></div><img src={data.image} alt={data.imageAlt} width="760" height="860" fetchpriority="high" /></div>
