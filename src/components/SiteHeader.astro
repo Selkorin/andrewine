@@ -13,7 +13,7 @@ const url = (slug: string) => `${root}${slug}/`;
 
 <header class="site-header">
   <a class="site-header__brand" href={root} aria-label="Andrewine — на главную">
-    <img class="site-header__logo" src={`${root}site-assets/s/tild3435-3262-4264-a164-346331373138/_ANDREWINEwhite_1.png`} alt="Andrewine" width="290" height="46" decoding="async" />
+    <span class="site-header__logo">Andrewine</span>
   </a>
 
   <input class="site-header__toggle" id="site-nav-toggle" type="checkbox" hidden />
@@ -43,8 +43,6 @@ const url = (slug: string) => `${root}${slug}/`;
 
 <style>
   .site-header {
-    /* Fixed and 80px tall, exactly like the Tilda header bar it replaces, so the
-       pages below keep the top offset they were built with. */
     position: fixed;
     top: 0;
     left: 0;
@@ -72,11 +70,9 @@ const url = (slug: string) => `${root}${slug}/`;
   }
   .site-header__logo {
     display: block;
-    width: auto;
-    height: 58px;
-    max-width: 100%;
-    object-fit: contain;
-    object-position: left center;
+    color:#fff;
+    font:italic 34px/1 'Playfair Display',Georgia,serif;
+    letter-spacing:-.04em;
   }
   .site-header__nav {
     display: flex;
@@ -182,21 +178,17 @@ const url = (slug: string) => `${root}${slug}/`;
   @media (max-width: 1700px) {
     .site-header__phone { display: none; }
   }
-  @media (max-width: 1440px) {
-    .site-header__logo { height: 50px; }
-  }
   @media (max-width: 1400px) {
     .site-header__nav > a { font-size: 12px; }
   }
   @media (max-width: 1300px) {
-    .site-header__logo { height: 42px; }
     .site-header__cta { padding: 10px 14px; font-size: 10px; }
   }
   @media (max-width: 1200px) {
     .site-header__nav > a { font-size: 11px; }
   }
   @media (max-width: 1120px) {
-    .site-header__logo { height: 36px; }
+    .site-header__logo { font-size: 30px; }
     .site-header__journal-label { display: none; }
   }
 

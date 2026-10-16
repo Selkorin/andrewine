@@ -1,0 +1,90 @@
+priority,cluster,query,intent,target_url,note
+P1,Общий,выкуп алкоголя в москве,transactional,/,Основной широкий запрос
+P1,Общий,выкуп элитного алкоголя в москве,transactional,/,Основной целевой запрос
+P1,Общий,скупка алкоголя в москве,transactional,/,Синоним основного спроса
+P1,Общий,скупка элитного алкоголя в москве,transactional,/,Высокий коммерческий интент
+P1,Общий,продать элитный алкоголь в москве,transactional,/,Запрос со стороны владельца
+P1,Общий,выкуп коллекционного алкоголя,transactional,/,Целевой ассортимент
+P1,Общий,скупка коллекционного алкоголя,transactional,/,Целевой ассортимент
+P1,Общий,выкуп дорогого алкоголя,transactional,/,Ценовой сегмент
+P1,Общий,оценка алкоголя по фото,lead,/,Ключевой сценарий конверсии
+P1,Общий,оценить бутылку алкоголя,lead,/,Ключевой сценарий конверсии
+P1,Общий,где продать элитный алкоголь,transactional,/,Коммерческий вопрос
+P1,Общий,продать коллекцию алкоголя,transactional,/,Высокая ценность заявки
+P2,Общий,срочный выкуп алкоголя москва,transactional,/,Модификатор срочности
+P2,Общий,выкуп алкоголя с выездом москва,transactional,/,Локальная услуга
+P2,Общий,скупка алкоголя с выездом,transactional,/,Локальная услуга
+P2,Общий,продать алкоголь коллекционеру,transactional,/,Формулировка аудитории
+P2,Общий,продать редкий алкоголь,transactional,/,Редкие позиции
+P2,Общий,оценка коллекционного алкоголя,lead,/,Экспертный интент
+P2,Общий,оценка элитного алкоголя,lead,/,Экспертный интент
+P2,Общий,сколько стоит старая бутылка алкоголя,commercial,/,Вести в оценку по фото
+P1,Виски,выкуп виски в москве,transactional,/buy_whisky,Основной запрос категории
+P1,Виски,скупка виски в москве,transactional,/buy_whisky,Синоним категории
+P1,Виски,продать виски в москве,transactional,/buy_whisky,Запрос владельца
+P1,Виски,продать элитный виски,transactional,/buy_whisky,Премиальный сегмент
+P1,Виски,продать коллекционный виски,transactional,/buy_whisky,Коллекционный сегмент
+P1,Виски,оценка виски по фото,lead,/buy_whisky,Конверсионный запрос
+P1,Виски,продать macallan,transactional,/buy_whisky,Брендовый спрос
+P1,Виски,оценить виски macallan,lead,/buy_whisky,Брендовый спрос
+P2,Виски,выкуп macallan в москве,transactional,/buy_whisky,Бренд плюс гео
+P2,Виски,продать johnnie walker blue label,transactional,/buy_whisky,Брендовый long-tail
+P2,Виски,продать dalmore,transactional,/buy_whisky,Брендовый long-tail
+P2,Виски,продать glenfiddich,transactional,/buy_whisky,Брендовый long-tail
+P1,Коньяк,выкуп коньяка в москве,transactional,/buy_cognac,Основной запрос категории
+P1,Коньяк,скупка коньяка в москве,transactional,/buy_cognac,Синоним категории
+P1,Коньяк,продать коньяк в москве,transactional,/buy_cognac,Есть в подсказках Яндекса
+P1,Коньяк,продать коллекционный коньяк,transactional,/buy_cognac,Есть в подсказках Яндекса
+P1,Коньяк,продать элитный коньяк в москве,transactional,/buy_cognac,Есть в подсказках Яндекса
+P1,Коньяк,продать коньяк ссср коллекционерам,transactional,/buy_cognac,Есть в подсказках Яндекса
+P1,Коньяк,оценка коньяка по фото,lead,/buy_cognac,Конверсионный запрос
+P1,Коньяк,продать hennessy xo,transactional,/buy_cognac,Брендовый спрос
+P1,Коньяк,продать louis xiii,transactional,/buy_cognac,Высокая ценность заявки
+P2,Коньяк,выкуп hennessy в москве,transactional,/buy_cognac,Бренд плюс гео
+P2,Коньяк,оценить remy martin louis xiii,lead,/buy_cognac,Брендовый long-tail
+P2,Коньяк,продать старый советский коньяк,transactional,/buy_cognac,Винтажный сегмент
+P1,Шампанское,выкуп шампанского в москве,transactional,/buy_champagne,Основной запрос категории
+P1,Шампанское,скупка шампанского в москве,transactional,/buy_champagne,Синоним категории
+P1,Шампанское,продать элитное шампанское,transactional,/buy_champagne,Премиальный сегмент
+P1,Шампанское,продать коллекционное шампанское,transactional,/buy_champagne,Коллекционный сегмент
+P1,Шампанское,оценка шампанского по фото,lead,/buy_champagne,Конверсионный запрос
+P1,Шампанское,продать dom perignon,transactional,/buy_champagne,Брендовый спрос
+P1,Шампанское,продать cristal шампанское,transactional,/buy_champagne,Брендовый спрос
+P2,Шампанское,выкуп dom perignon москва,transactional,/buy_champagne,Бренд плюс гео
+P2,Шампанское,продать krug,transactional,/buy_champagne,Брендовый long-tail
+P2,Шампанское,продать veuve clicquot,transactional,/buy_champagne,Брендовый long-tail
+P1,Вино,выкуп вина в москве,transactional,/buy_wine,Основной запрос категории
+P1,Вино,скупка вина в москве,transactional,/buy_wine,Синоним категории
+P1,Вино,продать вино в москве,transactional,/buy_wine,Есть в подсказках Яндекса
+P1,Вино,продать коллекционное вино в москве,transactional,/buy_wine,Есть в подсказках Яндекса
+P1,Вино,продать вино в москве дорого,transactional,/buy_wine,Есть в подсказках Яндекса
+P1,Вино,продать старое вино коллекционеру,transactional,/buy_wine,Целевой long-tail
+P1,Вино,оценка вина по фото,lead,/buy_wine,Конверсионный запрос
+P1,Вино,оценка старой бутылки вина,lead,/buy_wine,Экспертный интент
+P2,Вино,продать petrus,transactional,/buy_wine,Высокая ценность заявки
+P2,Вино,продать chateau lafite rothschild,transactional,/buy_wine,Брендовый long-tail
+P2,Вино,продать chateau margaux,transactional,/buy_wine,Брендовый long-tail
+P2,Вино,продать romanee conti,transactional,/buy_wine,Высокая ценность заявки
+P1,Ром,выкуп рома в москве,transactional,/buy_rum,Основной запрос категории
+P1,Ром,скупка рома в москве,transactional,/buy_rum,Синоним категории
+P1,Ром,продать коллекционный ром,transactional,/buy_rum,Коллекционный сегмент
+P1,Ром,оценка рома по фото,lead,/buy_rum,Конверсионный запрос
+P2,Ром,продать ron zacapa,transactional,/buy_rum,Брендовый long-tail
+P2,Ром,продать diplomatico,transactional,/buy_rum,Брендовый long-tail
+P1,Портвейн,выкуп портвейна в москве,transactional,/buy_portwine,Основной запрос категории
+P1,Портвейн,скупка портвейна в москве,transactional,/buy_portwine,Синоним категории
+P1,Портвейн,продать старый портвейн,transactional,/buy_portwine,Винтажный сегмент
+P1,Портвейн,оценка портвейна по фото,lead,/buy_portwine,Конверсионный запрос
+P2,Портвейн,продать винтажный портвейн,transactional,/buy_portwine,Коллекционный сегмент
+P1,Бренди,выкуп бренди в москве,transactional,/buy_brandy,Основной запрос категории
+P1,Бренди,скупка бренди в москве,transactional,/buy_brandy,Синоним категории
+P1,Бренди,продать коллекционный бренди,transactional,/buy_brandy,Коллекционный сегмент
+P1,Бренди,оценка бренди по фото,lead,/buy_brandy,Конверсионный запрос
+P2,Бренди,продать metaxa,transactional,/buy_brandy,Брендовый long-tail
+P2,Бренди,продать ararat коллекционный,transactional,/buy_brandy,Брендовый long-tail
+P1,Водка,выкуп водки в москве,transactional,/buy_vodka,Основной запрос категории
+P1,Водка,скупка элитной водки,transactional,/buy_vodka,Премиальный сегмент
+P1,Водка,продать коллекционную водку,transactional,/buy_vodka,Коллекционный сегмент
+P1,Водка,продать водку ссср,transactional,/buy_vodka,Винтажный сегмент
+P1,Водка,оценка старой водки по фото,lead,/buy_vodka,Конверсионный запрос
+P2,Водка,продать beluga gold line,transactional,/buy_vodka,Брендовый long-tail

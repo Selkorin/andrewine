@@ -17,6 +17,14 @@ function formatMoscowDate(value: string) {
   }).format(new Date(source))} МСК`;
 }
 
+function resolvePhotoUrl(source: string) {
+  if (/^(?:https?:|blob:|data:)/i.test(source)) return source;
+
+  // Relative upload paths otherwise resolve below /applications/:uuid and
+  // produce a broken image on the application detail page.
+  return new URL(`/${source.replace(/^\/+/, '')}`, window.location.origin).toString();
+}
+
 export function ApplicationDetail() {
   const { uuid } = useParams();
   const [item, setItem] = useState<Application>();
@@ -49,7 +57,9 @@ export function ApplicationDetail() {
   }
 
   if (!item) return <section className="page"><div className="skeleton" /></section>;
-  const photos = [item.main_photo, ...item.extra_photos].filter(Boolean);
+  const photos = [item.main_photo, ...item.extra_photos]
+    .filter((source): source is string => Boolean(source))
+    .map((source) => ({ source, url: resolvePhotoUrl(source) }));
   const isWebsiteLead = item.user_id === 0;
   const applicationNumber = item.public_id || item.uuid.slice(0, 5).toUpperCase();
   const messages = item.messages?.length
@@ -99,10 +109,10 @@ export function ApplicationDetail() {
         </article>
       </div>
       <div className="photo-grid">
-        {photos.map((src) => (
-          <article className="photo" key={src}>
-            <button onClick={() => setZoom(src)}><img src={src} alt="Фото бутылки" loading="lazy" /></button>
-            <a href={src} download title="Скачать"><Download size={18} /></a>
+        {photos.map(({ source, url }) => (
+          <article className="photo" key={source}>
+            <button onClick={() => setZoom(url)}><img src={url} alt="Фото бутылки" loading="lazy" /></button>
+            <a href={url} download title="Скачать"><Download size={18} /></a>
           </article>
         ))}
       </div>

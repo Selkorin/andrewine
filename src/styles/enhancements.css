@@ -1,5 +1,5 @@
-:root{--wine:#7e010b;--wine-bright:#b80010;--black:#000;--paper:#f8f5ef;--white:#fff;--ink:#292929;--muted:#e6e6e6;--line:#d8d2c9;--texture:url('https://static.tildacdn.com/tild6332-6663-4466-a366-333032366166/photo.png')}
-html{max-width:100%;overflow-x:hidden;scroll-behavior:smooth}body.t-body{max-width:100%;overflow-x:hidden}.t-body img{max-width:100%;height:auto}
+:root{--wine:#7e010b;--wine-bright:#b80010;--black:#000;--paper:#f8f5ef;--white:#fff;--ink:#292929;--muted:#e6e6e6;--line:#d8d2c9;--texture:url('/assets/ocenka-paper-texture-v2.webp')}
+html{max-width:100%;overflow-x:hidden;scroll-behavior:smooth}body.site-body{max-width:100%;overflow-x:hidden}.site-body img{max-width:100%;height:auto}
 .editorial,.faq,.article-main{font-family:'Manrope',Arial,sans-serif;box-sizing:border-box}.editorial *,.faq *,.article-main *{box-sizing:border-box}
 
 /* Continuation of the original Tilda composition */

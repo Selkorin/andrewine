@@ -1,10 +1,10 @@
 ---
 import { articles } from '../../data/articles';
-import enhancementsCss from '../../styles/enhancements.css?raw';
+import '../../styles/enhancements.css';
 import { resolveVendorPaths } from '../../lib/legacyChrome';
 import SiteHeader from '../../components/SiteHeader.astro';
-import OriginalFooter from '../../components/OriginalFooter.astro';
-import TildaChromeHead from '../../components/TildaChromeHead.astro';
+import CleanFooter from '../../components/CleanFooter.astro';
+import CleanChromeHead from '../../components/CleanChromeHead.astro';
 import ArticleInfographic from '../../components/ArticleInfographic.astro';
 import { getArticleVisuals } from '../../data/articleVisuals';
 import YandexMetrika from '../../components/YandexMetrika.astro';
@@ -43,13 +43,11 @@ const faq = [
     <meta property="og:title" content={`${article.title} | Andrewine`} />
     <meta property="og:description" content={article.description} />
     <meta property="og:url" content={`https://andrewine.ru/articles/${article.slug}/`} />
-    <TildaChromeHead root="../../" />
-    <style is:inline set:html={resolveVendorPaths(enhancementsCss, "../../")} />
+    <CleanChromeHead root="../../" />
     <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org', '@type':'Article', headline:article.title, description:article.description, image:resolveVendorPaths(article.image, "../../"), author:{ '@type':'Organization', name:'Andrewine' }, publisher:{ '@type':'Organization', name:'Andrewine' }, mainEntityOfPage:`https://andrewine.ru/articles/${article.slug}/` })} />
   </head>
-  <body class="t-body article-page">
+  <body class="site-body article-page">
     <YandexMetrika />
-    <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
     <SiteHeader root="../../" active="articles" />
     <main class="article-main">
       <section class="article-mast article-mast--archive" style={`--article-archive-bg:url("${articleAssetUrl(visuals.heroBackground.src)}")`}>
@@ -128,8 +126,7 @@ const faq = [
         </div>
       </section>
     </main>
-    <OriginalFooter root="../../" />
-    </div>
+    <CleanFooter root="../../" />
     <script is:inline>
       document.querySelectorAll('.article-faq__list').forEach((list) => {
         const items = Array.from(list.querySelectorAll('details'));

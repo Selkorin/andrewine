@@ -1,9 +1,8 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
-import OriginalFooter from '../components/OriginalFooter.astro';
-import TildaChromeHead from '../components/TildaChromeHead.astro';
-import enhancementsCss from '../styles/enhancements.css?raw';
-import { resolveVendorPaths } from '../lib/legacyChrome';
+import CleanFooter from '../components/CleanFooter.astro';
+import CleanChromeHead from '../components/CleanChromeHead.astro';
+import '../styles/enhancements.css';
 import YandexMetrika from '../components/YandexMetrika.astro';
 ---
 
@@ -14,12 +13,10 @@ import YandexMetrika from '../components/YandexMetrika.astro';
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex,follow" />
     <title>Страница не найдена | Andrewine</title>
-    <TildaChromeHead root="./" />
-    <style is:inline set:html={resolveVendorPaths(enhancementsCss, "./")} />
+    <CleanChromeHead root="./" />
   </head>
-  <body class="t-body article-page">
+  <body class="site-body article-page">
     <YandexMetrika />
-    <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
     <SiteHeader root="./" />
     <main class="not-found article-main">
       <p class="editorial__eyebrow">Ошибка 404</p>
@@ -27,7 +24,6 @@ import YandexMetrika from '../components/YandexMetrika.astro';
       <p>Возможно, адрес изменился. Вернитесь на главную или откройте журнал Andrewine.</p>
       <div><a href="./">На главную</a><a href="./articles/">Открыть журнал</a></div>
     </main>
-    <OriginalFooter root="./" />
-    </div>
+    <CleanFooter root="./" />
   </body>
 </html>

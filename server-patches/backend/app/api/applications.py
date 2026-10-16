@@ -11,6 +11,7 @@ from app.models.application import ApplicationStatus
 from app.repositories.applications import ApplicationRepository
 from app.schemas.application import ApplicationBase, ApplicationList, ApplicationMessageRead, ApplicationRead, ApplicationUpdate, DashboardStats
 from app.services.image_service import UploadValidationError, save_upload
+from app.services.manager_group_notification import notify_manager_group
 from app.services.notification_service import notify_user_manager_comment, notify_user_status
 from app.tasks.worker import notify_managers_for_application, process_application_images
 from app.utils.telegram import TelegramAuthError, validate_init_data
@@ -101,6 +102,7 @@ async def create_application(
         notify_managers_for_application.delay(app.uuid)
     except Exception as exc:
         logger.exception("Failed to enqueue manager notification for application {}: {}", app.uuid, exc)
+    await notify_manager_group(app)
     return await application_to_read(ApplicationRepository(session), app)
 
 
@@ -166,6 +168,7 @@ async def create_web_application(
         notify_managers_for_application.delay(app.uuid)
     except Exception as exc:
         logger.exception("Failed to enqueue manager notification for web application {}: {}", app.uuid, exc)
+    await notify_manager_group(app)
     return await application_to_read(ApplicationRepository(session), app)
 
 

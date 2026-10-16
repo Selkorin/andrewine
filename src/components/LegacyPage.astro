@@ -5,8 +5,8 @@ import SeoSections from './SeoSections.astro';
 import CategoryArticles from './CategoryArticles.astro';
 import CategorySeoContent from './CategorySeoContent.astro';
 import SiteHeader from './SiteHeader.astro';
-import enhancementsCss from '../styles/enhancements.css?raw';
-import { rewriteLegacyLinks, resolveVendorPaths, resolveTildaHead } from '../lib/legacyChrome';
+import '../styles/enhancements.css';
+import { rewriteLegacyLinks, resolveTildaHead } from '../lib/legacyChrome';
 import { rebuildLegacyCategoryFaq, renderCategoryFaqFromData } from '../lib/categoryFaq';
 import { categoryFaqs } from '../data/categoryFaq';
 import LandingSeoHead from './LandingSeoHead.astro';
@@ -88,6 +88,7 @@ source = source
   .replaceAll('http://xn--80aexbctj5a4e.xn--p1ai', 'https://andrewine.ru')
   .replaceAll('https://алковыкуп.рф', 'https://andrewine.ru')
   .replaceAll('http://алковыкуп.рф', 'https://andrewine.ru');
+source = source.replaceAll('https://max.ru/andrewine', 'https://max.ru/u/f9LHKTfYtCqrEMQ8NjO-lQ');
 
 // The export contains a second footer phone from the retired project. Remove
 // that whole legacy element instead of replacing it and showing the current
@@ -174,7 +175,7 @@ const footerIndex = body.indexOf('<!--footer-->');
 const root = file === 'page132437346.html' ? './' : '../';
 let contentBeforeFooter = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(0, footerIndex) : body, root);
 // Drop the "Made on Tilda" badge that sits just after the footer.
-const footerAndScripts = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(footerIndex) : '', root)
+let footerAndScripts = rewriteLegacyLinks(footerIndex >= 0 ? body.slice(footerIndex) : '', root)
   .replace(/<!--\s*Tilda copyright[\s\S]*?<div class="t-tildalabel[\s\S]*?<\/a><\/div>/, '');
 
 // The Tilda header bar is replaced by our own, so drop its records from the body.
@@ -224,6 +225,40 @@ if (seo && principalImage) {
   );
 }
 
+// Give the first visible primary heading the focused query from the page SEO
+// data. Tilda's responsive layout still controls wrapping and typography.
+if (seo) {
+  contentBeforeFooter = contentBeforeFooter.replace(
+    /(<h1\b[^>]*>)[\s\S]*?(<\/h1>)/i,
+    `$1${seo.heading}$2`,
+  );
+}
+
+// The export stores intrinsic dimensions on each Tilda image wrapper. Copy
+// them to the image itself so the browser can reserve space before download.
+const addIntrinsicImageSize = (html: string) => html.replace(
+  /(<div\b[^>]*class=(['"])[^'"]*t396__elem[^'"]*\2[^>]*data-field-filewidth-value=(['"])(\d+)\3[^>]*data-field-fileheight-value=(['"])(\d+)\5[^>]*>[\s\S]*?<img\b)([^>]*?)(\/?>)/gi,
+  (_match, start, _classQuote, _widthQuote, width, _heightQuote, height, attrs, close) => {
+    const nextAttrs = `${attrs}${/\bwidth=/i.test(attrs) ? '' : ` width="${width}"`}${/\bheight=/i.test(attrs) ? '' : ` height="${height}"`}`;
+    return `${start}${nextAttrs}${close}`;
+  },
+);
+
+const secureBlankTargets = (html: string) => html.replace(/<a\b[^>]*\btarget=(['"])_blank\1[^>]*>/gi, (tag) => {
+  if (/\brel=(['"])[^'"]*\1/i.test(tag)) {
+    return tag.replace(/\brel=(['"])([^'"]*)\1/i, (_rel, quote, value) => {
+      const tokens = new Set(value.split(/\s+/).filter(Boolean));
+      tokens.add('noopener');
+      tokens.add('noreferrer');
+      return `rel=${quote}${Array.from(tokens).join(' ')}${quote}`;
+    });
+  }
+  return tag.replace(/>$/, ' rel="noopener noreferrer">');
+});
+
+contentBeforeFooter = secureBlankTargets(addIntrinsicImageSize(contentBeforeFooter));
+footerAndScripts = secureBlankTargets(addIntrinsicImageSize(footerAndScripts));
+
 // Some responsive Tilda copies were exported as additional H1 elements.
 // Preserve their styling and text but expose only one primary heading to crawlers.
 let h1Seen = false;
@@ -257,7 +292,6 @@ const contentAfterQuiz = quizInsertIndex >= 0 ? contentBeforeFooter.slice(quizIn
   <head>
     {seo && <LandingSeoHead seo={seo} />}
     <Fragment set:html={head} />
-    <style is:inline set:html={resolveVendorPaths(enhancementsCss, root)} />
     <style is:global id="tilda-records-visibility-fix">.t-records{opacity:1!important}</style>
   </head>
   <body class:list={['t-body', 'legacy-page', { 'home-page': editorial }]} style="margin:0;">

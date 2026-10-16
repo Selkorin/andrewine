@@ -123,7 +123,8 @@ export function resolveVendorPaths(markup: string, root = './') {
 
 export function rewriteLegacyLinks(markup: string, root = './') {
   const localRoot = normalizeRoot(root);
-  let result = resolveVendorPaths(markup, root);
+  let result = resolveVendorPaths(markup, root)
+    .replaceAll('https://max.ru/andrewine', 'https://max.ru/u/f9LHKTfYtCqrEMQ8NjO-lQ');
 
   for (const domain of oldDomains) result = result.replaceAll(domain, 'https://andrewine.ru');
 
@@ -160,6 +161,18 @@ export function rewriteLegacyLinks(markup: string, root = './') {
   result = result
     .replaceAll('>ЭЛИТНЫЙ АЛКОГОЛЬ</span>', `>${label}</span>`)
     .replace(/>(\s*)ЭЛИТНЫЙ АЛКОГОЛЬ(\s*)<\/a>/g, `>${label}</a>`);
+
+  result = result.replace(/<a\b[^>]*\btarget=(['"])_blank\1[^>]*>/gi, (tag) => {
+    if (/\brel=(['"])[^'"]*\1/i.test(tag)) {
+      return tag.replace(/\brel=(['"])([^'"]*)\1/i, (_rel, quote, value) => {
+        const tokens = new Set(value.split(/\s+/).filter(Boolean));
+        tokens.add('noopener');
+        tokens.add('noreferrer');
+        return `rel=${quote}${Array.from(tokens).join(' ')}${quote}`;
+      });
+    }
+    return tag.replace(/>$/, ' rel="noopener noreferrer">');
+  });
 
   return result;
 }

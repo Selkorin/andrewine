@@ -1,10 +1,9 @@
 ---
 import SiteHeader from './SiteHeader.astro';
-import OriginalFooter from './OriginalFooter.astro';
-import TildaChromeHead from './TildaChromeHead.astro';
+import CleanFooter from './CleanFooter.astro';
+import CleanChromeHead from './CleanChromeHead.astro';
 import type { BrandLandingData } from '../data/brandLandings';
-import enhancementsCss from '../styles/enhancements.css?raw';
-import { resolveVendorPaths } from '../lib/legacyChrome';
+import '../styles/enhancements.css';
 import { contacts } from '../data/navigation';
 import YandexMetrika from './YandexMetrika.astro';
 
@@ -27,10 +26,12 @@ const serviceSchema = { '@context': 'https://schema.org', '@graph': [
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" /><meta property="og:locale" content="ru_RU" /><meta property="og:site_name" content="Andrewine" />
     <meta property="og:title" content={data.title} /><meta property="og:description" content={data.description} /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://andrewine.ru/assets/ocenka-og.png" /><meta property="og:image:alt" content={data.title} />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content="https://andrewine.ru/assets/ocenka-og.png" />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} /><script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-    <TildaChromeHead root={root} /><style is:inline set:html={resolveVendorPaths(enhancementsCss, root)} />
+    <CleanChromeHead root={root} />
   </head>
-  <body class="t-body brand-page" style="margin:0">
+  <body class="site-body brand-page" style="margin:0">
     <YandexMetrika />
     <SiteHeader root={root} />
     <main>
@@ -39,9 +40,10 @@ const serviceSchema = { '@context': 'https://schema.org', '@graph': [
       </section>
       <section class="brand-landing__releases"><div><p class="brand-landing__kicker">Что рассматриваем</p><h2>Релизы и серии</h2></div><ul>{data.brands.map((item) => <li>{item}</li>)}</ul></section>
       <section class="brand-landing__factors"><p class="brand-landing__kicker">От чего зависит предложение</p><h2>Три основных фактора оценки</h2><div>{data.factors.map((factor, index) => <article><span>0{index + 1}</span><h3>{factor.title}</h3><p>{factor.text}</p></article>)}</div></section>
+      <section class="brand-landing__releases"><div><p class="brand-landing__kicker">Подход Andrewine</p><h2>Как проходит оценка</h2></div><div><p>{data.assessment}</p><p>Предварительный диапазон рассчитываем по фотографиям, а окончательное предложение подтверждаем после проверки подлинности, сохранности и комплектности. Не очищайте этикетку, не вскрывайте бутылку и сохраните коробку, документы и аксессуары: эти детали могут заметно влиять на коллекционную стоимость.</p></div></section>
       <section class="brand-landing__photos" id="request"><div><p class="brand-landing__kicker">Первый шаг</p><h2>Какие фото прислать</h2><p>Снимайте при дневном свете, без фильтров. Не вскрывайте бутылку и не очищайте старые этикетки.</p></div><ol>{data.sought.map((item) => <li>{item}</li>)}</ol><a href={contacts.telegramHref} rel="noopener">Отправить фотографии в Telegram</a></section>
       <section class="brand-landing__faq"><p class="brand-landing__kicker">Ответы эксперта</p><h2>Частые вопросы</h2><div>{data.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></section>
     </main>
-    <OriginalFooter root={root} />
+    <CleanFooter root={root} />
   </body>
 </html>

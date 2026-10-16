@@ -1,10 +1,10 @@
 ---
 import { articles } from '../../data/articles';
-import enhancementsCss from '../../styles/enhancements.css?raw';
+import '../../styles/enhancements.css';
 import { resolveVendorPaths } from '../../lib/legacyChrome';
 import SiteHeader from '../../components/SiteHeader.astro';
-import OriginalFooter from '../../components/OriginalFooter.astro';
-import TildaChromeHead from '../../components/TildaChromeHead.astro';
+import CleanFooter from '../../components/CleanFooter.astro';
+import CleanChromeHead from '../../components/CleanChromeHead.astro';
 import journalLibrary from '../../assets/article-journal-library.webp';
 import journalHennessy from '../../assets/article-journal-hennessy-xo.webp';
 import { Image, getImage } from 'astro:assets';
@@ -12,6 +12,23 @@ import YandexMetrika from '../../components/YandexMetrika.astro';
 
 const [featured, ...remainingArticles] = articles;
 const optimizedLibrary = await getImage({ src: journalLibrary, format: 'webp', quality: 82 });
+const canonical = 'https://andrewine.ru/articles/';
+const socialImage = 'https://andrewine.ru/assets/ocenka-og.png';
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Статьи об оценке коллекционного алкоголя',
+  description: 'Практические статьи об оценке коллекционного виски, коньяка, вина и шампанского.',
+  url: canonical,
+  inLanguage: 'ru-RU',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: articles.map((article, index) => ({
+      '@type': 'ListItem', position: index + 1, name: article.title,
+      url: `${canonical}${article.slug}/`,
+    })),
+  },
+};
 ---
 <!doctype html>
 <html lang="ru">
@@ -28,12 +45,13 @@ const optimizedLibrary = await getImage({ src: journalLibrary, format: 'webp', q
     <meta property="og:title" content="Статьи об оценке коллекционного алкоголя | Andrewine" />
     <meta property="og:description" content="Практические статьи об оценке коллекционного виски, коньяка, вина и шампанского: бренды, винтажи, состояние и фотографии." />
     <meta property="og:url" content="https://andrewine.ru/articles/" />
-    <TildaChromeHead root="../" />
-    <style is:inline set:html={resolveVendorPaths(enhancementsCss, "../")} />
+    <meta property="og:image" content={socialImage} /><meta property="og:image:alt" content="Журнал Andrewine о коллекционном алкоголе" />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content={socialImage} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
+    <CleanChromeHead root="../" />
   </head>
-  <body class="t-body article-page">
+  <body class="site-body article-page">
     <YandexMetrika />
-    <div id="allrecords" class="t-records" data-tilda-project-id="22260796">
     <SiteHeader root="../" active="articles" />
     <main class="article-index article-main">
       <section class="article-index__hero" style={`--journal-library:url("${optimizedLibrary.src}")`}>
@@ -77,7 +95,6 @@ const optimizedLibrary = await getImage({ src: journalLibrary, format: 'webp', q
         </div>
       </div>
     </main>
-    <OriginalFooter root="../" />
-    </div>
+    <CleanFooter root="../" />
   </body>
 </html>

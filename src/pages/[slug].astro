@@ -1,5 +1,5 @@
 ---
-import LegacyPage from '@/components/LegacyPage.astro';
+import ServiceLanding from '@/components/ServiceLanding.astro';
 import BrandLanding from '@/components/BrandLanding.astro';
 import { brandLandings } from '@/data/brandLandings';
 
@@ -23,4 +23,4 @@ export function getStaticPaths() {
 const { file, brand } = Astro.props;
 ---
 
-{file ? <LegacyPage file={file} /> : <BrandLanding data={brand} />}
+{file ? <ServiceLanding file={file} /> : <BrandLanding data={brand} />}
