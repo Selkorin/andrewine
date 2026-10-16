@@ -3,12 +3,12 @@ import cellarImage from '../assets/article-backgrounds/cellar-racks.webp';
 
 const drinks = [
   { value: 'Текила', image: '/assets/tequila-bottle-cutout.png' },
-  { value: 'Водка', image: '/vendor/tilda/static.tildacdn.com/tild3035-3566-4032-b235-353665353831/_1.webp' },
-  { value: 'Виски', image: '/vendor/tilda/static.tildacdn.com/tild3461-3761-4065-b330-633464613932/__1.webp' },
-  { value: 'Коньяк', image: '/vendor/tilda/static.tildacdn.com/tild6339-6161-4239-b832-383733303766/2_1.webp' },
-  { value: 'Арманьяк', image: '/vendor/tilda/static.tildacdn.com/tild3264-3533-4361-a466-616537623862/kkk_1.webp' },
-  { value: 'Вино', image: '/vendor/tilda/static.tildacdn.com/tild3231-3134-4737-a235-653231313864/ChatGPT_Image_21__20.webp' },
-  { value: 'Ром', image: '/vendor/tilda/static.tildacdn.com/tild6663-3730-4338-b133-623764313262/diplomatiko_1.webp' },
+  { value: 'Водка', image: '/assets/category-vodka.webp' },
+  { value: 'Виски', image: '/assets/category-whisky.webp' },
+  { value: 'Коньяк', image: '/assets/category-cognac.webp' },
+  { value: 'Арманьяк', image: '/assets/category-brandy.webp' },
+  { value: 'Вино', image: '/assets/category-wine.webp' },
+  { value: 'Ром', image: '/assets/category-rum.webp' },
 ];
 ---
 
@@ -121,8 +121,8 @@ const drinks = [
 
     <div class="valuation-quiz__success" data-quiz-success hidden>
       <span aria-hidden="true">✓</span>
-      <h3>Заявка отправлена</h3>
-      <p>В ближайшее время мы свяжемся с вами и сообщим точную стоимость.</p>
+      <h3>Уже начинаем экспертную оценку</h3>
+      <p>Специалист изучает фотографии и данные заявки. Свяжемся с вами, как только подготовим предварительную оценку.</p>
     </div>
     <input type="text" name="website" class="valuation-quiz__trap" tabindex="-1" autocomplete="off" aria-hidden="true" />
   </form>
@@ -176,6 +176,7 @@ const drinks = [
     const preview = form.querySelector('[data-photo-preview]');
     const drop = form.querySelector('[data-photo-drop]');
     let current = 0;
+    const selectedFiles: File[] = [];
 
     const fieldValue = (name: string) => {
       const field = form.elements.namedItem(name);
@@ -186,10 +187,19 @@ const drinks = [
 
     const setError = (message = '') => { if (error) error.textContent = message; };
     const renderFiles = () => {
-      if (!preview || !(fileInput instanceof HTMLInputElement)) return;
-      preview.replaceChildren(...Array.from(fileInput.files || []).map((file) => {
+      if (!preview) return;
+      preview.replaceChildren(...selectedFiles.map((file) => {
         const item = document.createElement('span'); item.textContent = file.name; return item;
       }));
+    };
+    const addFiles = (incoming: File[]) => {
+      const known = new Set(selectedFiles.map((file) => `${file.name}:${file.size}:${file.lastModified}`));
+      incoming.forEach((file) => {
+        const key = `${file.name}:${file.size}:${file.lastModified}`;
+        if (!known.has(key)) { selectedFiles.push(file); known.add(key); }
+      });
+      if (selectedFiles.length > 10) { selectedFiles.splice(10); setError('Можно добавить не более 10 фотографий'); } else setError();
+      renderFiles();
     };
     const showStep = (index: number) => {
       current = Math.max(0, Math.min(steps.length - 1, index));
@@ -206,7 +216,7 @@ const drinks = [
       if (current === 3 && !fieldValue('name').trim()) return 'Укажите ваше имя';
       if (current === 4 && fieldValue('phone').replace(/\D/g, '').length < 10) return 'Укажите корректный номер телефона';
       if (current === 5) {
-        const count = fileInput instanceof HTMLInputElement ? fileInput.files?.length || 0 : 0;
+        const count = selectedFiles.length;
         if (!count) return 'Добавьте хотя бы одну фотографию';
         if (count > 10) return 'Можно добавить не более 10 фотографий';
       }
@@ -215,7 +225,7 @@ const drinks = [
     next?.addEventListener('click', () => { const message = validate(); if (message) return setError(message); showStep(current + 1); });
     back?.addEventListener('click', () => showStep(current - 1));
     steps.slice(0, 3).forEach((step) => step.addEventListener('change', () => setError()));
-    fileInput?.addEventListener('change', () => { renderFiles(); setError(); });
+    fileInput?.addEventListener('change', () => { if (fileInput instanceof HTMLInputElement) { const snap = Array.from(fileInput.files || []); fileInput.value = ''; addFiles(snap); } });
     phoneInput?.addEventListener('input', () => {
       if (!(phoneInput instanceof HTMLInputElement)) return;
       let digits = phoneInput.value.replace(/\D/g, '');
@@ -238,11 +248,11 @@ const drinks = [
       event.preventDefault();
       const dragEvent = event as DragEvent;
       if (!(fileInput instanceof HTMLInputElement) || !dragEvent.dataTransfer?.files.length) return;
-      const transfer = new DataTransfer(); Array.from(dragEvent.dataTransfer.files).slice(0, 10).forEach((file) => transfer.items.add(file)); fileInput.files = transfer.files; renderFiles();
+      addFiles(Array.from(dragEvent.dataTransfer.files));
     });
     form.addEventListener('submit', async (event) => {
       event.preventDefault(); const message = validate(); if (message) return setError(message);
-      const files = fileInput instanceof HTMLInputElement ? Array.from(fileInput.files || []) : [];
+      const files = selectedFiles;
       const invalidFile = files.find((file) => !['image/jpeg', 'image/png', 'image/webp'].includes(file.type));
       if (invalidFile) return setError(`Файл «${invalidFile.name}» должен быть в формате JPG, PNG или WEBP`);
       const oversizedFile = files.find((file) => file.size > 10 * 1024 * 1024);

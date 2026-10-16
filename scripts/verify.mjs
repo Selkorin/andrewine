@@ -14,7 +14,6 @@ for (const route of routes) {
     errors.push(`${route}: нет HTML`);
     continue;
   }
-  if (!html.includes('t-records')) errors.push(`${route}: потеряна исходная Tilda-разметка`);
   if (!html.includes('https://andrewine.ru')) errors.push(`${route}: не заменён домен`);
   if (html.includes('xn--80aexbctj5a4e.xn--p1ai') || html.includes('https://алковыкуп.рф')) {
     errors.push(`${route}: остался старый домен`);
@@ -30,19 +29,7 @@ for (const route of routes) {
   if (html.includes('</script></script>') || html.includes('</script></style>')) {
     errors.push(`${route}: остались повреждённые закрывающие теги`);
   }
-  if (!html.includes('.t-records{opacity:1!important}')) errors.push(`${route}: нет защиты видимости Tilda-блоков`);
-  if (!/<style data-vendored-css="css\/tilda-grid-3\.0\.min\.css">/.test(html)) {
-    errors.push(`${route}: базовые стили Tilda не встроены в HTML`);
-  }
-  if (!/<style data-vendored-css="ws\/project22260796\/tilda-blocks-page\d+\.min\.css">/.test(html)) {
-    errors.push(`${route}: стили страницы Tilda не встроены в HTML`);
-  }
-  if (/href=["']https:\/\/static(?:3)?\.tildacdn\.com\/ws\/project22260796\/tilda-blocks-page/.test(html)) {
-    errors.push(`${route}: стили страницы всё ещё зависят от Tilda CDN`);
-  }
-  if (/vendor\/tilda|site-assets\/(?:[^snt/]|s(?:tatic)?\.tildacdn)/i.test(html)) {
-    errors.push(`${route}: публичный URL ресурса может быть заблокирован расширением браузера`);
-  }
+  if (/tildacdn\.com|tilda-(?:scripts|zero|blocks|forms|lazyload)|data-tilda-/i.test(html)) errors.push(`${route}: осталась зависимость от Tilda`);
 }
 
 for (const asset of ['robots.txt', 'sitemap.xml']) {
@@ -54,9 +41,9 @@ for (const asset of ['robots.txt', 'sitemap.xml']) {
 }
 
 const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8').catch(() => '');
-if ((sitemap.match(/<url>/g) ?? []).length !== 24) errors.push('sitemap должен содержать 24 индексируемые страницы (без 404)');
+if ((sitemap.match(/<url>/g) ?? []).length !== 25) errors.push('sitemap должен содержать 25 индексируемых страниц (без 404)');
 if (!sitemap.includes('/articles/')) errors.push('в sitemap отсутствуют статьи');
-for (const slug of ['sell-macallan', 'sell-hennessy', 'sell-louis-xiii', 'sell-dom-perignon']) {
+for (const slug of ['sell-alcohol', 'sell-macallan', 'sell-hennessy', 'sell-louis-xiii', 'sell-dom-perignon']) {
   const html = await readFile(path.join(root, slug, 'index.html'), 'utf8').catch(() => '');
   if (!html) errors.push(`/${slug}/: нет брендовой посадочной страницы`);
   if ((html.match(/<h1(?:\s|>)/gi) ?? []).length !== 1) errors.push(`/${slug}/: должен быть ровно один H1`);
@@ -74,8 +61,6 @@ async function collectHtml(directory) {
   return result;
 }
 
-// Pages under preview/ are work-in-progress views of the rewritten chrome and
-// deliberately carry neither the Tilda header nor its footer.
 const isPreview = (file) => path.relative(root, file).startsWith('preview-');
 
 const isVerificationFile = (file) => /^(?:yandex_[a-f0-9]+|google[a-f0-9]+)\.html$/i.test(path.basename(file));
@@ -91,16 +76,8 @@ for (const file of htmlFiles) {
   if (!html.includes('class="site-header"')) {
     errors.push(`${route}: отсутствует шапка сайта`);
   }
-  // Only the markup matters — the id also appears in the page's inline CSS.
-  if (html.includes('<div id="rec2189620761"')) {
-    errors.push(`${route}: осталась старая Tilda-шапка`);
-  }
-  if (!isAdLanding && (!/<footer[^>]+id=["']t-footer["']/i.test(html) || !html.includes('rec2189759551'))) {
-    errors.push(`${route}: отсутствует оригинальный Tilda-футер`);
-  }
-  if (html.includes('article-site-header') || html.includes('article-site-footer')) {
-    errors.push(`${route}: найдена самодельная копия header/footer`);
-  }
+  if (!isAdLanding && !html.includes('class="clean-footer"')) errors.push(`${route}: отсутствует футер сайта`);
+  if (/tildacdn\.com|tilda-(?:scripts|zero|blocks|forms|lazyload)|data-tilda-/i.test(html)) errors.push(`${route}: осталась зависимость от Tilda`);
   for (const legacyRoute of ['buy_wine', 'buy_champagne', 'buy_whisky', 'buy_cognac', 'buy_portwine', 'buy_rum', 'buy_vodka', 'buy_brandy']) {
     if (html.includes(`href="/${legacyRoute}`) || html.includes(`href='/${legacyRoute}`)) {
       errors.push(`${route}: абсолютная ссылка /${legacyRoute} сломает GitHub Pages`);
@@ -114,16 +91,14 @@ for (const articleFile of htmlFiles.filter(file => file.includes(`${path.sep}art
   if (!html.includes('family=Playfair+Display') || !html.includes('family=Manrope')) {
     errors.push(`${route}: не подключена оригинальная типографика`);
   }
-  if (!html.includes('tilda-zero-1.1.min.js') || !html.includes('tilda-menu-1.0.min.js')) {
-    errors.push(`${route}: не подключено адаптивное поведение оригинальной шапки`);
-  }
+  if (html.includes('tildacdn.com')) errors.push(`${route}: статья зависит от Tilda CDN`);
 }
 
-if (htmlFiles.length !== 26) errors.push(`ожидалось 26 HTML-страниц, собрано ${htmlFiles.length}`);
+if (htmlFiles.length !== 27) errors.push(`ожидалось 27 HTML-страниц, собрано ${htmlFiles.length}`);
 
 if (errors.length) {
   console.error(`Проверка не пройдена:\n- ${errors.join('\n- ')}`);
   process.exit(1);
 }
 
-console.log(`Проверено ${htmlFiles.length} страниц: оригинальные header/footer и внутренние ссылки корректны.`);
+console.log(`Проверено ${htmlFiles.length} страниц: чистая разметка, header/footer и внутренние ссылки корректны.`);

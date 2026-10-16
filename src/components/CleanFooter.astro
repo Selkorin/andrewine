@@ -1,0 +1,13 @@
+---
+import { categories, contacts, copyright } from '../data/navigation';
+const { root = './' } = Astro.props;
+const url = (slug: string) => `${root}${slug}/`;
+---
+<footer class="clean-footer">
+  <div class="clean-footer__brand"><a href={root}>Andrewine</a><p>Оценка и выкуп частных коллекций</p></div>
+  <nav aria-label="Разделы сайта">{categories.map(([label,slug]) => <a href={url(slug)}>{label}</a>)}<a href={`${root}articles/`}>Статьи</a></nav>
+  <div class="clean-footer__contacts"><a href={contacts.phoneHref}>{contacts.phone}</a><a href={contacts.emailHref}>{contacts.email}</a><small>{copyright}</small></div>
+</footer>
+<style>
+  .clean-footer{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:40px;padding:54px max(24px,calc((100vw - 1280px)/2));background:#080505;color:#fff;border-top:1px solid rgba(255,255,255,.12);font-family:Manrope,Arial,sans-serif}.clean-footer__brand>a{font:italic 34px Georgia,serif}.clean-footer p,.clean-footer small{color:#8f8383;font-size:12px}.clean-footer nav{display:flex;flex-wrap:wrap;align-content:start;gap:14px 24px;padding-top:10px}.clean-footer nav a{font-size:12px;text-transform:uppercase;letter-spacing:.08em}.clean-footer__contacts{display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right}.clean-footer__contacts>a:first-child{font-weight:700}@media(max-width:760px){.clean-footer{grid-template-columns:1fr}.clean-footer__contacts{align-items:flex-start;text-align:left}}
+</style>
