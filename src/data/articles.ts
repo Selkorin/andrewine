@@ -21,7 +21,7 @@ export const articles = [
   {
     slug: 'hennessy-louis-xiii',
     category: 'cognac',
-    title: 'Hennessy и Louis XIII: что ценят коллекционеры',
+    title: 'Продать Hennessy и Louis XIII: что ценят коллекционеры',
     eyebrow: 'Французский коньяк',
     description: 'Как отличать линейки, оценивать декантер, пробку и презентационную коробку у Hennessy и Rémy Martin Louis XIII.',
     image: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Remy%20Martin%20XO%20-%20Louis%20XIII%20-%20Hennessy%20Paradis.jpg?width=1600',
@@ -40,7 +40,7 @@ export const articles = [
   {
     slug: 'soviet-cognac',
     category: 'cognac',
-    title: 'Советский коньяк: признаки коллекционной бутылки',
+    title: 'Продать коньяк СССР: признаки коллекционной бутылки',
     eyebrow: 'Алкоголь СССР',
     description: 'Как читать год, завод, стандарт и оформление старой бутылки — без мифа, что любой советский алкоголь автоматически редкий.',
     image: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Wine%20bottles%20aging%20in%20Massandra%20cellars.jpg?width=1600',
@@ -59,7 +59,7 @@ export const articles = [
   {
     slug: 'rare-wine',
     category: 'wine',
-    title: 'Как подготовить редкое вино к оценке',
+    title: 'Как продать коллекционное вино: подготовка к оценке',
     eyebrow: 'Коллекционное вино',
     description: 'Производитель, винтаж, уровень, капсула и история хранения: что показать для первичной оценки редкой бутылки вина.',
     image: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/The%20Wine%20Cellar.jpg?width=1600',
@@ -78,7 +78,7 @@ export const articles = [
   {
     slug: 'champagne-cristal-dom-perignon',
     category: 'champagne',
-    title: 'Cristal и Dom Pérignon: от чего зависит цена',
+    title: 'Продать шампанское Cristal и Dom Pérignon: от чего зависит цена',
     eyebrow: 'Винтажное шампанское',
     description: 'Винтаж, уровень, фольга, этикетка и коробка: практический разбор состояния коллекционного шампанского.',
     image: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Dom%20Perignon%201999.jpg?width=1600',
@@ -97,7 +97,7 @@ export const articles = [
   {
     slug: 'photo-appraisal',
     category: 'guide',
-    title: '7 фотографий для точной онлайн-оценки бутылки',
+    title: 'Оценка алкоголя по фото: 7 кадров для точного ответа',
     eyebrow: 'Практическое руководство',
     description: 'Готовая схема съёмки бутылки: семь кадров, которые дают оценщику больше информации, чем десятки случайных фотографий.',
     image: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Ch%C3%A2teau%20d%27Armailhacq%2053%20detail.JPG?width=1600',
@@ -116,7 +116,7 @@ export const articles = [
   {
     slug: 'vintage-port-appraisal',
     category: 'portwine',
-    title: 'Винтажный портвейн: как читать год и состояние',
+    title: 'Продать портвейн: как оценить год и состояние',
     eyebrow: 'Коллекционный портвейн',
     description: 'Производитель, год урожая, розлив, уровень и следы хранения: последовательная проверка старой бутылки портвейна.',
     image: 'https://static.tildacdn.com/tild6661-6534-4938-a664-643061353837/1_1.png',
@@ -135,7 +135,7 @@ export const articles = [
   {
     slug: 'collectible-rum',
     category: 'rum',
-    title: 'Коллекционный ром: какие выпуски действительно ценятся',
+    title: 'Продать ром: какие коллекционные выпуски ценятся',
     eyebrow: 'Редкий ром',
     description: 'Возраст, серия, рынок розлива и комплектность: как отличить интересный выпуск от обычной старой бутылки рома.',
     image: 'https://static.tildacdn.com/tild3339-3433-4739-a161-306261663431/_1.png',
@@ -154,7 +154,7 @@ export const articles = [
   {
     slug: 'soviet-vodka',
     category: 'vodka',
-    title: 'Старая водка: что влияет на коллекционный интерес',
+    title: 'Продать водку СССР: что влияет на коллекционный интерес',
     eyebrow: 'Коллекционная водка',
     description: 'Завод, период выпуска, оформление и сохранность: какие детали нужно показать на старой бутылке водки.',
     image: 'https://static.tildacdn.com/tild3565-3731-4431-b462-663537396233/ChatGPT_Image_22__20.png',
@@ -173,7 +173,7 @@ export const articles = [
   {
     slug: 'brandy-identification',
     category: 'brandy',
-    title: 'Бренди и коньяк: как правильно определить бутылку',
+    title: 'Продать бренди и коньяк: как правильно определить бутылку',
     eyebrow: 'Коллекционное бренди',
     description: 'Происхождение, категория, выдержка и маркировки: понятный порядок идентификации старой бутылки бренди.',
     image: 'https://static.tildacdn.com/tild3665-3938-4733-b163-326663393432/_1.png',
