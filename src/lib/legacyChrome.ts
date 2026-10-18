@@ -124,7 +124,15 @@ export function resolveVendorPaths(markup: string, root = './') {
 export function rewriteLegacyLinks(markup: string, root = './') {
   const localRoot = normalizeRoot(root);
   let result = resolveVendorPaths(markup, root)
-    .replaceAll('https://max.ru/andrewine', 'https://max.ru/u/f9LHKTfYtCqrEMQ8NjO-lQ');
+    .replaceAll('+7 (986) 345-82-35', '+7 (980) 466-91-90')
+    .replaceAll('+7(986)345-82-35', '+7 (980) 466-91-90')
+    .replaceAll('+7-986-345-82-35', '+79804669190')
+    .replaceAll('+79863458235', '+79804669190')
+    .replaceAll('https://t.me/AWONLINE_BOT', 'https://t.me/+79804669190')
+    .replaceAll('https://t.me/+79863458235', 'https://t.me/+79804669190')
+    .replaceAll('https://wa.me/79863458235', 'https://wa.me/63910229903')
+    .replaceAll('https://max.ru/andrewine', 'https://max.ru/u/f9LHodD0cOIYhHkLn0AZXxUTnF3Dz2MuyTfMX4OnZgvS1QZbotQEvgQAhDY')
+    .replaceAll('https://max.ru/u/f9LHKTfYtCqrEMQ8NjO-lQ', 'https://max.ru/u/f9LHodD0cOIYhHkLn0AZXxUTnF3Dz2MuyTfMX4OnZgvS1QZbotQEvgQAhDY');
 
   for (const domain of oldDomains) result = result.replaceAll(domain, 'https://andrewine.ru');
 

@@ -1,6 +1,7 @@
 ---
 import type { LandingSeo } from '../data/seo';
 import { siteUrl } from '../data/seo';
+import { contacts } from '../data/navigation';
 
 interface Props { seo: LandingSeo }
 const { seo } = Astro.props;
@@ -18,16 +19,16 @@ const jsonLd = {
       name: 'Andrewine',
       url: siteUrl,
       logo: `${siteUrl}/site-assets/s/tild3435-3262-4264-a164-346331373138/_ANDREWINEwhite_1.png`,
-      telephone: '+7-986-345-82-35',
+      telephone: '+79804669190',
       email: 'andrewine@mail.com',
       contactPoint: [
-        { '@type': 'ContactPoint', telephone: '+7-986-345-82-35', contactType: 'оценка и выкуп алкоголя', areaServed: 'RU', availableLanguage: ['ru'] },
+        { '@type': 'ContactPoint', telephone: '+79804669190', contactType: 'оценка и выкуп алкоголя', areaServed: 'RU', availableLanguage: ['ru'] },
       ],
       areaServed: [
         { '@type': 'City', name: 'Москва' },
         { '@type': 'AdministrativeArea', name: 'Московская область' },
       ],
-      sameAs: ['https://t.me/AWONLINE_BOT', 'https://vk.com/AndreWine'],
+      sameAs: [contacts.telegramHref, contacts.maxHref, 'https://vk.com/AndreWine'],
     },
     {
       '@type': 'WebSite',
@@ -58,7 +59,7 @@ const jsonLd = {
       availableChannel: {
         '@type': 'ServiceChannel',
         serviceUrl: canonical,
-        servicePhone: { '@type': 'ContactPoint', telephone: '+7-986-345-82-35', contactType: 'оценка по фото' },
+        servicePhone: { '@type': 'ContactPoint', telephone: '+79804669190', contactType: 'оценка по фото' },
       },
     },
     ...(seo.route === '/' ? [] : [{

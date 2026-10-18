@@ -1,3 +1,7 @@
+---
+import { contacts } from '../data/navigation';
+---
+
 <section class="business-map" id="contacts" aria-labelledby="business-map-title">
   <div class="business-map__inner">
     <div class="business-map__copy">
@@ -5,12 +9,12 @@
       <h2 id="business-map-title">Где мы работаем</h2>
       <p>Оценка и выкуп элитного алкоголя в Москве и Московской области. Перед визитом свяжитесь с нами — часть обращений принимаем дистанционно по фотографиям.</p>
       <address class="business-map__details">
-        <a href="tel:+79863458235">+7 (986) 345-82-35</a>
+        <a href={contacts.phoneHref}>{contacts.phone}</a>
         <span>Москва, улица Покрышкина, 5</span>
         <small>Приём по предварительной договорённости</small>
       </address>
       <div class="business-map__actions">
-        <a class="business-map__button" href="tel:+79863458235">Позвонить</a>
+        <a class="business-map__button" href={contacts.phoneHref}>Позвонить</a>
         <a class="business-map__link" href="https://yandex.ru/maps/?oid=94413976387" target="_blank" rel="noopener noreferrer">Открыть в Яндекс Картах</a>
       </div>
     </div>

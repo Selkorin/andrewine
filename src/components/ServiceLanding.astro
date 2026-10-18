@@ -23,7 +23,7 @@ const categoryImageBySlug: Record<string, string> = {
   buy_vodka: '/assets/category-vodka.webp', buy_brandy: '/assets/category-brandy.webp',
 };
 const schema = { '@context':'https://schema.org', '@graph': [
-  { '@type':['Organization','ProfessionalService'], '@id':'https://andrewine.ru/#organization', name:'Andrewine', url:'https://andrewine.ru/', telephone:'+7-986-345-82-35', email:'andrewine@mail.com', areaServed:['Москва','Московская область'] },
+  { '@type':['Organization','ProfessionalService'], '@id':'https://andrewine.ru/#organization', name:'Andrewine', url:'https://andrewine.ru/', telephone:'+79804669190', email:'andrewine@mail.com', areaServed:['Москва','Московская область'] },
   { '@type':'WebSite', '@id':'https://andrewine.ru/#website', name:'Andrewine', url:'https://andrewine.ru/', inLanguage:'ru-RU', publisher:{ '@id':'https://andrewine.ru/#organization' } },
   { '@type':'WebPage', '@id':`${canonical}#webpage`, name:seo.title, description:seo.description, url:canonical, inLanguage:'ru-RU', isPartOf:{ '@id':'https://andrewine.ru/#website' }, about:{ '@id':`${canonical}#service` } },
   { '@type':'Service', '@id':`${canonical}#service`, name:seo.service, description:seo.description, url:canonical, provider:{ '@id':'https://andrewine.ru/#organization' }, areaServed:['Москва','Московская область'] },

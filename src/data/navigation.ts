@@ -13,12 +13,15 @@ export const categories = [
 ] as const;
 
 export const contacts = {
-  phone: '+7(986)345-82-35',
-  phoneHref: 'tel:+79863458235',
+  phone: '+7 (980) 466-91-90',
+  phoneHref: 'tel:+79804669190',
   email: 'andrewine@mail.com',
   emailHref: 'mailto:andrewine@mail.com',
-  telegram: '+7(986)345-82-35',
-  telegramHref: 'https://t.me/+79863458235',
+  telegram: '+7 (980) 466-91-90',
+  telegramHref: 'https://t.me/+79804669190',
+  whatsapp: '+63 910 229-90-03',
+  whatsappHref: 'https://wa.me/63910229903',
+  maxHref: 'https://max.ru/u/f9LHodD0cOIYhHkLn0AZXxUTnF3Dz2MuyTfMX4OnZgvS1QZbotQEvgQAhDY',
 };
 
 export const companyLinks = [

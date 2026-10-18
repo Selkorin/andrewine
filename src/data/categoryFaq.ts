@@ -12,7 +12,7 @@ interface CategoryFaqContent {
   items: CategoryFaqItem[];
 }
 
-const contacts = 'Пришлите фото в Telegram @AWONLINE_BOT или позвоните +7(986)345-82-35.';
+const contacts = 'Пришлите фото в Telegram по номеру +7 (980) 466-91-90 или позвоните по этому же номеру.';
 
 const process = (subject: string) =>
   `Отправьте фото ${subject}, проверим аутентичность, назовём справедливую цену, специалист приедет для финального осмотра.`;

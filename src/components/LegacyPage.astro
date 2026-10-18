@@ -14,6 +14,7 @@ import YandexMetrika from './YandexMetrika.astro';
 import YandexBusinessMap from './YandexBusinessMap.astro';
 import OnlineValuationQuiz from './OnlineValuationQuiz.astro';
 import { landingSeoByFile } from '../data/seo';
+import { contacts } from '../data/navigation';
 
 interface Props {
   file: string;
@@ -87,8 +88,16 @@ source = source
   .replaceAll('https://xn--80aexbctj5a4e.xn--p1ai', 'https://andrewine.ru')
   .replaceAll('http://xn--80aexbctj5a4e.xn--p1ai', 'https://andrewine.ru')
   .replaceAll('https://алковыкуп.рф', 'https://andrewine.ru')
-  .replaceAll('http://алковыкуп.рф', 'https://andrewine.ru');
-source = source.replaceAll('https://max.ru/andrewine', 'https://max.ru/u/f9LHKTfYtCqrEMQ8NjO-lQ');
+  .replaceAll('http://алковыкуп.рф', 'https://andrewine.ru')
+  .replaceAll('+7 (986) 345-82-35', contacts.phone)
+  .replaceAll('+7(986)345-82-35', contacts.phone)
+  .replaceAll('+7-986-345-82-35', '+79804669190')
+  .replaceAll('+79863458235', '+79804669190')
+  .replaceAll('https://t.me/AWONLINE_BOT', contacts.telegramHref)
+  .replaceAll('https://t.me/+79863458235', contacts.telegramHref)
+  .replaceAll('https://wa.me/79863458235', contacts.whatsappHref)
+  .replaceAll('https://max.ru/andrewine', contacts.maxHref)
+  .replaceAll('https://max.ru/u/f9LHKTfYtCqrEMQ8NjO-lQ', contacts.maxHref);
 
 // The export contains a second footer phone from the retired project. Remove
 // that whole legacy element instead of replacing it and showing the current

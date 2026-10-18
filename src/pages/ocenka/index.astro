@@ -1,13 +1,14 @@
 ---
 import CallWidget from '../../components/CallWidget.astro';
 import YandexBusinessMap from '../../components/YandexBusinessMap.astro';
+import { contacts } from '../../data/navigation';
 import { BadgeCheck, Bike, Camera, ClipboardCheck, Clock3, Images, MapPin, MessageCircle, PhoneCall, Send, Upload } from '@lucide/astro';
 
-const phone = '+7 (986) 345-82-35';
-const phoneHref = 'tel:+79863458235';
-const telegramHref = 'https://t.me/AWONLINE_BOT';
-const whatsappHref = 'https://wa.me/79863458235';
-const maxHref = 'https://max.ru/u/f9LHKTfYtCqrEMQ8NjO-lQ';
+const phone = contacts.phone;
+const phoneHref = contacts.phoneHref;
+const telegramHref = contacts.telegramHref;
+const whatsappHref = contacts.whatsappHref;
+const maxHref = contacts.maxHref;
 const categories = [
   { value: 'Выдержанные крепкие', title: 'Выдержанные крепкие', note: 'Виски · коньяк · арманьяк' },
   { value: 'Другие крепкие', title: 'Другие крепкие', note: 'Водка · ром · текила' },
@@ -43,7 +44,7 @@ const faqs = [
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'Andrewine',
       description: 'Оценка и выкуп частных коллекций редких бутылок в Москве и Московской области.',
-      telephone: '+79863458235', areaServed: ['Москва', 'Московская область'],
+      telephone: '+79804669190', areaServed: ['Москва', 'Московская область'],
       url: 'https://andrewine.ru/ocenka/'
     })} />
     <script is:inline>
@@ -147,7 +148,7 @@ const faqs = [
     <footer><div class="shell footer-grid"><div class="footer-brand"><div class="logo">Andrewine</div><p>Оценка и выкуп частных коллекций</p></div><nav><a href="#online-valuation">Онлайн-оценка</a><a href="#contacts">Контакты</a><button type="button" data-policy-open>Пользовательское соглашение</button><button type="button" data-privacy-open>Политика конфиденциальности</button></nav><div class="footer-contacts"><a class="track-phone" href={phoneHref}>{phone}</a><span>Москва, улица Покрышкина, 5</span><small>© 2014–2026, Andrewine</small></div></div></footer>
     <dialog class="policy" data-policy><button type="button" aria-label="Закрыть" data-policy-close>×</button><h2>Пользовательское соглашение</h2><p>Отправляя форму, вы добровольно предоставляете контактные данные для обработки обращения, подготовки оценки и обратной связи. Данные не используются для посторонних целей и передаются только специалистам Andrewine, участвующим в обработке заявки.</p></dialog>
     <dialog class="policy" data-privacy><button type="button" aria-label="Закрыть" data-privacy-close>×</button><h2>Политика конфиденциальности</h2><p>Andrewine обрабатывает имя, номер телефона, комментарий и прикреплённые фотографии только для рассмотрения заявки, предварительной оценки коллекции и обратной связи с заявителем.</p><p>Данные не публикуются и не передаются третьим лицам, за исключением случаев, предусмотренных законодательством Российской Федерации. Доступ к обращениям имеют только специалисты, участвующие в обработке заявки.</p><p>Вы можете запросить уточнение или удаление предоставленных данных, связавшись с нами по телефону {phone}. Адрес: Москва, улица Покрышкина, 5.</p></dialog>
-    <CallWidget telegramHref={telegramHref} whatsappHref={whatsappHref} />
+    <CallWidget telegramHref={telegramHref} whatsappHref={whatsappHref} maxHref={maxHref} />
 
     <script>
       const goal = (name: string) => { const fn = (window as typeof window & { ym?: (...args: unknown[]) => void }).ym; if (fn) fn(113180332, 'reachGoal', name); };
@@ -159,6 +160,7 @@ const faqs = [
         if (item.href.startsWith('tel:')) goal('phone_click');
         else if (item.href.includes('t.me/')) goal('telegram_click');
         else if (item.href.includes('wa.me/')) goal('whatsapp_click');
+        else if (item.href.includes('max.ru/')) goal('max_click');
       }));
 
       const formatPhone = (input: HTMLInputElement) => {
