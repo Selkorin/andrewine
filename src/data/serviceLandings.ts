@@ -14,7 +14,7 @@ export interface ServiceLandingData {
 
 const details: Record<string, Omit<ServiceLandingData, 'file' | 'slug' | 'imageAlt'>> = {
   'page132437346.html': {
-    label: 'Коллекционный алкоголь', eyebrow: 'Andrewine · Москва', image: '/assets/hero-collector-bottle.png',
+    label: 'Коллекционный алкоголь', eyebrow: 'Andrewine · Москва', image: '/assets/home-hero-decanter-v2.webp',
     intro: 'Оцениваем редкие бутылки и частные коллекции по фотографиям. Сверяем выпуск, состояние, комплектность и актуальный спрос, затем согласуем осмотр и расчёт.',
     examples: ['Редкие вина и винтажное шампанское', 'Выдержанный виски и коллекционный коньяк', 'Портвейн, ром, водка и бренди', 'Оригинальные коробки, футляры и документы'],
     factors: [
